@@ -28,6 +28,23 @@ Mission alignment: Natural Electric systems and Future AI work in this portfolio
 - Preferred contact method and timezone:
 - Any confidentiality requirement:
 
+## How a quote is formed (no published prices)
+There is no storefront and no rate card in this repository. A written quote, when one is issued, is assembled from the inquiry — not from a hidden price list.
+
+Typical inputs to a quote (all optional until the buyer provides them):
+- Which model numbers, and whether the request is identical or custom.
+- Whether Operator AI task-graph integration is in scope.
+- Whether delivery must be air-gapped (sovereign tier).
+- Whether the buyer needs help taking hardware measurements (the public cards mark simulator numbers as unmeasured).
+
+Typical outputs of a quote:
+- Scope list tied to model numbers and deliverable files.
+- Assumptions about energy budgets (simulator vs measured).
+- A single commercial figure or a small set of options — written in the quote, not on this page.
+- What remains public vs what is delivered privately.
+
+No quote is generated automatically. No turnaround time is promised here because none has been measured as a service metric.
+
 ## Placeholder licensing tiers (not a price list)
 These tiers exist so a conversation can start. **No prices are published. No customers or revenue are claimed.** Actual terms are written per engagement.
 
@@ -58,6 +75,8 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 **Will you invent case studies or metrics to close a deal?** No. Measured numbers appear only after they are measured.
 
 **How are custom models named?** They keep the public model number as ancestry (e.g. `01-custom-<org-slug>`) unless the contract requires a private identifier.
+
+**Where do prices appear?** Only in a written quote after an inquiry. This page will not grow a price column until a real, repeatable quote process exists.
 
 ## Contact for Enterprise Inquiries
 Open a GitHub issue in this repository with the title prefix `enterprise-inquiry` and the checklist above.
