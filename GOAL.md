@@ -9,6 +9,7 @@
 - [x] Thesis abstract + first research axis document pushed.
 - [x] 2036 skill set and agent authorization model documented.
 - [x] Security/networking component skeleton started.
-- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + task-graph + policy gate; hardware measurements still pending).
-- [x] Operator AI task-graph executor beyond host skeleton for *policy gating* (flash persistence and hardware energy observer still open).
-- [ ] Additional model cards (04+) given the same interface + energy-budget depth as models 01–03.
+- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + task-graph + policy gate + checkpoint files; hardware measurements still pending).
+- [x] Operator AI task-graph executor beyond host skeleton for *policy gating* and *host-file checkpoint persistence* (on-device flash mapping and hardware energy observer still open).
+- [x] Model cards 04–05 given the same interface + energy-budget depth as models 01–03.
+- [ ] Additional model cards (06+) given the same interface + energy-budget depth.

@@ -10,8 +10,10 @@ are explicit next steps, not implied as complete.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Union
 
 
 @dataclass
@@ -20,6 +22,7 @@ class Task:
     fn: Callable[[Dict[str, Any]], Dict[str, Any]]
     min_joules: float = 0.0
     depends_on: List[str] = field(default_factory=list)
+    tags: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -27,6 +30,36 @@ class Checkpoint:
     completed: List[str] = field(default_factory=list)
     context: Dict[str, Any] = field(default_factory=dict)
     aborted_reason: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "completed": list(self.completed),
+            "context": dict(self.context),
+            "aborted_reason": self.aborted_reason,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "Checkpoint":
+        return cls(
+            completed=list(data.get("completed") or []),
+            context=dict(data.get("context") or {}),
+            aborted_reason=data.get("aborted_reason"),
+        )
+
+    def save(self, path: Union[str, Path]) -> Path:
+        """Host-side stand-in for flash. Writes JSON. Not a hardware driver."""
+        dest = Path(path)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(json.dumps(self.to_dict(), indent=2, sort_keys=True), encoding="utf-8")
+        return dest
+
+    @classmethod
+    def load(cls, path: Union[str, Path]) -> "Checkpoint":
+        dest = Path(path)
+        data = json.loads(dest.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            raise ValueError("checkpoint file must contain a JSON object")
+        return cls.from_dict(data)
 
 
 class TaskGraphExecutor:

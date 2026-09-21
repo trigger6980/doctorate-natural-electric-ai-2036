@@ -17,6 +17,8 @@ See also:
 - [Enterprise Order & Contract](../../ENTERPRISE/order-and-contract.md)
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 
+Cards **01–05** now share the same interface + energy-budget + next-measurements pattern. Cards **06+** remain short catalog stubs until the same pattern is applied.
+
 ---
 
 ## Catalog Index (1–50)
@@ -24,10 +26,10 @@ See also:
 | # | Model Name | Domain | Energy Profile | Status |
 |---|------------|--------|----------------|--------|
 | 01 | Threshold Energy Scheduler | Natural Electric | Ultra-low | Skeleton code exists |
-| 02 | Quantized LSTM Irradiance Forecaster | TinyML + Harvest | Low | Catalog |
-| 03 | RL Duty-Cycle Controller | Energy-aware Agents | Low–Medium | Catalog |
-| 04 | Hybrid PV-RF Energy State Estimator | Harvest Sensing | Ultra-low | Catalog |
-| 05 | Supercap Voltage Proxy Model | Power Management | Ultra-low | Catalog |
+| 02 | Quantized LSTM Irradiance Forecaster | TinyML + Harvest | Low | Interface specified |
+| 03 | RL Duty-Cycle Controller | Energy-aware Agents | Low–Medium | Interface specified |
+| 04 | Hybrid PV-RF Energy State Estimator | Harvest Sensing | Ultra-low | Interface specified |
+| 05 | Supercap Voltage Proxy Model | Power Management | Ultra-low | Interface specified |
 | 06 | Early-Exit Tiny Classifier | Edge Vision / Sensing | Low | Catalog |
 | 07 | Binary Neural Net Sensor Gate | Ultra-constrained | Ultra-low | Catalog |
 | 08 | Event-Driven Spiking Encoder | Neuromorphic | Ultra-low | Catalog |

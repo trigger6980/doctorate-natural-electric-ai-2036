@@ -28,6 +28,17 @@ Mission alignment: Natural Electric systems and Future AI work in this portfolio
 - Preferred contact method and timezone:
 - Any confidentiality requirement:
 
+## What happens after an inquiry (honest sequence)
+There is no ticket SLA and no automated intake bot. The sequence below is the intended human process, not a measured service metric.
+
+1. **Acknowledge** that the issue or email was received and that the checklist is complete enough to discuss — or list the missing fields.
+2. **Clarify scope** against the public model cards (identical vs custom, Operator AI integration, air-gap delivery).
+3. **State assumptions** about energy budgets: simulator placeholders vs numbers the buyer will measure.
+4. **Write a quote** only after those assumptions are explicit. The quote is a document, not a checkout button.
+5. **Contract then delivery.** Work starts after written agreement. Public-tree files stay public; private deliverables stay private.
+
+If an inquiry is incomplete, the only next step is questions — not a placeholder price.
+
 ## How a quote is formed (no published prices)
 There is no storefront and no rate card in this repository. A written quote, when one is issued, is assembled from the inquiry — not from a hidden price list.
 
@@ -78,10 +89,12 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 
 **Where do prices appear?** Only in a written quote after an inquiry. This page will not grow a price column until a real, repeatable quote process exists.
 
+**What if I only want the public cards?** Use the repository. An inquiry is for identical/custom *delivery under contract*, not for reading the catalog.
+
 ## Contact for Enterprise Inquiries
 Open a GitHub issue in this repository with the title prefix `enterprise-inquiry` and the checklist above.
 
-You will receive a response with next steps toward a formal contract.
+You will receive a response with next steps toward a formal contract. Response timing is not published because it has not been operated as a measured service.
 
 ---
 

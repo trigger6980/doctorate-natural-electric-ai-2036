@@ -11,7 +11,7 @@ Provide a reliable, energy-aware, multi-agent orchestration layer that can:
 - Support both research experimentation and enterprise deployment
 
 ## Core Components (Current + Planned)
-1. **Energy State Observer** — continuous or sampled reading of voltage / estimated joules / harvest rate.
+1. **Energy State Observer** — continuous or sampled reading of voltage / estimated joules / harvest rate. Model 04 specifies the planned fusion interface; Model 05 specifies voltage→joules.
 2. **Policy / Scheduler** — decides which models or agents may run (starts with threshold policy, evolves to learned and hierarchical).
 3. **Agent Registry** — catalog of available specialized agents (research, security, sensing, planning, etc.).
 4. **Task Graph Executor** — runs ordered or conditional workflows with checkpointing for intermittent compute. **Skeleton now in** `AGENTS/task_graph_executor.py` with tests in `AGENTS/test_task_graph_executor.py`.
@@ -23,13 +23,14 @@ Provide a reliable, energy-aware, multi-agent orchestration layer that can:
 - Sequential dispatch with dependency checks.
 - Per-task `min_joules` energy gate; abort reason recorded instead of silent skip.
 - Checkpoint object stores completed task names and a shared context dict so a brown-out can resume.
+- **Host-file persistence:** `Checkpoint.save(path)` / `Checkpoint.load(path)` write JSON. This is a stand-in for flash, not a hardware driver.
 - Unknown dependencies fail at construction time.
 - Policy gate maps Action → allowed task tags (`sense` / `infer` / `transmit`).
 
-Not yet implemented: parallel workers, hardware energy observer hook, cryptographic integrity, persistence to flash.
+Not yet implemented: parallel workers, hardware energy observer hook, cryptographic integrity, on-device flash mapping.
 
 ## Relationship to the 50-Model Database
-Many of the architectural models in the Genetic / Architectural Model Database are intended to plug into this operator machinery as interchangeable or composable components. Model 01 (threshold energy scheduler) is the first policy sitting in front of the executor. Model 03 is specified to use the same `policy_fn` slot. Model 02 is specified as an INFER-tagged task that the gate may skip.
+Many of the architectural models in the Genetic / Architectural Model Database are intended to plug into this operator machinery as interchangeable or composable components. Model 01 (threshold energy scheduler) is the first policy sitting in front of the executor. Model 03 is specified to use the same `policy_fn` slot. Model 02 is specified as an INFER-tagged task that the gate may skip. Models 04 and 05 specify the observer / joule-proxy that should eventually fill `estimated_joules`.
 
 ## Status
-Foundational document plus a host-side executor skeleton and a policy gate. Hardware integration and configuration schemas will be added incrementally under `AGENTS/` and linked from the model catalog.
+Foundational document plus a host-side executor skeleton, policy gate, and JSON checkpoint files. Hardware integration and configuration schemas will be added incrementally under `AGENTS/` and linked from the model catalog.

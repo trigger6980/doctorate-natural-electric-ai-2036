@@ -8,10 +8,12 @@ or:
 
 import os
 import sys
+import tempfile
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from task_graph_executor import Task, TaskGraphExecutor
+from task_graph_executor import Checkpoint, Task, TaskGraphExecutor
 
 
 def _inc(ctx):
@@ -71,9 +73,27 @@ def test_unknown_dependency_raises():
         raise AssertionError("expected ValueError")
 
 
+def test_checkpoint_roundtrip_file():
+    graph = TaskGraphExecutor(
+        [
+            Task("inc", _inc, min_joules=0.001),
+            Task("double", _double, min_joules=0.001, depends_on=["inc"]),
+        ]
+    )
+    first = graph.run(estimated_joules=0.0015, context={"n": 1})
+    with tempfile.TemporaryDirectory() as td:
+        path = Path(td) / "cp.json"
+        first.save(path)
+        loaded = Checkpoint.load(path)
+    second = graph.run(estimated_joules=1.0, checkpoint=loaded)
+    assert second.completed == ["inc", "double"]
+    assert second.context["n"] == 4
+
+
 if __name__ == "__main__":
     test_runs_in_dependency_order()
     test_energy_gate_stops_expensive_task()
     test_resume_from_checkpoint()
     test_unknown_dependency_raises()
+    test_checkpoint_roundtrip_file()
     print("All task-graph executor tests passed.")
