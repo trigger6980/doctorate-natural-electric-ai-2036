@@ -15,9 +15,10 @@ The database is designed so independent researchers and enterprise users can ref
 
 See also:
 - [Enterprise Order & Contract](../../ENTERPRISE/order-and-contract.md)
+- [Scope assumptions for a quote](../../ENTERPRISE/scope-assumptions.md)
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 
-Cards **01–05** now share the same interface + energy-budget + next-measurements pattern. Cards **06+** remain short catalog stubs until the same pattern is applied.
+Cards **01–07** now share the same interface + energy-budget + next-measurements pattern. Cards **08+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage`) that is **analytic and uncalibrated**.
 
 ---
 
@@ -29,9 +30,9 @@ Cards **01–05** now share the same interface + energy-budget + next-measuremen
 | 02 | Quantized LSTM Irradiance Forecaster | TinyML + Harvest | Low | Interface specified |
 | 03 | RL Duty-Cycle Controller | Energy-aware Agents | Low–Medium | Interface specified |
 | 04 | Hybrid PV-RF Energy State Estimator | Harvest Sensing | Ultra-low | Interface specified |
-| 05 | Supercap Voltage Proxy Model | Power Management | Ultra-low | Interface specified |
-| 06 | Early-Exit Tiny Classifier | Edge Vision / Sensing | Low | Catalog |
-| 07 | Binary Neural Net Sensor Gate | Ultra-constrained | Ultra-low | Catalog |
+| 05 | Supercap Voltage Proxy Model | Power Management | Ultra-low | Interface + uncalibrated host helper |
+| 06 | Early-Exit Tiny Classifier | Edge Vision / Sensing | Low | Interface specified |
+| 07 | Binary Neural Net Sensor Gate | Ultra-constrained | Ultra-low | Interface specified |
 | 08 | Event-Driven Spiking Encoder | Neuromorphic | Ultra-low | Catalog |
 | 09 | Local RAG Retriever (Quantized) | Offline Knowledge | Medium | Catalog |
 | 10 | Offline LLM Runtime Adapter | Off-grid AI Box | Medium–High | Catalog |
@@ -81,7 +82,7 @@ Cards **01–05** now share the same interface + energy-budget + next-measuremen
 ## How to Use This Database
 
 - Researchers: reference the architecture descriptions and extend the skeletons.
-- Enterprise: see the Order & Contract page to request identical or customized instances under formal agreement.
+- Enterprise: see the Order & Contract page to request identical or customized instances under formal agreement. Attach the scope-assumptions table so energy claims stay labeled.
 - Contributors: open issues or PRs to deepen any entry with code, measurements, or citations.
 
 All models are intended to remain compatible with the Natural Electric principle: energy state is a first-class runtime signal.

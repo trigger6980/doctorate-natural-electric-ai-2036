@@ -1,32 +1,30 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-21 ~15:10 CDT (Hourly Dual-Agent run)
+**Last updated:** 2026-09-21 ~16:16 CDT (Hourly Dual-Agent run)
 
-## This run (2026-09-21 15:10 CDT)
+## This run (2026-09-21 16:16 CDT)
 Two specialized agents completed three concrete, truthful upgrades. No metrics or customers were invented.
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Deepened model cards **04** and **05** to the Models 01–03 pattern: interface table, simulator/target energy budget marked unmeasured, next measurements.
-- Added host-file checkpoint persistence on `Checkpoint.save` / `Checkpoint.load` (JSON stand-in for flash).
-- Extended `AGENTS/test_task_graph_executor.py` with a file round-trip resume test.
-- Linked Models 04/05 and file persistence from `AGENTS/operator-ai-machinery.md` and the catalog index.
+- Deepened model cards **06** and **07** to the interface + energy-budget + next-measurements pattern.
+- Implemented Model 05 host helper `joules_from_voltage` / `apply_leakage` with unit tests. Helper refuses non-positive C rather than guessing capacitance. Still uncalibrated.
+- Catalog index now marks 05 as helper-present and 06–07 as interface specified.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Added **What happens after an inquiry** — acknowledge, clarify, state energy assumptions, quote, then contract. No SLA, no bot, no prices.
-- FAQ notes that reading public cards does not require an inquiry.
-- No customers, revenue, or turnaround times were added.
+- Added `ENTERPRISE/scope-assumptions.md`: a quote must label simulator-vs-measured facts; no prices.
+- Inquiry checklist now requires that table. FAQ states an incomplete assumptions table yields questions, not a draft quote.
 
 ## Completed (cumulative)
 - Flagship repository live with professional structure.
 - Thesis skeleton + Research Axis 01.
-- Energy-harvester-tinyml prototype (code + tests + BOM).
+- Energy-harvester-tinyml prototype (code + tests + BOM + uncalibrated voltage proxy).
 - Off-grid AI box outline.
 - 2036 agent-skills authorization model.
 - Literature map + open problems starters.
 - Security / desktop-firewall skeleton.
-- Genetic / Architectural Model Database with 50 catalogued models (detailed cards for 01–10; models 01–05 now have interface + energy budget).
+- Genetic / Architectural Model Database with 50 catalogued models (detailed cards for 01–10; models 01–07 now have interface + energy budget).
 - Operator AI Machinery foundational document + task-graph executor + policy gate + host-file checkpoints.
-- Enterprise Order & Contract page with inquiry checklist, post-inquiry sequence, quote-formation notes, placeholder tiers, and FAQ.
+- Enterprise Order & Contract page with inquiry checklist, post-inquiry sequence, quote-formation notes, placeholder tiers, FAQ, and scope-assumptions companion.
 - Hourly Dual-Agent Upgrade automation activated.
 
 ## Active Automation
@@ -38,11 +36,11 @@ Two specialized agents completed three concrete, truthful upgrades. No metrics o
 2. Enterprise & Business Ventures Agent — advances Enterprise Order page, professional commercial framing, and business readiness (truthful, no fabricated claims).
 
 ## In Progress / Next Priorities
-1. Deepen model cards 06–07 with the same interface + energy-budget pattern.
+1. Deepen model cards 08–09 with the same interface + energy-budget pattern.
 2. Add one concrete desktop-firewall utility (read-only port/process inventory, no exploit content).
-3. Implement a host helper for Model 05 `joules_from_voltage` next to the energy-aware scheduler (still uncalibrated).
+3. Optionally wire `joules_from_voltage` into `simulate_step` behind an explicit `C_farads` argument (keep linear model as default until C is measured).
 4. Keep Enterprise language current; do not publish prices until a real quote process exists.
-5. Run scheduler + task-graph + policy-gate tests in CI when a workflow file is added.
+5. Run scheduler + proxy + task-graph + policy-gate tests in CI when a workflow file is added.
 
 ## Standing Directive
 Use all available connectors and skills with quality prioritization. Authorize specialized agents via the skill system. Keep GitHub updated. Teach step-by-step. Prefer verifiable prototypes and truthful documentation over claims.

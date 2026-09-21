@@ -6,6 +6,8 @@ This page describes how organizations may request identical copies or customized
 
 Mission alignment: Natural Electric systems and Future AI work in this portfolio is aimed at human well-being — reliable off-grid intelligence, honest energy accounting, and operator tooling that remains inspectable. Commercial engagements are expected to keep that orientation: no fabricated performance claims, no hidden energy costs, and no deployment that the buyer cannot audit.
 
+Companion page: [Scope assumptions for a quote](scope-assumptions.md) — the facts a quote must label true or false.
+
 ## What Is Offered
 - Access to any of the 50 architectural models (or future additions) in the Genetic / Architectural Model Database.
 - Option for **identical** reproduction of a published model (same architecture, quantization, and reference implementation where available).
@@ -15,7 +17,7 @@ Mission alignment: Natural Electric systems and Future AI work in this portfolio
 ## Inquiry process
 1. Review the public catalog: `MODELS/genetic-architectural-database/`.
 2. Identify the model number(s) of interest and any customization needs.
-3. Open a GitHub issue titled `enterprise-inquiry: <model ids>` **or** contact the maintainer (kalidd komoddo / trigger6980) using the email on the GitHub profile. Include the checklist below.
+3. Open a GitHub issue titled `enterprise-inquiry: <model ids>` **or** contact the maintainer (kalidd komoddo / trigger6980) using the email on the GitHub profile. Include the checklist below **and** the scope-assumptions table.
 4. The maintainer replies with questions and a draft statement of work. Nothing is owed until a written contract is signed.
 5. Upon agreement and execution of the contract, the requested artifacts are delivered.
 
@@ -27,13 +29,14 @@ Mission alignment: Natural Electric systems and Future AI work in this portfolio
 - Energy / off-grid constraints:
 - Preferred contact method and timezone:
 - Any confidentiality requirement:
+- Scope-assumptions table (see `ENTERPRISE/scope-assumptions.md`): each row marked agreed / to-be-measured / out of scope
 
 ## What happens after an inquiry (honest sequence)
 There is no ticket SLA and no automated intake bot. The sequence below is the intended human process, not a measured service metric.
 
 1. **Acknowledge** that the issue or email was received and that the checklist is complete enough to discuss — or list the missing fields.
 2. **Clarify scope** against the public model cards (identical vs custom, Operator AI integration, air-gap delivery).
-3. **State assumptions** about energy budgets: simulator placeholders vs numbers the buyer will measure.
+3. **State assumptions** about energy budgets: simulator placeholders vs numbers the buyer will measure. Use the scope-assumptions table; do not skip it.
 4. **Write a quote** only after those assumptions are explicit. The quote is a document, not a checkout button.
 5. **Contract then delivery.** Work starts after written agreement. Public-tree files stay public; private deliverables stay private.
 
@@ -47,6 +50,7 @@ Typical inputs to a quote (all optional until the buyer provides them):
 - Whether Operator AI task-graph integration is in scope.
 - Whether delivery must be air-gapped (sovereign tier).
 - Whether the buyer needs help taking hardware measurements (the public cards mark simulator numbers as unmeasured).
+- Which rows of the scope-assumptions table are in-scope measurements vs accepted unknowns.
 
 Typical outputs of a quote:
 - Scope list tied to model numbers and deliverable files.
@@ -90,6 +94,8 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 **Where do prices appear?** Only in a written quote after an inquiry. This page will not grow a price column until a real, repeatable quote process exists.
 
 **What if I only want the public cards?** Use the repository. An inquiry is for identical/custom *delivery under contract*, not for reading the catalog.
+
+**What if my inquiry skips the assumptions table?** Expect questions first. A quote will not be drafted on unlabeled energy claims.
 
 ## Contact for Enterprise Inquiries
 Open a GitHub issue in this repository with the title prefix `enterprise-inquiry` and the checklist above.

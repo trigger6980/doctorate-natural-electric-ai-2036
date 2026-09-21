@@ -2,7 +2,7 @@
 
 **Domain:** Power Management  
 **Energy Profile:** Ultra-low  
-**Status:** Catalog + interface specification (analytic form only; not calibrated)  
+**Status:** Catalog + host helper (analytic form only; not calibrated)  
 **Operator role:** Converts measured rail voltage into `EnergyState.estimated_joules` for Model 01 and the task-graph energy gate
 
 ## Description
@@ -10,7 +10,7 @@ Lightweight model (or calibrated equation) that converts measured supercapacitor
 
 The host simulator in Model 01 currently uses a linear `cost * 0.1` voltage drop. This card is the intended replacement: `E = 0.5 * C_eff * V^2` with an explicit leakage term. **No board-specific C_eff has been measured in this repository.**
 
-## Interface (planned)
+## Interface (current host helper)
 
 | Symbol | Kind | Notes |
 | --- | --- | --- |
@@ -21,9 +21,13 @@ The host simulator in Model 01 currently uses a linear `cost * 0.1` voltage drop
 | `dt_s` | optional input | Needed only if leakage is applied over an interval |
 | `estimated_joules` | output | `max(0, 0.5 * C * (V^2 - v_min_useful^2) - leak_w * dt_s)` |
 
-Planned entry points:
+Host entry points (uncalibrated):
 - `joules_from_voltage(voltage_v, C_farads, v_min_useful=3.3) -> float`
 - `apply_leakage(joules, leak_w, dt_s) -> float`
+
+File: `PROTOTYPES/energy-harvester-tinyml/src/supercap_voltage_proxy.py`
+
+The helper **refuses** `C_farads <= 0` rather than inventing a capacitance.
 
 ## Energy budget (example, not measured hardware)
 Evaluating the equation is cheap compared with any sensor read.
@@ -44,7 +48,7 @@ Placeholder simulator values (not hardware):
 - Does not invent harvest; harvest remains a separate observer (Model 04 / lux)
 
 ## Implementation Notes
-Not implemented on-device. The next host helper should live next to `energy_aware_scheduler.py` and be called before `TaskGraphExecutor.run(estimated_joules=...)`.
+Host helper is implemented. On-device flash mapping and a fitted C_eff are not. Call this before `TaskGraphExecutor.run(estimated_joules=...)` only when the caller supplies C.
 
 ## Next measurements (not done)
 - Measure discharge of the actual supercap from a known voltage with a known load.
