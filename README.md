@@ -13,6 +13,7 @@ Build the most substantive overnight-to-sustained GitHub presence in Natural Ele
 - Security & networking desktop components
 - Off-grid / home-lab hardware + software builds
 - Agentic systems designed for energy-constrained environments
+- A catalog of 50 architectural models with an enterprise order path
 
 We prioritize **quality, reproducibility, and real engineering depth** over volume.
 
@@ -24,43 +25,40 @@ We prioritize **quality, reproducibility, and real engineering depth** over volu
 4. **Agentic Edge & Self-Evolving Systems** – Multi-agent orchestration that remains functional under intermittent power and connectivity.
 5. **Security & Networking for Sovereign Compute** – Desktop firewall components, high-speed networking add-ons, one-off security tools designed for air-gapped or off-grid use.
 
+## Key New Sections
+
+- **[Genetic / Architectural Model Database (50 models)](MODELS/genetic-architectural-database/)** — Catalog of 50 distinct architectures with energy profiles and status.
+- **[Operator AI Machinery](AGENTS/operator-ai-machinery.md)** — Foundational description of the energy-aware multi-agent operator layer.
+- **[Enterprise Order & Contract](ENTERPRISE/order-and-contract.md)** — Path for organizations to request identical or customized models under formal contract.
+
 ## Repository Map
 
 ```
 doctorate-natural-electric-ai-2036/
-├── GOAL.md                     # One-paragraph goal + success criteria
-├── STATUS.md                   # Live checkpoint of completed phases
+├── GOAL.md
+├── STATUS.md
 ├── THESIS/
-│   ├── abstract-and-contributions.md
-│   ├── 01-ambient-energy-harvesting-tinyml.md
-│   ├── 02-self-powered-agentic-edge.md
-│   └── 03-natural-electric-microgrids-for-ai.md
 ├── RESEARCH/
-│   ├── literature-map-2036.md
-│   └── open-problems.md
 ├── PROTOTYPES/
-│   ├── energy-harvester-tinyml/     # ESP32 / Pi Zero solar + quantized LSTM/RL
-│   ├── offgrid-ai-box/              # Portable multi-power-source LLM node
-│   ├── natural-electric-sensor-node/
-│   └── agentic-firewall-desktop/    # Security + networking components
+│   ├── energy-harvester-tinyml/
+│   ├── offgrid-ai-box/
+│   └── ...
 ├── SECURITY/
-│   ├── one-off-tools/
-│   └── desktop-firewall-components/
 ├── GADGETS-AND-BUILDS/
-│   ├── home-lab-offgrid/
-│   └── hardware-bom-and-schematics/
 ├── AGENTS/
-│   ├── multi-agent-research-orchestrator/
-│   └── 2036-agent-skills/
+│   ├── operator-ai-machinery.md
+│   └── 2036-agent-skills.md
 ├── MODELS/
-│   └── quantized-edge-models/
+│   └── genetic-architectural-database/   # 50-model catalog
+├── ENTERPRISE/
+│   └── order-and-contract.md
 └── docs/
 ```
 
 ## Standing Operating Principles (Every Conversation)
 
-- Use **all available connectors and skills** at any given time, with judicious prioritization of quality.
-- Authorize specialized agents (via skills: agency-ai-engineer, heavy-task-orchestrator, test-driven-development, verification-before-completion, planning-and-task-breakdown, etc.) to execute work.
+- Use **all available connectors and skills** at any given time, with judicious prioritization of quality of work.
+- Authorize specialized agents (via the skill system) to execute domain work.
 - Keep GitHub updated with every meaningful artifact.
 - Teach step-by-step so the human can reproduce and extend.
 - Prefer working, verifiable prototypes and open science over claims.
@@ -71,7 +69,7 @@ See [STATUS.md](STATUS.md) and [GOAL.md](GOAL.md).
 
 ## License
 
-MIT (code) + CC-BY-4.0 (documentation and thesis text) unless otherwise noted in subfolders.
+MIT (code) + CC-BY-4.0 (documentation and thesis text) unless otherwise noted in subfolders. Enterprise commercial use of identical or customized models is intended under separate contract (see ENTERPRISE page).
 
 ---
 *Built under continuous quantum-guided orchestration. This repository is intended to become a reference point for Natural Electric × Future AI engineering.*
