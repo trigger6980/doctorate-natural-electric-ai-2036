@@ -18,12 +18,12 @@ Companion page: [Scope assumptions for a quote](scope-assumptions.md) — the fa
 
 | You can do this from the public tree | This still requires a contract |
 | --- | --- |
-| Read every model card and interface table | Receive trained weights, a private index, or a board-specific measurement pack |
-| Run host tests that already exist (scheduler, voltage helper, task-graph, policy gate) | Claim those tests as certified field performance |
+| Read every model card and interface table | Receive trained weights, a private index, a local LLM runtime pack, or a board-specific measurement pack |
+| Run host tests that already exist (scheduler, voltage helper, task-graph, policy gate, listen inventory) | Claim those tests as certified field performance |
 | Fork and study under the public licenses | Ship a product that treats a catalog model as a commercial deliverable |
 | Open an `enterprise-inquiry` issue | Receive a written quote or private artifacts |
 
-Interface-specified cards (currently 02–09) are design contracts, not finished binaries.
+Interface-specified cards (currently 02–10) are design contracts, not finished binaries.
 
 ## Inquiry process
 1. Review the public catalog: `MODELS/genetic-architectural-database/`.
@@ -108,7 +108,7 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 
 **What if my inquiry skips the assumptions table?** Expect questions first. A quote will not be drafted on unlabeled energy claims.
 
-**Does an interface-specified card mean the model is ready to license as weights?** No. Cards 02–09 document interfaces. Weights, indexes, and joule measurements are separate scoped work.
+**Does an interface-specified card mean the model is ready to license as weights?** No. Cards 02–10 document interfaces. Weights, indexes, local LLM runtimes, and joule measurements are separate scoped work.
 
 ## Contact for Enterprise Inquiries
 Open a GitHub issue in this repository with the title prefix `enterprise-inquiry` and the checklist above.
