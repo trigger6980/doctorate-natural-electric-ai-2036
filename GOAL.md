@@ -4,9 +4,11 @@
 
 **Success criteria (this session + near-term):**
 - [x] Flagship repository created and initialized with professional structure.
-- [ ] Master README + GOAL + STATUS live.
-- [ ] At least one working prototype skeleton (energy-harvester-tinyml or offgrid-ai-box) with code, README, and BOM pushed.
-- [ ] Thesis abstract + first research axis document pushed.
-- [ ] 2036 skill set and agent authorization model documented.
-- [ ] Security/networking component skeleton started.
-- [ ] All artifacts verifiable and reproducible from the repository alone.
+- [x] Master README + GOAL + STATUS live.
+- [x] At least one working prototype skeleton (energy-harvester-tinyml) with code, README, and BOM pushed.
+- [x] Thesis abstract + first research axis document pushed.
+- [x] 2036 skill set and agent authorization model documented.
+- [x] Security/networking component skeleton started.
+- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + task-graph; hardware measurements still pending).
+- [ ] Operator AI task-graph executor beyond host skeleton (flash persistence, energy observer hook).
+- [ ] Additional model cards (11+) given the same interface + energy-budget depth as model 01.

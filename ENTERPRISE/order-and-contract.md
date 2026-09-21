@@ -4,35 +4,63 @@
 
 This page describes how organizations may request identical copies or customized variants of the architectural models catalogued in this repository for internal, commercial, or production use under formal contract.
 
+Mission alignment: Natural Electric systems and Future AI work in this portfolio is aimed at human well-being — reliable off-grid intelligence, honest energy accounting, and operator tooling that remains inspectable. Commercial engagements are expected to keep that orientation: no fabricated performance claims, no hidden energy costs, and no deployment that the buyer cannot audit.
+
 ## What Is Offered
 - Access to any of the 50 architectural models (or future additions) in the Genetic / Architectural Model Database.
 - Option for **identical** reproduction of a published model (same architecture, quantization, and reference implementation where available).
 - Option for **customized** variants (different energy targets, sensor suites, security requirements, or scale).
 - Supporting documentation, BOM guidance, and integration notes with the Operator AI Machinery.
 
-## Process (High-Level)
+## Inquiry process
 1. Review the public catalog: `MODELS/genetic-architectural-database/`.
 2. Identify the model number(s) of interest and any customization needs.
-3. Contact the maintainer (kalidd komoddo / trigger6980) via the GitHub repository issues or the email associated with this account, referencing this page.
-4. A formal statement of work / contract will be prepared covering:
-   - Scope (identical vs custom)
-   - Deliverables (code, documentation, support level)
-   - License terms (commercial use, redistribution limits, etc.)
-   - Pricing and timeline
-   - Confidentiality and IP terms as required
+3. Open a GitHub issue titled `enterprise-inquiry: <model ids>` **or** contact the maintainer (kalidd komoddo / trigger6980) using the email on the GitHub profile. Include the checklist below.
+4. The maintainer replies with questions and a draft statement of work. Nothing is owed until a written contract is signed.
 5. Upon agreement and execution of the contract, the requested artifacts are delivered.
 
-## Important Notes
-- The public repository remains open for research, education, and non-commercial exploration under the stated licenses (MIT for code, CC-BY-4.0 for documentation unless otherwise noted).
-- Enterprise / commercial production use of identical or derivative models is intended to occur under explicit contract.
-- No automated checkout or payment system is active in this repository at present; all enterprise engagements are handled manually to ensure clarity and quality.
+### Inquiry checklist (paste into the issue)
+- Model number(s):
+- Identical copy or custom variant:
+- Deployment context (lab, field node, plant floor, etc.):
+- Approximate node count or scale (order-of-magnitude is enough):
+- Energy / off-grid constraints:
+- Preferred contact method and timezone:
+- Any confidentiality requirement:
+
+## Placeholder licensing tiers (not a price list)
+These tiers exist so a conversation can start. **No prices are published. No customers or revenue are claimed.** Actual terms are written per engagement.
+
+| Tier | Intent | Typical deliverable shape |
+| --- | --- | --- |
+| Research replica | Identical architecture for internal evaluation | Public code snapshot + model card + test notes |
+| Field customization | Same family, different energy or sensor budget | Custom parameters, BOM notes, integration sketch |
+| Operator integration | Models plugged into Operator AI Machinery | Task-graph mapping, energy gates, checkpoint policy |
+| Sovereign / air-gapped | Offline delivery and reviewable artifacts only | Media or private repo transfer; no telemetry |
+
+Licenses for commercial production use are negotiated. The public tree stays MIT (code) and CC-BY-4.0 (docs) unless a file says otherwise.
+
+## Value propositions (truthful)
+- Energy-first control: policies that refuse work when joules are insufficient.
+- Inspectable operators: task graphs and checkpoints you can read, not a black box.
+- Shared research surface: enterprise variants stay compatible with the public catalog where possible.
+- Human-well-being framing: off-grid and low-power intelligence for places the grid does not reliably reach.
+
+What is **not** claimed: production SLAs, certified safety ratings, measured field MTBF, or existing enterprise customer logos.
+
+## FAQ
+**Is the public repo free to study?** Yes, under the stated licenses, for research and non-commercial exploration.
+
+**Can I ship a product using these models without a contract?** Commercial / production use of identical or derivative models is intended to occur under explicit contract. Open an `enterprise-inquiry` issue before you ship.
+
+**Do you have an automated checkout?** No. Engagements are manual so scope and energy assumptions stay explicit.
+
+**Will you invent case studies or metrics to close a deal?** No. Measured numbers appear only after they are measured.
+
+**How are custom models named?** They keep the public model number as ancestry (e.g. `01-custom-<org-slug>`) unless the contract requires a private identifier.
 
 ## Contact for Enterprise Inquiries
-Open a GitHub issue in this repository with the label (or title prefix) `enterprise-inquiry` and include:
-- Desired model number(s)
-- Identical or custom request
-- Approximate scale / deployment context
-- Preferred contact method
+Open a GitHub issue in this repository with the title prefix `enterprise-inquiry` and the checklist above.
 
 You will receive a response with next steps toward a formal contract.
 
