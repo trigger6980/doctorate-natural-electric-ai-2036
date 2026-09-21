@@ -18,7 +18,7 @@ See also:
 - [Scope assumptions for a quote](../../ENTERPRISE/scope-assumptions.md)
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 
-Cards **01–07** now share the same interface + energy-budget + next-measurements pattern. Cards **08+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage`) that is **analytic and uncalibrated**.
+Cards **01–09** now share the same interface + energy-budget + next-measurements pattern. Cards **10+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage`) that is **analytic and uncalibrated**.
 
 ---
 
@@ -33,8 +33,8 @@ Cards **01–07** now share the same interface + energy-budget + next-measuremen
 | 05 | Supercap Voltage Proxy Model | Power Management | Ultra-low | Interface + uncalibrated host helper |
 | 06 | Early-Exit Tiny Classifier | Edge Vision / Sensing | Low | Interface specified |
 | 07 | Binary Neural Net Sensor Gate | Ultra-constrained | Ultra-low | Interface specified |
-| 08 | Event-Driven Spiking Encoder | Neuromorphic | Ultra-low | Catalog |
-| 09 | Local RAG Retriever (Quantized) | Offline Knowledge | Medium | Catalog |
+| 08 | Event-Driven Spiking Encoder | Neuromorphic | Ultra-low | Interface specified |
+| 09 | Local RAG Retriever (Quantized) | Offline Knowledge | Medium | Interface specified |
 | 10 | Offline LLM Runtime Adapter | Off-grid AI Box | Medium–High | Catalog |
 | 11 | Multi-Agent Energy Broker | Agentic Mesh | Low | Catalog |
 | 12 | Intermittent Compute Checkpoint Model | Batteryless | Ultra-low | Catalog |
