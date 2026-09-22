@@ -1,6 +1,6 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-22 (hourly dual-agent: Model 26 federated-aggregate card + named-lab-plan page)
+**Last updated:** 2026-09-22 (hourly dual-agent: Model 27 DP noise-injector card + instrument-list page)
 
 ## Completed
 - Flagship repository with professional structure, thesis skeleton, prototypes, 50-model catalog, Operator AI Machinery, Enterprise page.
@@ -42,17 +42,19 @@
 - Public-tree handoff page (`ENTERPRISE/handoff-to-public-tree.md`) naming when the honest next step is study of the public catalog, not a quote. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
 - Model 25 interface card (`25-on-device-continual-learner.md`) at the same depth as cards 01–24. Catalog index and GOAL.md updated. No trainer, no plasticity certificate, no measured update joules.
 - Measurement-hold page (`ENTERPRISE/measurement-hold.md`) naming when a complete inquiry still cannot be quoted because energy rows stay `to-be-measured` with no named lab. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- **This hour (Agent 1):** Model 26 interface card (`26-federated-aggregate-offline.md`) at the same depth as cards 01–25. Catalog index and GOAL.md updated. No federated trainer, no privacy certificate, no measured share joules.
-- **This hour (Agent 2):** Named-lab-plan page (`ENTERPRISE/named-lab-plan.md`) naming who-measures after a measurement hold, without inventing labs, dates, or prices. Linked from `engagement-faq.md`. No prices, customers, or SLAs.
+- Model 26 interface card (`26-federated-aggregate-offline.md`) at the same depth as cards 01–25. Catalog index and GOAL.md updated. No federated trainer, no privacy certificate, no measured share joules.
+- Named-lab-plan page (`ENTERPRISE/named-lab-plan.md`) naming who-measures after a measurement hold, without inventing labs, dates, or prices. Linked from `engagement-faq.md`. No prices, customers, or SLAs.
+- **This hour (Agent 1):** Model 27 interface card (`27-differential-privacy-noise-injector.md`) at the same depth as cards 01–26. Catalog index and GOAL.md updated. No sampler firmware, no DP certificate, no measured noise joules.
+- **This hour (Agent 2):** Instrument-list page (`ENTERPRISE/instrument-list.md`) naming meter class after a named lab plan, without inventing serials, calibrations, or prices. Linked from `engagement-faq.md`. No prices, customers, or SLAs.
 
 ## Active Automation
 Hourly Dual-Agent Upgrade (Task ID a296e32a-8e33-4ff4-8276-bea9ef6bf936) continues to run.
 
 ## Next Priorities
-1. Continue deepening the 50-model catalog (card 27 next at the same interface depth) and Operator AI executor.
-2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, Model 20 `disagg_ok()`, Model 21 `rf_ok()`, Model 22 `cascade_ok()`, Model 23 `kv_ok()`, Model 24 `spec_ok()`, Model 25 `learn_ok()`, or Model 26 `agg_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, a trained NILM tree, a trained forest, a trained cascade, a packed KV layout, a draft model, a trainer, or a federated roster.
+1. Continue deepening the 50-model catalog (card 28 next at the same interface depth) and Operator AI executor.
+2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, Model 20 `disagg_ok()`, Model 21 `rf_ok()`, Model 22 `cascade_ok()`, Model 23 `kv_ok()`, Model 24 `spec_ok()`, Model 25 `learn_ok()`, Model 26 `agg_ok()`, or Model 27 `dp_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, a trained NILM tree, a trained forest, a trained cascade, a packed KV layout, a draft model, a trainer, a federated roster, or a DP accountant.
 3. Dimension a real bench for the Class A slope sketch, or log `loop_t_*` / `tank_t` on the same clock.
-4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, `records-retention.md`, `correction-notice.md`, `reopen-after-close.md`, `decline-or-defer.md`, `handoff-to-public-tree.md`, `measurement-hold.md`, and `named-lab-plan.md` when adding any new sales-facing page. Link `named-lab-plan.md` from `order-and-contract.md` on a later pass if that file is edited.
+4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, `records-retention.md`, `correction-notice.md`, `reopen-after-close.md`, `decline-or-defer.md`, `handoff-to-public-tree.md`, `measurement-hold.md`, `named-lab-plan.md`, and `instrument-list.md` when adding any new sales-facing page. Link `named-lab-plan.md` and `instrument-list.md` from `order-and-contract.md` on a later pass if that file is edited.
 5. Do not publish prices or customer claims.
 
 ## Standing Directive
