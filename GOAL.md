@@ -22,4 +22,5 @@
 - [x] Model card 17 given the same interface + energy-budget depth (air-gap config validator; no schema compiler).
 - [x] Model card 18 given the same interface + energy-budget depth (local mesh routing policy; no radio driver).
 - [x] Model card 19 given the same interface + energy-budget depth (energy-neutral probability estimator; no survival curve).
-- [ ] Additional model cards (20+) given the same interface + energy-budget depth.
+- [x] Model card 20 given the same interface + energy-budget depth (tiny decision-tree disaggregator; no trained tree).
+- [ ] Additional model cards (21+) given the same interface + energy-budget depth.

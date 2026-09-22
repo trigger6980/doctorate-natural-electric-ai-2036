@@ -1,6 +1,6 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-22 (hourly dual-agent: Model 19 energy-neutral probability card + engagement closeout page)
+**Last updated:** 2026-09-22 (hourly dual-agent: Model 20 tiny-DT disaggregator card + post-closeout records page)
 
 ## Completed
 - Flagship repository with professional structure, thesis skeleton, prototypes, 50-model catalog, Operator AI Machinery, Enterprise page.
@@ -28,17 +28,19 @@
 - Post-quote packet checklist (`ENTERPRISE/post-quote-packet.md`) naming the minimum honest file set after written acceptance. No prices, customers, or SLAs.
 - Model 18 interface card (`18-local-mesh-routing-policy.md`) at the same depth as cards 01–17. Catalog index and GOAL.md updated. No radio driver, no hop-joule measurement, no mesh-protocol claim.
 - Change-order page (`ENTERPRISE/change-order.md`) naming how scope changes are recorded after a packet exists. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- **This hour (Agent 1):** Model 19 interface card (`19-energy-neutral-probability-estimator.md`) at the same depth as cards 01–18. Catalog index and GOAL.md updated. No survival-curve fit, no energy-neutral certificate, no measured harvest increment.
-- **This hour (Agent 2):** Engagement closeout page (`ENTERPRISE/engagement-closeout.md`) naming how an engagement is closed after packet + change orders. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
+- Model 19 interface card (`19-energy-neutral-probability-estimator.md`) at the same depth as cards 01–18. Catalog index and GOAL.md updated. No survival-curve fit, no energy-neutral certificate, no measured harvest increment.
+- Engagement closeout page (`ENTERPRISE/engagement-closeout.md`) naming how an engagement is closed after packet + change orders. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
+- **This hour (Agent 1):** Model 20 interface card (`20-tiny-decision-tree-disaggregator.md`) at the same depth as cards 01–19. Catalog index and GOAL.md updated. No trained tree, no NILM certificate, no measured walk joules.
+- **This hour (Agent 2):** Records-retention page (`ENTERPRISE/records-retention.md`) naming keep vs discard after closeout. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
 
 ## Active Automation
 Hourly Dual-Agent Upgrade (Task ID a296e32a-8e33-4ff4-8276-bea9ef6bf936) continues to run.
 
 ## Next Priorities
-1. Continue deepening the 50-model catalog (card 20 next at the same interface depth) and Operator AI executor.
-2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, or Model 19 `neutral_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, or a field certificate.
+1. Continue deepening the 50-model catalog (card 21 next at the same interface depth) and Operator AI executor.
+2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, or Model 20 `disagg_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, or a trained NILM tree.
 3. Dimension a real bench for the Class A slope sketch, or log `loop_t_*` / `tank_t` on the same clock.
-4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, and `engagement-closeout.md` when adding any new sales-facing page.
+4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, and `records-retention.md` when adding any new sales-facing page.
 5. Do not publish prices or customer claims.
 
 ## Standing Directive
