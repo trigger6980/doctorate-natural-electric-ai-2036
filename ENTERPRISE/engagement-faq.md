@@ -1,6 +1,6 @@
 # Enterprise engagement FAQ (process only)
 
-This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md), [`inquiry-completeness.md`](inquiry-completeness.md).
+This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md), [`inquiry-completeness.md`](inquiry-completeness.md), [`quote-draft-outline.md`](quote-draft-outline.md).
 
 ## Identical copy vs custom variant
 
@@ -20,7 +20,7 @@ The six-item gate is listed in [`inquiry-completeness.md`](inquiry-completeness.
 5. Identical vs custom vs undecided.
 6. Deployment context in one sentence.
 
-Incomplete inquiries receive questions. They do not receive a draft quote.
+Incomplete inquiries receive questions. They do not receive a draft quote. After the gate, a written quote should follow [`quote-draft-outline.md`](quote-draft-outline.md).
 
 ## How licensing language stays honest
 - Public licenses (MIT for code, CC-BY-4.0 for docs, unless a file says otherwise) cover study and non-commercial exploration of the public tree.
@@ -36,7 +36,7 @@ Use only claims the public tree can support:
 - Catalog compatibility: custom work should keep the public model number as ancestry where possible.
 - Human well-being mission: off-grid and low-power intelligence for places the grid does not reliably reach.
 
-Do not put measured MTBF, customer logos, or field certification in a cover letter until those objects exist.
+Do not put measured MTBF, customer logos, or field certification in a cover letter until those objects exist. Do not treat `SANDBOX/out/gen03_decisions.json` as a heat-stage certificate.
 
 ## What the maintainer will ask next
 Typical clarifying questions after a complete inquiry:
