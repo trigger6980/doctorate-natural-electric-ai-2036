@@ -23,7 +23,7 @@ Companion page: [Scope assumptions for a quote](scope-assumptions.md) — the fa
 | Fork and study under the public licenses | Ship a product that treats a catalog model as a commercial deliverable |
 | Open an `enterprise-inquiry` issue | Receive a written quote or private artifacts |
 
-Interface-specified cards (currently 02–13) are design contracts, not finished binaries. Model 11’s host allocator is a local partitioner, not a licensed energy market or mesh stack. Model 12’s checkpoint is host JSON, not flash. Model 13 has no coil driver and no tesla-to-joule calibration.
+Interface-specified cards (currently 02–14) are design contracts, not finished binaries. Model 11’s host allocator is a local partitioner, not a licensed energy market or mesh stack. Model 12’s checkpoint is host JSON, not flash. Model 13 has no coil driver and no tesla-to-joule calibration. Model 14 has no piezo/TENG driver and no joule-per-cycle calibration.
 
 ## Inquiry process
 1. Review the public catalog: `MODELS/genetic-architectural-database/`.
@@ -108,11 +108,13 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 
 **What if my inquiry skips the assumptions table?** Expect questions first. A quote will not be drafted on unlabeled energy claims.
 
-**Does an interface-specified card mean the model is ready to license as weights?** No. Cards 02–13 document interfaces. Weights, indexes, local LLM runtimes, mesh radios, flash drivers, coil firmware, tesla fits, and joule measurements are separate scoped work.
+**Does an interface-specified card mean the model is ready to license as weights?** No. Cards 02–14 document interfaces. Weights, indexes, local LLM runtimes, mesh radios, flash drivers, coil firmware, tesla fits, piezo/TENG drivers, joule-per-cycle fits, and joule measurements are separate scoped work.
 
 **Does Model 11 include a multi-node energy market?** No. The public stub only partitions one local pool. A contracted mesh or market would be custom scope.
 
 **Does Model 13 include a calibrated magnetic harvester?** No. The public card is an observer interface. Coil hardware, isolation, and tesla-to-joule fits are custom scope.
+
+**Does Model 14 include a calibrated vibration or TENG harvester?** No. The public card is an observer interface. Piezo/TENG hardware, machine-safety diagnostics, and joule-per-cycle fits are custom scope.
 
 **Does the host sandbox certify field energy use?** No. `SANDBOX/` runs placeholder joules on a laptop or CI runner.
 
