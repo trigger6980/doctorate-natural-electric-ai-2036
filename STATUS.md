@@ -1,6 +1,6 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-22 (hourly dual-agent: Model 22 cascade interface card + reopen-after-close enterprise page)
+**Last updated:** 2026-09-22 (hourly dual-agent: Model 23 KV-cache adapter card + decline-or-defer enterprise page)
 
 ## Completed
 - Flagship repository with professional structure, thesis skeleton, prototypes, 50-model catalog, Operator AI Machinery, Enterprise page.
@@ -34,17 +34,19 @@
 - Records-retention page (`ENTERPRISE/records-retention.md`) naming keep vs discard after closeout. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
 - Model 21 interface card (`21-quantized-random-forest-policy.md`) at the same depth as cards 01–20. Catalog index and GOAL.md updated. No trained forest, no control certificate, no measured vote joules.
 - Correction-notice page (`ENTERPRISE/correction-notice.md`) naming how factual errors are recorded after retention. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- **This hour (Agent 1):** Model 22 interface card (`22-hierarchical-early-exit-cascade.md`) at the same depth as cards 01–21. Catalog index and GOAL.md updated. No trained cascade, no inference certificate, no measured stage joules.
-- **This hour (Agent 2):** Reopen-after-close page (`ENTERPRISE/reopen-after-close.md`) naming how a closed engagement becomes a new inquiry. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
+- Model 22 interface card (`22-hierarchical-early-exit-cascade.md`) at the same depth as cards 01–21. Catalog index and GOAL.md updated. No trained cascade, no inference certificate, no measured stage joules.
+- Reopen-after-close page (`ENTERPRISE/reopen-after-close.md`) naming how a closed engagement becomes a new inquiry. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
+- **This hour (Agent 1):** Model 23 interface card (`23-memory-efficient-kv-cache-adapter.md`) at the same depth as cards 01–22. Catalog index and GOAL.md updated. No packed KV layout, no context-window certificate, no measured cache joules.
+- **This hour (Agent 2):** Decline-or-defer page (`ENTERPRISE/decline-or-defer.md`) naming how an inquiry is declined or deferred without inventing queue metrics. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
 
 ## Active Automation
 Hourly Dual-Agent Upgrade (Task ID a296e32a-8e33-4ff4-8276-bea9ef6bf936) continues to run.
 
 ## Next Priorities
-1. Continue deepening the 50-model catalog (card 23 next at the same interface depth) and Operator AI executor.
-2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, Model 20 `disagg_ok()`, Model 21 `rf_ok()`, or Model 22 `cascade_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, a trained NILM tree, a trained forest, or a trained cascade.
+1. Continue deepening the 50-model catalog (card 24 next at the same interface depth) and Operator AI executor.
+2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, Model 20 `disagg_ok()`, Model 21 `rf_ok()`, Model 22 `cascade_ok()`, or Model 23 `kv_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, a trained NILM tree, a trained forest, a trained cascade, or a packed KV layout.
 3. Dimension a real bench for the Class A slope sketch, or log `loop_t_*` / `tank_t` on the same clock.
-4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, `records-retention.md`, `correction-notice.md`, and `reopen-after-close.md` when adding any new sales-facing page.
+4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, `records-retention.md`, `correction-notice.md`, `reopen-after-close.md`, and `decline-or-defer.md` when adding any new sales-facing page.
 5. Do not publish prices or customer claims.
 
 ## Standing Directive

@@ -25,4 +25,5 @@
 - [x] Model card 20 given the same interface + energy-budget depth (tiny decision-tree disaggregator; no trained tree).
 - [x] Model card 21 given the same interface + energy-budget depth (quantized random-forest policy; no trained forest).
 - [x] Model card 22 given the same interface + energy-budget depth (hierarchical early-exit cascade; no trained cascade).
-- [ ] Additional model cards (23+) given the same interface + energy-budget depth.
+- [x] Model card 23 given the same interface + energy-budget depth (memory-efficient KV cache adapter; no packed KV).
+- [ ] Additional model cards (24+) given the same interface + energy-budget depth.
