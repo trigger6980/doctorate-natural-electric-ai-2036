@@ -24,4 +24,5 @@
 - [x] Model card 19 given the same interface + energy-budget depth (energy-neutral probability estimator; no survival curve).
 - [x] Model card 20 given the same interface + energy-budget depth (tiny decision-tree disaggregator; no trained tree).
 - [x] Model card 21 given the same interface + energy-budget depth (quantized random-forest policy; no trained forest).
-- [ ] Additional model cards (22+) given the same interface + energy-budget depth.
+- [x] Model card 22 given the same interface + energy-budget depth (hierarchical early-exit cascade; no trained cascade).
+- [ ] Additional model cards (23+) given the same interface + energy-budget depth.

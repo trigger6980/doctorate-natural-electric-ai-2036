@@ -19,7 +19,7 @@ See also:
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 - [Host sandbox](../../SANDBOX/README.md)
 
-Cards **01–21** now share the same interface + energy-budget + next-measurements pattern. Cards **22+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Model 13 is interface-only: no coil driver and no tesla-to-joule fit. Model 14 is interface-only: no piezo/TENG driver and no joule-per-cycle fit. Model 15 is interface-only: no photodiode driver and no lux-to-joule fit. Model 16 is interface-only: no TPM binding and no measured hash joules. Model 17 is interface-only: no on-device schema compiler and no measured parse joules. Model 18 is interface-only: no radio driver and no measured hop joules. Model 19 is interface-only: no measured survival curve and no energy-neutral certificate. Model 20 is interface-only: no trained decision tree and no NILM certificate. Model 21 is interface-only: no trained random forest and no control certificate.
+Cards **01–22** now share the same interface + energy-budget + next-measurements pattern. Cards **23+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Model 13 is interface-only: no coil driver and no tesla-to-joule fit. Model 14 is interface-only: no piezo/TENG driver and no joule-per-cycle fit. Model 15 is interface-only: no photodiode driver and no lux-to-joule fit. Model 16 is interface-only: no TPM binding and no measured hash joules. Model 17 is interface-only: no on-device schema compiler and no measured parse joules. Model 18 is interface-only: no radio driver and no measured hop joules. Model 19 is interface-only: no measured survival curve and no energy-neutral certificate. Model 20 is interface-only: no trained decision tree and no NILM certificate. Model 21 is interface-only: no trained random forest and no control certificate. Model 22 is interface-only: no trained cascade and no inference certificate.
 
 ---
 
@@ -48,7 +48,7 @@ Cards **01–21** now share the same interface + energy-budget + next-measuremen
 | 19 | Energy-Neutral Probability Estimator | Formal / Probabilistic | Low | Interface specified (no survival curve / no certificate) |
 | 20 | Tiny Decision Tree Disaggregator | NILM / Sensing | Ultra-low | Interface specified (no trained tree / no NILM certificate) |
 | 21 | Quantized Random Forest Policy | Control | Low | Interface specified (no trained forest / no control certificate) |
-| 22 | Hierarchical Early-Exit Cascade | Multi-stage Inference | Low–Medium | Catalog |
+| 22 | Hierarchical Early-Exit Cascade | Multi-stage Inference | Low–Medium | Interface specified (no trained cascade / no inference certificate) |
 | 23 | Memory-Efficient KV Cache Adapter | LLM Edge | Medium | Catalog |
 | 24 | Speculative Decode Lite | LLM Acceleration | Medium | Catalog |
 | 25 | On-Device Continual Learner (Constrained) | Adaptive Edge | Medium | Catalog |
