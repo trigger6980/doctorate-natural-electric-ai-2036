@@ -1,6 +1,6 @@
 # Enterprise engagement FAQ (process only)
 
-This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md), [`inquiry-completeness.md`](inquiry-completeness.md), [`quote-draft-outline.md`](quote-draft-outline.md), [`inquiry-response-template.md`](inquiry-response-template.md), [`post-quote-packet.md`](post-quote-packet.md), [`change-order.md`](change-order.md).
+This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md), [`inquiry-completeness.md`](inquiry-completeness.md), [`quote-draft-outline.md`](quote-draft-outline.md), [`inquiry-response-template.md`](inquiry-response-template.md), [`post-quote-packet.md`](post-quote-packet.md), [`change-order.md`](change-order.md), [`engagement-closeout.md`](engagement-closeout.md).
 
 ## Identical copy vs custom variant
 
@@ -20,7 +20,7 @@ The six-item gate is listed in [`inquiry-completeness.md`](inquiry-completeness.
 5. Identical vs custom vs undecided.
 6. Deployment context in one sentence.
 
-Incomplete inquiries receive questions. They do not receive a draft quote. After the gate, a written quote should follow [`quote-draft-outline.md`](quote-draft-outline.md). The maintainer paste-back lives in [`inquiry-response-template.md`](inquiry-response-template.md). After written acceptance, packet contents live in [`post-quote-packet.md`](post-quote-packet.md). After a packet exists, scope changes follow [`change-order.md`](change-order.md).
+Incomplete inquiries receive questions. They do not receive a draft quote. After the gate, a written quote should follow [`quote-draft-outline.md`](quote-draft-outline.md). The maintainer paste-back lives in [`inquiry-response-template.md`](inquiry-response-template.md). After written acceptance, packet contents live in [`post-quote-packet.md`](post-quote-packet.md). After a packet exists, scope changes follow [`change-order.md`](change-order.md). After packet and change orders settle, closeout follows [`engagement-closeout.md`](engagement-closeout.md).
 
 ## How licensing language stays honest
 - Public licenses (MIT for code, CC-BY-4.0 for docs, unless a file says otherwise) cover study and non-commercial exploration of the public tree.
@@ -36,7 +36,7 @@ Use only claims the public tree can support:
 - Catalog compatibility: custom work should keep the public model number as ancestry where possible.
 - Human well-being mission: off-grid and low-power intelligence for places the grid does not reliably reach.
 
-Do not put measured MTBF, customer logos, or field certification in a cover letter until those objects exist. Do not treat `SANDBOX/out/gen03_decisions.json` as a heat-stage certificate.
+Do not put measured MTBF, customer logos, or field certification in a cover letter until those objects exist. Do not treat `SANDBOX/out/gen03_decisions.json` as a heat-stage certificate. Do not treat Model 19 `neutral_ok` as an energy-neutral certificate.
 
 ## What the maintainer will ask next
 Typical clarifying questions after a complete inquiry:
@@ -45,7 +45,7 @@ Typical clarifying questions after a complete inquiry:
 - Is Operator AI in scope or only the model card?
 - Air-gap media or private repository transfer?
 
-Paste order for those replies is in [`inquiry-response-template.md`](inquiry-response-template.md). After acceptance, use [`post-quote-packet.md`](post-quote-packet.md). After a packet exists, use [`change-order.md`](change-order.md).
+Paste order for those replies is in [`inquiry-response-template.md`](inquiry-response-template.md). After acceptance, use [`post-quote-packet.md`](post-quote-packet.md). After a packet exists, use [`change-order.md`](change-order.md). After settled changes, use [`engagement-closeout.md`](engagement-closeout.md).
 
 ## What this page will not grow into
 No rate card, no checkout SKU, no invented testimonials. If a repeatable quote process is later measured, STATUS.md will say so.
