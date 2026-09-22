@@ -20,4 +20,5 @@
 - [x] Host CI workflow for public Python tests (`.github/workflows/host-tests.yml`).
 - [x] Model card 16 given the same interface + energy-budget depth (integrity auditor; no TPM).
 - [x] Model card 17 given the same interface + energy-budget depth (air-gap config validator; no schema compiler).
-- [ ] Additional model cards (18+) given the same interface + energy-budget depth.
+- [x] Model card 18 given the same interface + energy-budget depth (local mesh routing policy; no radio driver).
+- [ ] Additional model cards (19+) given the same interface + energy-budget depth.
