@@ -6,7 +6,7 @@ This page describes how organizations may request identical copies or customized
 
 Mission alignment: Natural Electric systems and Future AI work in this portfolio is aimed at human well-being — reliable off-grid intelligence, honest energy accounting, and operator tooling that remains inspectable. Commercial engagements are expected to keep that orientation: no fabricated performance claims, no hidden energy costs, and no deployment that the buyer cannot audit. Allowed vs forbidden cover-letter claims are listed in [`well-being-alignment.md`](well-being-alignment.md).
 
-Companion pages: [Scope assumptions for a quote](scope-assumptions.md) — the facts a quote must label true or false. [Inquiry template](inquiry-template.md). [Inquiry completeness gate](inquiry-completeness.md). [Quote draft outline](quote-draft-outline.md) — sections a written quote should contain after the gate. [Inquiry response template](inquiry-response-template.md) — what the maintainer pastes back. [Engagement FAQ (process only)](engagement-faq.md). [Licensing boundary](licensing-boundary.md) — what public licenses cover versus what a contract may sell. [Well-being alignment](well-being-alignment.md) — what commercial language may repeat.
+Companion pages: [Scope assumptions for a quote](scope-assumptions.md) — the facts a quote must label true or false. [Inquiry template](inquiry-template.md). [Inquiry completeness gate](inquiry-completeness.md). [Quote draft outline](quote-draft-outline.md) — sections a written quote should contain after the gate. [Inquiry response template](inquiry-response-template.md) — what the maintainer pastes back. [Post-quote packet checklist](post-quote-packet.md) — files after written acceptance. [Engagement FAQ (process only)](engagement-faq.md). [Licensing boundary](licensing-boundary.md) — what public licenses cover versus what a contract may sell. [Well-being alignment](well-being-alignment.md) — what commercial language may repeat.
 
 ## What Is Offered
 - Access to any of the 50 architectural models (or future additions) in the Genetic / Architectural Model Database.
@@ -23,16 +23,16 @@ Companion pages: [Scope assumptions for a quote](scope-assumptions.md) — the f
 | Fork and study under the public licenses | Ship a product that treats a catalog model as a commercial deliverable |
 | Open an `enterprise-inquiry` issue | Receive a written quote or private artifacts |
 
-Interface-specified cards (currently 02–16) are design contracts, not finished binaries. Model 11’s host allocator is a local partitioner, not a licensed energy market or mesh stack. Model 12’s checkpoint is host JSON, not flash. Model 13 has no coil driver and no tesla-to-joule calibration. Model 14 has no piezo/TENG driver and no joule-per-cycle calibration. Model 15 has no photodiode driver and no lux-to-joule calibration. Model 16 has no TPM binding and no measured hash energy.
+Interface-specified cards (currently 02–17) are design contracts, not finished binaries. Model 11’s host allocator is a local partitioner, not a licensed energy market or mesh stack. Model 12’s checkpoint is host JSON, not flash. Model 13 has no coil driver and no tesla-to-joule calibration. Model 14 has no piezo/TENG driver and no joule-per-cycle calibration. Model 15 has no photodiode driver and no lux-to-joule calibration. Model 16 has no TPM binding and no measured hash energy. Model 17 has no on-device schema compiler and no measured parse energy.
 
 ## Inquiry process
 1. Review the public catalog: `MODELS/genetic-architectural-database/`.
 2. Identify the model number(s) of interest and any customization needs.
 3. Open a GitHub issue titled `enterprise-inquiry: <model ids>` **or** contact the maintainer (kalidd komoddo / trigger6980) using the email on the GitHub profile. Include the checklist below **and** the scope-assumptions table.
 4. The maintainer replies with questions and a draft statement of work. Nothing is owed until a written contract is signed. The paste-back text lives in [`inquiry-response-template.md`](inquiry-response-template.md).
-5. Upon agreement and execution of the contract, the requested artifacts are delivered.
+5. Upon agreement and execution of the contract, the requested artifacts are delivered. The packet shape is listed in [`post-quote-packet.md`](post-quote-packet.md).
 
-Use [`inquiry-template.md`](inquiry-template.md) as the paste-in form. An inquiry is complete enough to discuss only when the six items in [`inquiry-completeness.md`](inquiry-completeness.md) are present. After that gate, a written quote should follow [`quote-draft-outline.md`](quote-draft-outline.md). Process questions that are not model-specific live in [`engagement-faq.md`](engagement-faq.md). License-object definitions live in [`licensing-boundary.md`](licensing-boundary.md). Cover-letter claim limits live in [`well-being-alignment.md`](well-being-alignment.md).
+Use [`inquiry-template.md`](inquiry-template.md) as the paste-in form. An inquiry is complete enough to discuss only when the six items in [`inquiry-completeness.md`](inquiry-completeness.md) are present. After that gate, a written quote should follow [`quote-draft-outline.md`](quote-draft-outline.md). After written acceptance, the packet follows [`post-quote-packet.md`](post-quote-packet.md). Process questions that are not model-specific live in [`engagement-faq.md`](engagement-faq.md). License-object definitions live in [`licensing-boundary.md`](licensing-boundary.md). Cover-letter claim limits live in [`well-being-alignment.md`](well-being-alignment.md).
 
 ### Inquiry checklist (paste into the issue)
 - Model number(s):
@@ -51,7 +51,7 @@ There is no ticket SLA and no automated intake bot. The sequence below is the in
 2. **Clarify scope** against the public model cards (identical vs custom, Operator AI integration, air-gap delivery).
 3. **State assumptions** about energy budgets: simulator placeholders vs numbers the buyer will measure. Use the scope-assumptions table; do not skip it.
 4. **Write a quote** only after those assumptions are explicit. Follow [`quote-draft-outline.md`](quote-draft-outline.md). The quote is a document, not a checkout button.
-5. **Contract then delivery.** Work starts after written agreement. Public-tree files stay public; private deliverables stay private.
+5. **Contract then delivery.** Work starts after written agreement. Public-tree files stay public; private deliverables stay private. Packet contents: [`post-quote-packet.md`](post-quote-packet.md).
 
 If an inquiry is incomplete, the only next step is questions — not a placeholder price.
 
@@ -110,7 +110,7 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 
 **What if my inquiry skips the assumptions table?** Expect questions first. A quote will not be drafted on unlabeled energy claims. See [`inquiry-completeness.md`](inquiry-completeness.md).
 
-**Does an interface-specified card mean the model is ready to license as weights?** No. Cards 02–16 document interfaces. Weights, indexes, local LLM runtimes, mesh radios, flash drivers, coil firmware, tesla fits, piezo/TENG drivers, joule-per-cycle fits, photodiode drivers, lux-to-joule fits, TPM bindings, measured hash joules, and joule measurements are separate scoped work.
+**Does an interface-specified card mean the model is ready to license as weights?** No. Cards 02–17 document interfaces. Weights, indexes, local LLM runtimes, mesh radios, flash drivers, coil firmware, tesla fits, piezo/TENG drivers, joule-per-cycle fits, photodiode drivers, lux-to-joule fits, TPM bindings, measured hash joules, on-device schema compilers, measured parse joules, and joule measurements are separate scoped work.
 
 **Does Model 11 include a multi-node energy market?** No. The public stub only partitions one local pool. A contracted mesh or market would be custom scope.
 
@@ -122,9 +122,11 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 
 **Does Model 16 include a TPM or certified secure boot?** No. The public card is an integrity-gate interface. TPM binding, fuse programming, and measured hash energy are custom scope.
 
+**Does Model 17 include an on-device policy compiler or STIG/CIS certification?** No. The public card is a config-gate interface. Schema compilers, signed-config services, and measured parse energy are custom scope.
+
 **Does the host sandbox certify field energy use?** No. `SANDBOX/` runs placeholder joules on a laptop or CI runner. The Gen03 control stub names refuse/run states only. `gen03_decisions.json` is a host log of named scenarios, not a heat-stage certificate.
 
-Process-only questions (identical vs custom, complete-inquiry contents, allowed cover-letter claims) are expanded in [`engagement-faq.md`](engagement-faq.md) and [`inquiry-completeness.md`](inquiry-completeness.md). License-object definitions are in [`licensing-boundary.md`](licensing-boundary.md). Mission language limits are in [`well-being-alignment.md`](well-being-alignment.md). Quote section order is in [`quote-draft-outline.md`](quote-draft-outline.md). Maintainer paste-back text is in [`inquiry-response-template.md`](inquiry-response-template.md).
+Process-only questions (identical vs custom, complete-inquiry contents, allowed cover-letter claims) are expanded in [`engagement-faq.md`](engagement-faq.md) and [`inquiry-completeness.md`](inquiry-completeness.md). License-object definitions are in [`licensing-boundary.md`](licensing-boundary.md). Mission language limits are in [`well-being-alignment.md`](well-being-alignment.md). Quote section order is in [`quote-draft-outline.md`](quote-draft-outline.md). Maintainer paste-back text is in [`inquiry-response-template.md`](inquiry-response-template.md). Packet contents after acceptance are in [`post-quote-packet.md`](post-quote-packet.md).
 
 ## Contact for Enterprise Inquiries
 Open a GitHub issue in this repository with the title prefix `enterprise-inquiry` and the checklist above.
