@@ -7,7 +7,8 @@ Treats supercapacitor / battery voltage as the primary energy-state signal.
 from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Optional
-import time
+
+from supercap_voltage_proxy import voltage_from_joules
 
 
 class Action(Enum):
@@ -46,8 +47,18 @@ def simple_threshold_policy(state: EnergyState, cfg: PolicyConfig) -> Action:
     return Action.SLEEP
 
 
-def simulate_step(state: EnergyState, action: Action, cfg: PolicyConfig) -> EnergyState:
-    """Host-side energy accounting for tests. Hardware will replace this."""
+def simulate_step(
+    state: EnergyState,
+    action: Action,
+    cfg: PolicyConfig,
+    C_farads: Optional[float] = None,
+) -> EnergyState:
+    """Host-side energy accounting for tests. Hardware will replace this.
+
+    Default keeps the original linear voltage drop so existing tests stay
+    comparable. Pass C_farads explicitly to map remaining joules through
+    the Model 05 analytic capacitor equation. C is still uncalibrated.
+    """
     cost = {
         Action.SLEEP: 0.0001,
         Action.SENSE: cfg.sense_cost_j,
@@ -55,8 +66,10 @@ def simulate_step(state: EnergyState, action: Action, cfg: PolicyConfig) -> Ener
         Action.TRANSMIT: cfg.tx_cost_j,
     }[action]
     new_j = max(0.0, state.estimated_joules - cost)
-    # crude voltage model — replace with real capacitor equation
-    new_v = max(cfg.v_min_safe - 0.1, state.voltage_v - (cost * 0.1))
+    if C_farads is None:
+        new_v = max(cfg.v_min_safe - 0.1, state.voltage_v - (cost * 0.1))
+    else:
+        new_v = voltage_from_joules(new_j, C_farads, v_min_useful=cfg.v_min_safe)
     return EnergyState(voltage_v=new_v, estimated_joules=new_j, lux=state.lux)
 
 
