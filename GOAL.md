@@ -19,4 +19,5 @@
 - [x] Host sandbox runner for specialized-agent demo graph (`SANDBOX/run_prototypes.py`).
 - [x] Host CI workflow for public Python tests (`.github/workflows/host-tests.yml`).
 - [x] Model card 16 given the same interface + energy-budget depth (integrity auditor; no TPM).
-- [ ] Additional model cards (17+) given the same interface + energy-budget depth.
+- [x] Model card 17 given the same interface + energy-budget depth (air-gap config validator; no schema compiler).
+- [ ] Additional model cards (18+) given the same interface + energy-budget depth.
