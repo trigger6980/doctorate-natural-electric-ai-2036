@@ -8,14 +8,16 @@ Mission alignment: quotes should keep energy accounting honest and should not im
 
 | Assumption | Public-tree default today | Why it matters |
 | --- | --- | --- |
-| Energy costs are measured on buyer hardware | False — cards 01–11 mark simulator placeholders | A quote that skips this is selling fiction |
+| Energy costs are measured on buyer hardware | False — cards 01–12 mark simulator placeholders | A quote that skips this is selling fiction |
 | Model 05 `C_farads` is calibrated | False — helper exists, fit does not | Remaining joules stay untrusted |
 | Models 06–07 have trained weights | False — interface only | Inference deliverables are design notes unless scoped |
 | Model 08 has a spike kernel or measured event energy | False — interface only | Do not sell picojoule-per-spike figures |
 | Model 09 has an on-device index or embedder | False — interface only | Retrieval deliverables are design notes unless scoped |
 | Model 10 has a local runtime binary or GGUF weights | False — interface only | Generation deliverables are design notes unless scoped |
-| Model 11 has a radio mesh or measured allocation joules | False — host allocator stub only | Do not sell multi-node energy markets |
-| Operator AI checkpoints persist on-device flash | False — host JSON file only | Do not promise MCU wear-leveling |
+| Model 11 has a radio mesh or measured allocation joules | False — host allocator + brokered executor only | Do not sell multi-node energy markets |
+| Model 12 checkpoints persist on-device flash | False — host JSON file only | Do not promise MCU wear-leveling |
+| Operator AI checkpoints persist on-device flash | False — host JSON file only | Same row as Model 12 |
+| Host sandbox equals field certification | False — `SANDBOX/` is a host demo | Do not sell sandbox logs as measured joules |
 | SLA / response-time metric exists | False | Do not put hours-to-reply in a quote as if measured |
 | Public licenses cover production shipment | Not assumed | Production use is intended under explicit contract |
 

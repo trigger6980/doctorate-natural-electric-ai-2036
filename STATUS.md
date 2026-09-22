@@ -1,21 +1,21 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-21 ~19:14 CDT (Hourly Dual-Agent run)
+**Last updated:** 2026-09-21 ~20:09 CDT (requested sandbox + next-priority run)
 
-## This run (2026-09-21 19:14 CDT)
-Two specialized agents completed three concrete, truthful upgrades. No metrics or customers were invented.
+## This run (2026-09-21 20:09 CDT)
+Two specialized agents treated Model 11 as the design contract and executed the published next priorities. No metrics or customers were invented.
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Deepened model card **11** (multi-agent energy broker) to the interface + energy-budget + next-measurements pattern used by 01–10.
-- Added host allocator stub `AGENTS/energy_broker.py` with tests: greedy priority, reserve floor, no over-grant, stable tie-break. Not a radio mesh.
-- Wired optional `C_farads` into `simulate_step` via new `voltage_from_joules` inverse helper. Default path stays the original linear voltage drop.
-- Catalog index now marks 11 as interface + host allocator stub. GOAL.md checkbox moved from 04–10 to 04–11; 12+ remains open.
-- No joule measurements, no mesh radio, and no calibrated C this hour.
+- Added `AGENTS/brokered_executor.py`: grant before run; grant below `min_joules` maps to skip.
+- Added tests for skip, reserve-refuse-all, and transmit-priority.
+- Deepened model card **12** (intermittent compute checkpoint) to the interface + energy-budget pattern. Host JSON only; no flash driver.
+- Added host sandbox `SANDBOX/run_prototypes.py` with four specialized agents (sense, infer, retrieve, generate). Default pool skips generate on purpose.
+- Added `.github/workflows/host-tests.yml` so public Python tests and the sandbox runner execute on push.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Extended `ENTERPRISE/scope-assumptions.md` with an explicit false default for Model 11 radio mesh / measured allocation joules.
-- Public-tree vs contract table and FAQ now treat cards 02–11 as interface specifications; Model 11 is labeled a local partitioner, not an energy market.
-- Energy broker tests added to the list of host tests that must not be sold as certified field performance.
+- Scope-assumptions now cover Model 12 flash and "sandbox ≠ field certification".
+- Public-vs-contract table and FAQ list cards 02–12 and the sandbox as host-only.
+- Still no prices, customers, or SLAs.
 
 ## Completed (cumulative)
 - Flagship repository live with professional structure.
@@ -25,9 +25,10 @@ Two specialized agents completed three concrete, truthful upgrades. No metrics o
 - 2036 agent-skills authorization model.
 - Literature map + open problems starters.
 - Security / desktop-firewall skeleton + read-only listen inventory.
-- Genetic / Architectural Model Database with 50 catalogued models (detailed cards for 01–11; models 01–11 now have interface + energy budget).
-- Operator AI Machinery foundational document + task-graph executor + policy gate + host-file checkpoints + energy broker stub.
-- Enterprise Order & Contract page with inquiry checklist, post-inquiry sequence, quote-formation notes, placeholder tiers, FAQ, public-vs-contract table, and scope-assumptions companion.
+- Genetic / Architectural Model Database with 50 catalogued models (detailed cards for 01–12).
+- Operator AI Machinery + task-graph + policy gate + host JSON checkpoints + energy broker + brokered executor + host sandbox.
+- Enterprise Order & Contract page with inquiry checklist, assumptions table, placeholder tiers, FAQ.
+- Host CI workflow for prototype tests.
 - Hourly Dual-Agent Upgrade automation activated.
 
 ## Active Automation
@@ -39,10 +40,10 @@ Two specialized agents completed three concrete, truthful upgrades. No metrics o
 2. Enterprise & Business Ventures Agent — advances Enterprise Order page, professional commercial framing, and business readiness (truthful, no fabricated claims).
 
 ## In Progress / Next Priorities
-1. Deepen model card **12** (intermittent compute checkpoint) with the same interface + energy-budget pattern.
-2. Optionally connect the energy broker to the task-graph executor (grant before run; refuse maps to skip).
+1. Deepen model card **13** (magnetic field harvest predictor) with the same interface + energy-budget pattern.
+2. Optionally add an energy argument to `Checkpoint.save` (Model 12 persist cost placeholder).
 3. Keep Enterprise language current; do not publish prices until a real quote process exists.
-4. Run scheduler + proxy + task-graph + policy-gate + listen-inventory + energy-broker tests in CI when a workflow file is added.
+4. Confirm the new `host-tests` workflow is green on GitHub Actions after this push.
 
 ## Standing Directive
 Use all available connectors and skills with quality prioritization. Authorize specialized agents via the skill system. Keep GitHub updated. Teach step-by-step. Prefer verifiable prototypes and truthful documentation over claims.
