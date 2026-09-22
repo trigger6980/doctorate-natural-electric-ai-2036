@@ -29,5 +29,7 @@ Dimensional ranges, flue / draft rules of thumb, clearances to combustibles, and
 ## Water-side exchanger
 Jacket / coil / mass-bench classes, potable isolation, and gravity-vs-pump honesty live in [`water-side-exchanger.md`](water-side-exchanger.md). No UA, GPM, or recovery-rate numbers are published.
 
+A first named home-lab layout for **Class A (tank water jacket)** lives in [`home-lab-class-a-slope-sketch.md`](home-lab-class-a-slope-sketch.md). Elevations and vents only — still no measured ΔT.
+
 ## Status
-Design principles, high-level BOM, first-cut flue / clearance / combustion-safety notes, and first-cut water-side exchanger classes are in-tree. Named-site draft measurements, measured exchanger performance, and sensor integration remain open.
+Design principles, high-level BOM, first-cut flue / clearance / combustion-safety notes, first-cut water-side exchanger classes, and a Class A home-lab slope sketch are in-tree. Named-site draft measurements, measured exchanger performance, and sensor integration remain open.

@@ -18,4 +18,5 @@
 - [x] Model 11 connected to the task-graph (`brokered_run`: grant before run; refuse maps to skip).
 - [x] Host sandbox runner for specialized-agent demo graph (`SANDBOX/run_prototypes.py`).
 - [x] Host CI workflow for public Python tests (`.github/workflows/host-tests.yml`).
-- [ ] Additional model cards (16+) given the same interface + energy-budget depth.
+- [x] Model card 16 given the same interface + energy-budget depth (integrity auditor; no TPM).
+- [ ] Additional model cards (17+) given the same interface + energy-budget depth.

@@ -19,7 +19,7 @@ See also:
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 - [Host sandbox](../../SANDBOX/README.md)
 
-Cards **01–15** now share the same interface + energy-budget + next-measurements pattern. Cards **16+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Model 13 is interface-only: no coil driver and no tesla-to-joule fit. Model 14 is interface-only: no piezo/TENG driver and no joule-per-cycle fit. Model 15 is interface-only: no photodiode driver and no lux-to-joule fit.
+Cards **01–16** now share the same interface + energy-budget + next-measurements pattern. Cards **17+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Model 13 is interface-only: no coil driver and no tesla-to-joule fit. Model 14 is interface-only: no piezo/TENG driver and no joule-per-cycle fit. Model 15 is interface-only: no photodiode driver and no lux-to-joule fit. Model 16 is interface-only: no TPM binding and no measured hash joules.
 
 ---
 
@@ -42,7 +42,7 @@ Cards **01–15** now share the same interface + energy-budget + next-measuremen
 | 13 | Magnetic Field Harvest Predictor | Ambient Magnetic | Ultra-low | Interface specified (no coil / no tesla fit) |
 | 14 | Vibration / TENG Feature Extractor | Mechanical Harvest | Ultra-low | Interface specified (no piezo-TENG / no cycle fit) |
 | 15 | Indoor Lux Adaptive Scheduler | Indoor PV | Ultra-low | Interface specified (no photodiode / no lux-joule fit) |
-| 16 | Secure Integrity Auditor | Security | Low | Catalog |
+| 16 | Secure Integrity Auditor | Security | Low | Interface specified (no TPM / no measured hash J) |
 | 17 | Air-Gap Config Validator | Security / Networking | Low | Catalog |
 | 18 | Local Mesh Routing Policy | Sovereign Networking | Low | Catalog |
 | 19 | Energy-Neutral Probability Estimator | Formal / Probabilistic | Low | Catalog |

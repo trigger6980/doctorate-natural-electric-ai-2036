@@ -15,6 +15,8 @@ Flue, draft, and people-safety live in [`flue-clearance-and-safety.md`](flue-cle
 
 Do not mix Class B combustion-side coils with potable water unless the loop is explicitly closed and isolated. Prefer a closed loop + tank coil for potable service.
 
+**Home-lab pick:** Class A is the named first sketch — [`home-lab-class-a-slope-sketch.md`](home-lab-class-a-slope-sketch.md).
+
 ## Isolation and potable-water rule
 
 - Potable tank water should not be the same fluid that sits inside a combustion-adjacent coil unless a listed double-wall exchanger is used. This repo does not specify a listed part number.
@@ -57,6 +59,6 @@ These names match the biome layout document. They are not wired to firmware in t
 
 ## Next engineering steps (not done)
 
-1. Pick one class for a named home-lab sketch.
-2. Draw pipe slopes and high-point vents.
+1. Pick one class for a named home-lab sketch. **Done for Class A** — see [`home-lab-class-a-slope-sketch.md`](home-lab-class-a-slope-sketch.md).
+2. Draw pipe slopes and high-point vents on a *dimensioned* bench (still open).
 3. Measure `loop_t_out - loop_t_in` *and* tank rise before anyone writes watts.

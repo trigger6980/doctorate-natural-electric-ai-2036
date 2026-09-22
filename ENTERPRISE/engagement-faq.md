@@ -1,6 +1,6 @@
 # Enterprise engagement FAQ (process only)
 
-This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md), [`inquiry-completeness.md`](inquiry-completeness.md), [`quote-draft-outline.md`](quote-draft-outline.md).
+This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md), [`inquiry-completeness.md`](inquiry-completeness.md), [`quote-draft-outline.md`](quote-draft-outline.md), [`inquiry-response-template.md`](inquiry-response-template.md).
 
 ## Identical copy vs custom variant
 
@@ -20,7 +20,7 @@ The six-item gate is listed in [`inquiry-completeness.md`](inquiry-completeness.
 5. Identical vs custom vs undecided.
 6. Deployment context in one sentence.
 
-Incomplete inquiries receive questions. They do not receive a draft quote. After the gate, a written quote should follow [`quote-draft-outline.md`](quote-draft-outline.md).
+Incomplete inquiries receive questions. They do not receive a draft quote. After the gate, a written quote should follow [`quote-draft-outline.md`](quote-draft-outline.md). The maintainer paste-back lives in [`inquiry-response-template.md`](inquiry-response-template.md).
 
 ## How licensing language stays honest
 - Public licenses (MIT for code, CC-BY-4.0 for docs, unless a file says otherwise) cover study and non-commercial exploration of the public tree.
@@ -44,6 +44,8 @@ Typical clarifying questions after a complete inquiry:
 - Who measures joules — buyer lab, joint test, or later phase?
 - Is Operator AI in scope or only the model card?
 - Air-gap media or private repository transfer?
+
+Paste order for those replies is in [`inquiry-response-template.md`](inquiry-response-template.md).
 
 ## What this page will not grow into
 No rate card, no checkout SKU, no invented testimonials. If a repeatable quote process is later measured, STATUS.md will say so.
