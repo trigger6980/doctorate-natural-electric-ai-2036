@@ -1,0 +1,25 @@
+name: host-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python-prototypes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run host prototype tests
+        run: |
+          python PROTOTYPES/energy-harvester-tinyml/tests/test_scheduler.py
+          python PROTOTYPES/energy-harvester-tinyml/tests/test_supercap_voltage_proxy.py
+          python AGENTS/test_task_graph_executor.py
+          python AGENTS/test_policy_gated_executor.py
+          python AGENTS/test_energy_broker.py
+          python AGENTS/test_brokered_executor.py
+          python SECURITY/desktop-firewall-components/test_listen_inventory.py
+          python SANDBOX/run_prototypes.py
