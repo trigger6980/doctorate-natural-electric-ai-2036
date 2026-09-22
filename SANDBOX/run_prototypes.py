@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / "PROTOTYPES" / "energy-harvester-tinyml" / "src"))
 
 from brokered_executor import brokered_run  # noqa: E402
 from energy_aware_scheduler import run_simulation  # noqa: E402
-from energy_broker import EnergyRequest, allocate  # noqa: E402
+from energy_broker import EnergyRequest, allocate_all_or_nothing  # noqa: E402
 from task_graph_executor import Task, TaskGraphExecutor  # noqa: E402
 
 OUT = Path(__file__).resolve().parent / "out"
@@ -46,7 +46,7 @@ def main() -> int:
         EnergyRequest("retrieve", want_j=0.05, priority=2),
         EnergyRequest("generate", want_j=0.40, priority=3),
     ]
-    grants = allocate(pool_j=pool_j, requests=requests, reserve_j=reserve_j)
+    grants = allocate_all_or_nothing(pool_j=pool_j, requests=requests, reserve_j=reserve_j)
     grant_doc = {g.agent_id: g.granted_j for g in grants}
     (OUT / "broker_grants.json").write_text(json.dumps(grant_doc, indent=2), encoding="utf-8")
 
@@ -67,7 +67,8 @@ def main() -> int:
         "completed": cp.completed,
         "skipped": cp.context.get("_broker_skipped"),
         "aborted_reason": cp.aborted_reason,
-        "grants": grant_doc,
+        "grants_all_or_nothing": grant_doc,
+        "brokered_grants": cp.context.get("_broker_grants"),
         "checkpoint": str(path),
         "note": "Host sandbox only. Placeholder joules. Generate skip under default pool is expected.",
     }

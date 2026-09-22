@@ -84,7 +84,6 @@ class TaskGraphExecutor:
             cp.context.update(context)
         remaining_j = float(estimated_joules)
 
-        # Simple topological-ish order: tasks whose deps are done first.
         pending = [t for t in self.tasks.values() if t.name not in cp.completed]
         safety = 0
         while pending and safety < 256:
@@ -95,7 +94,8 @@ class TaskGraphExecutor:
                 if not all(d in cp.completed for d in task.depends_on):
                     still.append(task)
                     continue
-                if remaining_j < task.min_joules:
+                # Equality must be allowed; float subtraction can land a hair under.
+                if remaining_j + 1e-12 < task.min_joules:
                     cp.aborted_reason = (
                         f"energy_gate:{task.name}:need={task.min_joules}:have={remaining_j:.6f}"
                     )
