@@ -9,8 +9,10 @@
 - [x] Thesis abstract + first research axis document pushed.
 - [x] 2036 skill set and agent authorization model documented.
 - [x] Security/networking component skeleton started.
-- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files; hardware measurements still pending).
+- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker; hardware measurements still pending).
 - [x] Operator AI task-graph executor beyond host skeleton for *policy gating* and *host-file checkpoint persistence* (on-device flash mapping and hardware energy observer still open).
-- [x] Model cards 04–10 given the same interface + energy-budget depth as models 01–03.
+- [x] Model cards 04–11 given the same interface + energy-budget depth as models 01–03.
 - [x] Model 05 host helper `joules_from_voltage` (uncalibrated; C must be supplied).
-- [ ] Additional model cards (11+) given the same interface + energy-budget depth.
+- [x] Model 05 inverse helper `voltage_from_joules` wired into `simulate_step` only when `C_farads` is explicit.
+- [x] Model 11 host allocator stub (`allocate`) with tests; no mesh radio.
+- [ ] Additional model cards (12+) given the same interface + energy-budget depth.

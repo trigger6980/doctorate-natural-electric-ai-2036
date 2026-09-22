@@ -18,7 +18,7 @@ See also:
 - [Scope assumptions for a quote](../../ENTERPRISE/scope-assumptions.md)
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 
-Cards **01–10** now share the same interface + energy-budget + next-measurements pattern. Cards **11+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage`) that is **analytic and uncalibrated**.
+Cards **01–11** now share the same interface + energy-budget + next-measurements pattern. Cards **12+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) that does **not** implement a radio mesh.
 
 ---
 
@@ -36,7 +36,7 @@ Cards **01–10** now share the same interface + energy-budget + next-measuremen
 | 08 | Event-Driven Spiking Encoder | Neuromorphic | Ultra-low | Interface specified |
 | 09 | Local RAG Retriever (Quantized) | Offline Knowledge | Medium | Interface specified |
 | 10 | Offline LLM Runtime Adapter | Off-grid AI Box | Medium–High | Interface specified |
-| 11 | Multi-Agent Energy Broker | Agentic Mesh | Low | Catalog |
+| 11 | Multi-Agent Energy Broker | Agentic Mesh | Low | Interface + host allocator stub |
 | 12 | Intermittent Compute Checkpoint Model | Batteryless | Ultra-low | Catalog |
 | 13 | Magnetic Field Harvest Predictor | Ambient Magnetic | Ultra-low | Catalog |
 | 14 | Vibration / TENG Feature Extractor | Mechanical Harvest | Ultra-low | Catalog |
