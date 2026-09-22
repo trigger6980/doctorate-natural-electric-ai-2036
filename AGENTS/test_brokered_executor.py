@@ -47,7 +47,8 @@ def test_priority_prefers_transmit():
             Task("tx", _mark("tx"), min_joules=0.08, tags=["transmit"]),
         ]
     )
-    cp = brokered_run(graph, estimated_joules=0.08, reserve_j=0.0)
+    # 0.081 covers two-request placeholder broker overhead (0.0004 J).
+    cp = brokered_run(graph, estimated_joules=0.081, reserve_j=0.0)
     assert cp.completed == ["tx"]
     assert "infer" in cp.context["_broker_skipped"]
 
