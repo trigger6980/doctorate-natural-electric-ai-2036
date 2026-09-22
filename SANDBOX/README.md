@@ -9,6 +9,7 @@ It is not a VM, not an MCU, and not a licensed runtime pack.
 2. Model 11 `allocate` across four named local agents (sense, infer, retrieve, generate).
 3. Model 11 ↔ task-graph `brokered_run` (grant before run; refuse maps to skip).
 4. Model 12 host checkpoint write to `SANDBOX/out/checkpoint.json`.
+5. Generator 03 control-name log (`SANDBOX/out/gen03_decisions.json`) from labeled host scenarios. Names only; no watts.
 
 ## How to run
 From the repository root:
@@ -36,3 +37,4 @@ With the default 0.12 J pool and 0.01 J reserve, generate is expected to be **sk
 - Load GGUF weights or an embedding index
 - Open a network socket
 - Measure real joules
+- Drive a heat pump, Peltier stage, or TEG

@@ -1,6 +1,6 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-22 (hourly dual-agent: Gen03 host control stub + inquiry-completeness links on order/FAQ pages)
+**Last updated:** 2026-09-22 (hourly dual-agent: Gen03 sandbox decision log + quote-draft outline)
 
 ## Completed
 - Flagship repository with professional structure, thesis skeleton, prototypes, 50-model catalog, Operator AI Machinery, Enterprise page.
@@ -18,18 +18,20 @@
 - Well-being alignment page (`ENTERPRISE/well-being-alignment.md`) listing allowed vs forbidden commercial claims. No prices, customers, or SLAs.
 - Plant-side placeholders on `EnergyState` plus host gate `plant_observe_ok` in `energy_aware_scheduler.py`.
 - Inquiry completeness gate (`ENTERPRISE/inquiry-completeness.md`). No prices, customers, or SLAs.
-- **This hour (Agent 1):** Host stub `SANDBOX/gen03_control_stub.py` names Generator 03 states (`IDLE`, `CHARGE`, `HEAT_PUMP_RUN`, `PELTIER_ASSIST`, `REFUSE`, `TEG_TRICKLE`) and calls `plant_observe_ok`. Tests in `SANDBOX/test_gen03_control_stub.py` wired into `.github/workflows/host-tests.yml`. No invented joules, no compressor firmware.
-- **This hour (Agent 2):** Linked `inquiry-completeness.md` from `order-and-contract.md` and `engagement-faq.md`. FAQ now points at the six-item gate before a quote is discussed. No prices, customers, or SLAs.
+- Host stub `SANDBOX/gen03_control_stub.py` names Generator 03 states and calls `plant_observe_ok`. Tests wired into `.github/workflows/host-tests.yml`.
+- Inquiry-completeness links on `order-and-contract.md` and `engagement-faq.md`.
+- **This hour (Agent 1):** `SANDBOX/run_prototypes.py` writes `SANDBOX/out/gen03_decisions.json` from `named_host_scenarios()`. Decisions are named states only. Tests cover the scenario table. No invented joules, no compressor firmware.
+- **This hour (Agent 2):** Quote-draft outline (`ENTERPRISE/quote-draft-outline.md`) lists the ten sections a written quote should contain after the completeness gate. No prices, customers, or SLAs.
 
 ## Active Automation
 Hourly Dual-Agent Upgrade (Task ID a296e32a-8e33-4ff4-8276-bea9ef6bf936) continues to run.
 
 ## Next Priorities
-1. Optionally log Gen03 stub decisions from `SANDBOX/run_prototypes.py` without inventing joules.
-2. Continue deepening the 50-model catalog and Operator AI executor.
-3. Pick one Gen 02 exchanger class for a named home-lab pipe-slope sketch.
-4. Keep enterprise language tied to `well-being-alignment.md` and `inquiry-completeness.md` when adding any new sales-facing page.
-5. Model cards 16+ at the same interface + energy-budget depth as 01–15.
+1. Continue deepening the 50-model catalog and Operator AI executor.
+2. Pick one Gen 02 exchanger class for a named home-lab pipe-slope sketch.
+3. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, and `quote-draft-outline.md` when adding any new sales-facing page.
+4. Model cards 16+ at the same interface + energy-budget depth as 01–15.
+5. Link `quote-draft-outline.md` from `order-and-contract.md` if the companion list is still missing it after this commit (follow-up if needed).
 
 ## Standing Directive
 Use all available connectors and skills with quality prioritization. Authorize specialized agents. Keep GitHub updated. Prefer verifiable, reproducible designs. Never invent metrics, customers, or completed hardware measurements.

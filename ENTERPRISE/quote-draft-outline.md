@@ -1,0 +1,40 @@
+# Quote draft outline (no prices)
+
+This page is the **shape** of a written quote after an inquiry passes [`inquiry-completeness.md`](inquiry-completeness.md). It is not a rate card, not a checkout form, and not a promise that a quote will be issued.
+
+Companions: [`order-and-contract.md`](order-and-contract.md), [`engagement-faq.md`](engagement-faq.md), [`licensing-boundary.md`](licensing-boundary.md), [`well-being-alignment.md`](well-being-alignment.md).
+
+## When this outline may be used
+
+Only after the six completeness items are present. Until then the next action is questions.
+
+## Sections a written quote should contain
+
+1. **Parties and date** — names as given in the inquiry; no invented company logos.
+2. **Model numbers and ancestry** — public catalog ids; custom work keeps `NN-custom-<slug>` unless the buyer requires a private identifier.
+3. **Identical vs custom** — copied from the inquiry, not inferred.
+4. **Deliverable shape** — research replica / field customization / operator integration / sovereign (air-gap).
+5. **In-scope files** — cards, host tests, BOM notes, private pack. Each file listed as public-tree copy or private delivery.
+6. **Out of scope** — explicit list. Default out-of-scope objects unless the inquiry marked them in-scope: trained weights, board-specific measurement packs, flash mapping, coil/piezo/photodiode drivers, tesla-to-joule or lux-to-joule fits, listed-appliance certification, Generator 01–03 field COP.
+7. **Energy-honesty table** — every row from `scope-assumptions.md` restated as agreed / to-be-measured / out of scope. Host-sandbox joules stay labeled host-sandbox.
+8. **Who measures joules** — buyer lab, joint test, or later phase. Blank is not allowed in a quote.
+9. **Commercial figure** — one number or a small set of options, written only in the quote document. This repository still has no published price column.
+10. **What stays public** — MIT/CC files remain public. Private artifacts stay private.
+
+## Language that must not appear in the outline-as-filled
+
+- Customer logos or case studies this repository does not have.
+- SLA or MTBF numbers that have not been measured as a service.
+- Claims that `SANDBOX/out/gen03_decisions.json` certifies a heat stage.
+- Claims that cards 02–15 are licensed weight files.
+
+If a cover letter needs those objects, decline or narrow scope. See [`well-being-alignment.md`](well-being-alignment.md).
+
+## Maintainer fill order
+
+1. Copy model numbers and identical/custom from the issue.
+2. Copy the energy-honesty marks without upgrading “to-be-measured” into “agreed.”
+3. List files that count as done.
+4. Only then write a commercial figure off-repo.
+
+No prices, customers, or SLAs are added by this page.
