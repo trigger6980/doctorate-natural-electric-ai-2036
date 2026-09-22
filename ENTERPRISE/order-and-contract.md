@@ -6,7 +6,7 @@ This page describes how organizations may request identical copies or customized
 
 Mission alignment: Natural Electric systems and Future AI work in this portfolio is aimed at human well-being — reliable off-grid intelligence, honest energy accounting, and operator tooling that remains inspectable. Commercial engagements are expected to keep that orientation: no fabricated performance claims, no hidden energy costs, and no deployment that the buyer cannot audit.
 
-Companion pages: [Scope assumptions for a quote](scope-assumptions.md) — the facts a quote must label true or false. [Inquiry template](inquiry-template.md). [Engagement FAQ (process only)](engagement-faq.md).
+Companion pages: [Scope assumptions for a quote](scope-assumptions.md) — the facts a quote must label true or false. [Inquiry template](inquiry-template.md). [Engagement FAQ (process only)](engagement-faq.md). [Licensing boundary](licensing-boundary.md) — what public licenses cover versus what a contract may sell.
 
 ## What Is Offered
 - Access to any of the 50 architectural models (or future additions) in the Genetic / Architectural Model Database.
@@ -32,7 +32,7 @@ Interface-specified cards (currently 02–15) are design contracts, not finished
 4. The maintainer replies with questions and a draft statement of work. Nothing is owed until a written contract is signed.
 5. Upon agreement and execution of the contract, the requested artifacts are delivered.
 
-Use [`inquiry-template.md`](inquiry-template.md) as the paste-in form. Process questions that are not model-specific live in [`engagement-faq.md`](engagement-faq.md).
+Use [`inquiry-template.md`](inquiry-template.md) as the paste-in form. Process questions that are not model-specific live in [`engagement-faq.md`](engagement-faq.md). License-object definitions live in [`licensing-boundary.md`](licensing-boundary.md).
 
 ### Inquiry checklist (paste into the issue)
 - Model number(s):
@@ -83,7 +83,7 @@ These tiers exist so a conversation can start. **No prices are published. No cus
 | Operator integration | Models plugged into Operator AI Machinery | Task-graph mapping, energy gates, checkpoint policy |
 | Sovereign / air-gapped | Offline delivery and reviewable artifacts only | Media or private repo transfer; no telemetry |
 
-Licenses for commercial production use are negotiated. The public tree stays MIT (code) and CC-BY-4.0 (docs) unless a file says otherwise.
+Licenses for commercial production use are negotiated. The public tree stays MIT (code) and CC-BY-4.0 (docs) unless a file says otherwise. See [`licensing-boundary.md`](licensing-boundary.md) for objects that are not implied by a model number.
 
 ## Value propositions (truthful)
 - Energy-first control: policies that refuse work when joules are insufficient.
@@ -122,7 +122,7 @@ What is **not** claimed: production SLAs, certified safety ratings, measured fie
 
 **Does the host sandbox certify field energy use?** No. `SANDBOX/` runs placeholder joules on a laptop or CI runner.
 
-Process-only questions (identical vs custom, complete-inquiry contents, allowed cover-letter claims) are expanded in [`engagement-faq.md`](engagement-faq.md).
+Process-only questions (identical vs custom, complete-inquiry contents, allowed cover-letter claims) are expanded in [`engagement-faq.md`](engagement-faq.md). License-object definitions are in [`licensing-boundary.md`](licensing-boundary.md).
 
 ## Contact for Enterprise Inquiries
 Open a GitHub issue in this repository with the title prefix `enterprise-inquiry` and the checklist above.
