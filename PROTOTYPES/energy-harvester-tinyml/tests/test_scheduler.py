@@ -11,6 +11,7 @@ from energy_aware_scheduler import (
     simple_threshold_policy,
     simulate_step,
     run_simulation,
+    plant_observe_ok,
 )
 from supercap_voltage_proxy import voltage_from_joules
 
@@ -49,10 +50,49 @@ def test_simulate_step_optional_capacitor_map():
     assert nxt.voltage_v == voltage_from_joules(nxt.estimated_joules, 1.0, 3.3)
 
 
+def test_plant_fields_copy_through_simulate_step():
+    cfg = PolicyConfig()
+    state = EnergyState(
+        voltage_v=4.2,
+        estimated_joules=1.0,
+        collector_t_c=42.0,
+        tank_t_c=38.0,
+        exhaust_t_c=90.0,
+        cistern_level_frac=0.4,
+    )
+    nxt = simulate_step(state, Action.SENSE, cfg)
+    assert nxt.collector_t_c == 42.0
+    assert nxt.tank_t_c == 38.0
+    assert nxt.exhaust_t_c == 90.0
+    assert nxt.cistern_level_frac == 0.4
+
+
+def test_plant_observe_refuses_missing_tank_t():
+    cfg = PolicyConfig(require_tank_t_for_heat=True)
+    state = EnergyState(voltage_v=4.8, estimated_joules=1.0, tank_t_c=None)
+    assert plant_observe_ok(state, cfg) is False
+
+
+def test_plant_observe_refuses_when_tank_already_at_target():
+    cfg = PolicyConfig(require_tank_t_for_heat=True, tank_target_c=50.0)
+    state = EnergyState(voltage_v=4.8, estimated_joules=1.0, tank_t_c=55.0)
+    assert plant_observe_ok(state, cfg) is False
+
+
+def test_plant_observe_ok_when_tank_below_target():
+    cfg = PolicyConfig(require_tank_t_for_heat=True, tank_target_c=50.0)
+    state = EnergyState(voltage_v=4.8, estimated_joules=1.0, tank_t_c=40.0)
+    assert plant_observe_ok(state, cfg) is True
+
+
 if __name__ == "__main__":
     test_sleep_when_low_voltage()
     test_prefer_transmit_when_high_energy()
     test_simulation_runs_without_crash()
     test_simulate_step_default_stays_linear()
     test_simulate_step_optional_capacitor_map()
+    test_plant_fields_copy_through_simulate_step()
+    test_plant_observe_refuses_missing_tank_t()
+    test_plant_observe_refuses_when_tank_already_at_target()
+    test_plant_observe_ok_when_tank_below_target()
     print("All basic tests passed.")
