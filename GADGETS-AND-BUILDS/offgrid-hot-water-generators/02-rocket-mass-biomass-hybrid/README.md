@@ -18,8 +18,13 @@ High-efficiency rocket stove or rocket mass heater combusts small-diameter wood 
 - Requires responsible fuel sourcing and operator training.
 - Can be combined with solar thermal as a hybrid (solar primary, biomass backup).
 
+Those efficiency figures are literature ranges for well-built systems, not measurements from this repository.
+
 ## Control / Monitoring Sketch
 Exhaust and water temperatures feed safety interlocks and the Operator AI / energy-aware layer. System can signal when biomass firing is needed versus when solar has already satisfied demand.
 
+## Safety-critical notes
+Dimensional ranges, flue / draft rules of thumb, clearances to combustibles, and the minimum people-safety checklist live in [`flue-clearance-and-safety.md`](flue-clearance-and-safety.md). Those notes are a first cut, not a listed-appliance sheet.
+
 ## Status
-Design principles and high-level BOM complete. Safety-critical details, dimensional guidelines, and sensor integration will be expanded carefully in later iterations.
+Design principles, high-level BOM, and first-cut flue / clearance / combustion-safety notes are in-tree. Water-side exchanger sizing, named-site draft measurements, and sensor integration remain open.
