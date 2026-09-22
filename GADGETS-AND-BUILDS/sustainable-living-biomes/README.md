@@ -20,5 +20,8 @@
 - Be documentable and reproducible by independent builders.
 - Treat energy state, water inventory, and food production status as observable signals for intelligent agents.
 
+## First combined layout
+Named zones (energy pad, thermal spine, water, food, control) live in [`first-combined-layout.md`](first-combined-layout.md). That file is a schematic. It does not claim yields, self-sufficiency days, or a wired control policy.
+
 ## Status
-Architectural framing complete. Specific biome layouts, sizing calculations, and combined control policies will be developed as the three generators mature.
+Architectural framing plus a first combined layout are in-tree. Sizing calculations, sensor wiring, and combined control policies remain open.
