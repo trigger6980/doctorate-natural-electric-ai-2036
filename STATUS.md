@@ -1,6 +1,6 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-22 (hourly dual-agent: Model 24 speculative-decode card + public-tree handoff page)
+**Last updated:** 2026-09-22 (hourly dual-agent: Model 25 continual-learner card + measurement-hold page)
 
 ## Completed
 - Flagship repository with professional structure, thesis skeleton, prototypes, 50-model catalog, Operator AI Machinery, Enterprise page.
@@ -38,17 +38,19 @@
 - Reopen-after-close page (`ENTERPRISE/reopen-after-close.md`) naming how a closed engagement becomes a new inquiry. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
 - Model 23 interface card (`23-memory-efficient-kv-cache-adapter.md`) at the same depth as cards 01–22. Catalog index and GOAL.md updated. No packed KV layout, no context-window certificate, no measured cache joules.
 - Decline-or-defer page (`ENTERPRISE/decline-or-defer.md`) naming how an inquiry is declined or deferred without inventing queue metrics. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- **This hour (Agent 1):** Model 24 interface card (`24-speculative-decode-lite.md`) at the same depth as cards 01–23. Catalog index and GOAL.md updated. No draft model, no accept-rate certificate, no measured draft joules.
-- **This hour (Agent 2):** Public-tree handoff page (`ENTERPRISE/handoff-to-public-tree.md`) naming when the honest next step is study of the public catalog, not a quote. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
+- Model 24 interface card (`24-speculative-decode-lite.md`) at the same depth as cards 01–23. Catalog index and GOAL.md updated. No draft model, no accept-rate certificate, no measured draft joules.
+- Public-tree handoff page (`ENTERPRISE/handoff-to-public-tree.md`) naming when the honest next step is study of the public catalog, not a quote. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
+- **This hour (Agent 1):** Model 25 interface card (`25-on-device-continual-learner.md`) at the same depth as cards 01–24. Catalog index and GOAL.md updated. No trainer, no plasticity certificate, no measured update joules.
+- **This hour (Agent 2):** Measurement-hold page (`ENTERPRISE/measurement-hold.md`) naming when a complete inquiry still cannot be quoted because energy rows stay `to-be-measured` with no named lab. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
 
 ## Active Automation
 Hourly Dual-Agent Upgrade (Task ID a296e32a-8e33-4ff4-8276-bea9ef6bf936) continues to run.
 
 ## Next Priorities
-1. Continue deepening the 50-model catalog (card 25 next at the same interface depth) and Operator AI executor.
-2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, Model 20 `disagg_ok()`, Model 21 `rf_ok()`, Model 22 `cascade_ok()`, Model 23 `kv_ok()`, or Model 24 `spec_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, a trained NILM tree, a trained forest, a trained cascade, a packed KV layout, or a draft model.
+1. Continue deepening the 50-model catalog (card 26 next at the same interface depth) and Operator AI executor.
+2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, Model 20 `disagg_ok()`, Model 21 `rf_ok()`, Model 22 `cascade_ok()`, Model 23 `kv_ok()`, Model 24 `spec_ok()`, or Model 25 `learn_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, a trained NILM tree, a trained forest, a trained cascade, a packed KV layout, a draft model, or a trainer.
 3. Dimension a real bench for the Class A slope sketch, or log `loop_t_*` / `tank_t` on the same clock.
-4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, `records-retention.md`, `correction-notice.md`, `reopen-after-close.md`, `decline-or-defer.md`, and `handoff-to-public-tree.md` when adding any new sales-facing page.
+4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, `records-retention.md`, `correction-notice.md`, `reopen-after-close.md`, `decline-or-defer.md`, `handoff-to-public-tree.md`, and `measurement-hold.md` when adding any new sales-facing page.
 5. Do not publish prices or customer claims.
 
 ## Standing Directive
