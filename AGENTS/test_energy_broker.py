@@ -1,6 +1,11 @@
 """Tests for Model 11 host energy broker. Run with: python -m pytest AGENTS/"""
 
-from energy_broker import EnergyRequest, allocate, estimate_broker_cost_j
+from energy_broker import (
+    EnergyRequest,
+    allocate,
+    allocate_all_or_nothing,
+    estimate_broker_cost_j,
+)
 
 
 def test_refuses_when_pool_is_only_reserve():
@@ -40,6 +45,20 @@ def test_equal_priority_keeps_request_order():
     assert grants[1].granted_j == 0.0
 
 
+def test_all_or_nothing_does_not_starve_cheap_agent():
+    grants = allocate_all_or_nothing(
+        pool_j=0.05,
+        requests=[
+            EnergyRequest("expensive", want_j=0.20, priority=2),
+            EnergyRequest("cheap", want_j=0.01, priority=1),
+        ],
+        reserve_j=0.0,
+    )
+    by_id = {g.agent_id: g.granted_j for g in grants}
+    assert by_id["expensive"] == 0.0
+    assert by_id["cheap"] == 0.01
+
+
 def test_estimate_cost_scales_with_n():
     assert estimate_broker_cost_j(0) == 0.0
     assert estimate_broker_cost_j(4) == 0.0008
@@ -49,5 +68,6 @@ if __name__ == "__main__":
     test_refuses_when_pool_is_only_reserve()
     test_never_over_allocates()
     test_equal_priority_keeps_request_order()
+    test_all_or_nothing_does_not_starve_cheap_agent()
     test_estimate_cost_scales_with_n()
     print("energy broker tests passed.")

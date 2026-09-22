@@ -5,23 +5,20 @@ Design contract (Model 11):
 - Grant of 0 (or grant < min_joules) maps to skip, not an exception.
 - Never over-allocate the pool.
 - Local pool only; no radio mesh.
-
-This module does not replace TaskGraphExecutor.run. It asks the broker
-once per tick for every still-pending ready task, then runs only those
-that received a full min_joules grant.
+- Task-graph path uses all-or-nothing grants so a too-large request
+  cannot take a partial slice and starve a cheaper runnable agent.
 """
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from energy_broker import EnergyRequest, allocate, estimate_broker_cost_j
+from energy_broker import EnergyRequest, allocate_all_or_nothing, estimate_broker_cost_j
 from task_graph_executor import Checkpoint, Task, TaskGraphExecutor
 
 
 def _priority_for(task: Task) -> int:
     if "priority" in task.tags:
-        # tags may contain "priority:3"
         for tag in task.tags:
             if tag.startswith("priority:"):
                 try:
@@ -44,11 +41,7 @@ def brokered_run(
     context: Optional[Dict[str, Any]] = None,
     checkpoint: Optional[Checkpoint] = None,
 ) -> Checkpoint:
-    """Allocate once, then run granted tasks in dependency order.
-
-    Broker overhead is subtracted from the pool first (placeholder cost).
-    Tasks that are not granted are left pending; aborted_reason records skips.
-    """
+    """Allocate once (all-or-nothing), then run granted tasks."""
     cp = checkpoint or Checkpoint()
     if context:
         cp.context.update(context)
@@ -61,7 +54,7 @@ def brokered_run(
         EnergyRequest(agent_id=t.name, want_j=t.min_joules, priority=_priority_for(t))
         for t in pending
     ]
-    grants = allocate(pool_j=pool, requests=requests, reserve_j=reserve_j)
+    grants = allocate_all_or_nothing(pool_j=pool, requests=requests, reserve_j=reserve_j)
     granted_map = {g.agent_id: g.granted_j for g in grants}
     cp.context["_broker_grants"] = granted_map
     cp.context["_broker_overhead_j"] = overhead
@@ -71,9 +64,7 @@ def brokered_run(
     skipped = []
     for task in pending:
         got = granted_map.get(task.name, 0.0)
-        if got + 1e-15 >= task.min_joules and task.min_joules > 0.0:
-            runnable.append(task)
-        elif task.min_joules == 0.0:
+        if task.min_joules == 0.0 or got + 1e-15 >= task.min_joules:
             runnable.append(task)
         else:
             skipped.append(task.name)
@@ -85,7 +76,6 @@ def brokered_run(
         return cp
 
     gated = TaskGraphExecutor(runnable)
-    # Give the subgraph the sum of its grants so energy_gate still applies.
     budget = sum(granted_map.get(t.name, 0.0) for t in runnable)
     out = gated.run(estimated_joules=budget, checkpoint=cp)
     out.context["_broker_skipped"] = skipped

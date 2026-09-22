@@ -4,6 +4,10 @@ Model 11 host stub: partition one energy pool among local agents.
 No radio, no consensus, no hardware. Grants never exceed
 max(0, pool_j - reserve_j). Priority is an integer; larger wins.
 Equal priority keeps request order.
+
+`allocate` may grant a prefix of want_j.
+`allocate_all_or_nothing` grants either full want_j or 0 — required by
+the task-graph design contract (grant before run; refuse maps to skip).
 """
 
 from __future__ import annotations
@@ -37,7 +41,11 @@ def allocate(
     requests: Iterable[EnergyRequest],
     reserve_j: float = 0.0,
 ) -> List[EnergyGrant]:
-    """Greedy priority allocator. Deterministic. Never over-grants."""
+    """Greedy priority allocator. Deterministic. Never over-grants.
+
+    A high-priority request may receive a *partial* grant. Use
+    allocate_all_or_nothing when a partial grant cannot start the work.
+    """
     if pool_j < 0.0:
         raise ValueError("pool_j must be non-negative")
     if reserve_j < 0.0:
@@ -49,7 +57,6 @@ def allocate(
             raise ValueError(f"want_j must be non-negative for {r.agent_id}")
 
     available = max(0.0, pool_j - reserve_j)
-    # Stable: original index breaks priority ties.
     ordered = sorted(enumerate(reqs), key=lambda item: (-item[1].priority, item[0]))
     granted = {r.agent_id: 0.0 for r in reqs}
 
@@ -59,5 +66,33 @@ def allocate(
         take = min(req.want_j, available)
         granted[req.agent_id] = take
         available -= take
+
+    return [EnergyGrant(agent_id=r.agent_id, granted_j=granted[r.agent_id]) for r in reqs]
+
+
+def allocate_all_or_nothing(
+    pool_j: float,
+    requests: Iterable[EnergyRequest],
+    reserve_j: float = 0.0,
+) -> List[EnergyGrant]:
+    """Like allocate, but a request is granted fully or not at all."""
+    if pool_j < 0.0:
+        raise ValueError("pool_j must be non-negative")
+    if reserve_j < 0.0:
+        raise ValueError("reserve_j must be non-negative")
+
+    reqs = list(requests)
+    for r in reqs:
+        if r.want_j < 0.0:
+            raise ValueError(f"want_j must be non-negative for {r.agent_id}")
+
+    available = max(0.0, pool_j - reserve_j)
+    ordered = sorted(enumerate(reqs), key=lambda item: (-item[1].priority, item[0]))
+    granted = {r.agent_id: 0.0 for r in reqs}
+
+    for _, req in ordered:
+        if req.want_j <= available:
+            granted[req.agent_id] = req.want_j
+            available -= req.want_j
 
     return [EnergyGrant(agent_id=r.agent_id, granted_j=granted[r.agent_id]) for r in reqs]
