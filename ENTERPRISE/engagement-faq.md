@@ -1,6 +1,6 @@
 # Enterprise engagement FAQ (process only)
 
-This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md).
+This page restates how a conversation becomes a written quote. It does not add prices, customers, SLAs, or case studies. Companion files: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`scope-assumptions.md`](scope-assumptions.md), [`inquiry-completeness.md`](inquiry-completeness.md).
 
 ## Identical copy vs custom variant
 
@@ -11,10 +11,14 @@ This page restates how a conversation becomes a written quote. It does not add p
 If you are unsure which you need, mark the inquiry as *undecided* and say which constraint is driving the work (air-gap, measured joules, plant-floor sensors). Do not pick “custom” to sound serious.
 
 ## What a complete inquiry contains
+The six-item gate is listed in [`inquiry-completeness.md`](inquiry-completeness.md). In short:
+
 1. The header and model list from `inquiry-template.md`.
 2. Every energy-honesty line marked agreed / to-be-measured / out of scope.
 3. The scope-assumptions table with the same marks.
 4. A deliverable-shape checkbox (research replica / field customization / operator integration / sovereign).
+5. Identical vs custom vs undecided.
+6. Deployment context in one sentence.
 
 Incomplete inquiries receive questions. They do not receive a draft quote.
 

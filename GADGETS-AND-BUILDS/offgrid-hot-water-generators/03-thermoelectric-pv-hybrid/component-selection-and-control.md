@@ -2,7 +2,7 @@
 
 Planning notes only. No field COP, no measured watt-hours, no listed appliance claim.
 
-Companion: [README.md](README.md).
+Companion: [README.md](README.md). Host stub: [`SANDBOX/gen03_control_stub.py`](../../../SANDBOX/gen03_control_stub.py) names the states below and calls `plant_observe_ok`. That stub is not firmware and invents no watts.
 
 ## Design intent
 Use scarce PV electricity for *work that multiplies heat* (a small DC heat-pump) rather than for resistive heating, and keep a thermoelectric path as a last-resort or residual-heat helper. Controls must refuse the compressor or Peltier stage when storage voltage is below a host-defined floor — same energy-first rule as Model 01 / the energy-aware scheduler.
@@ -37,7 +37,7 @@ Model 05 helpers (`joules_from_voltage` / `voltage_from_joules`) apply only when
 
 ## Control policy (host-first)
 
-States the firmware should eventually encode. Host sandbox can exercise the same names with placeholder joules.
+States the firmware should eventually encode. The host stub `SANDBOX/gen03_control_stub.py` exercises the same names with caller-supplied flags (no invented joules).
 
 - `IDLE` — sense only.
 - `CHARGE` — PV present, heat stage off.
@@ -64,7 +64,7 @@ if peltier_ok and surplus:
 return REFUSE
 ```
 
-Wire this later to `PROTOTYPES/energy-harvester-tinyml/src/energy_aware_scheduler.py` and the Operator AI brokered executor. Do not claim that wiring exists until a commit adds it.
+Host wiring to `plant_observe_ok` exists in the sandbox stub only. No on-device flash mapping and no compressor driver are claimed.
 
 ## Safety and honesty bounds
 - DC heat-pump and Peltier stages still need listed electrical protection (fuse, polarity, temperature cutout). This page is not a listing.
