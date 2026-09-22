@@ -27,4 +27,5 @@
 - [x] Model card 22 given the same interface + energy-budget depth (hierarchical early-exit cascade; no trained cascade).
 - [x] Model card 23 given the same interface + energy-budget depth (memory-efficient KV cache adapter; no packed KV).
 - [x] Model card 24 given the same interface + energy-budget depth (speculative decode lite; no draft model).
-- [ ] Additional model cards (25+) given the same interface + energy-budget depth.
+- [x] Model card 25 given the same interface + energy-budget depth (constrained continual learner; no trainer).
+- [ ] Additional model cards (26+) given the same interface + energy-budget depth.
