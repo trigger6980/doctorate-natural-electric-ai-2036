@@ -26,5 +26,8 @@ Exhaust and water temperatures feed safety interlocks and the Operator AI / ener
 ## Safety-critical notes
 Dimensional ranges, flue / draft rules of thumb, clearances to combustibles, and the minimum people-safety checklist live in [`flue-clearance-and-safety.md`](flue-clearance-and-safety.md). Those notes are a first cut, not a listed-appliance sheet.
 
+## Water-side exchanger
+Jacket / coil / mass-bench classes, potable isolation, and gravity-vs-pump honesty live in [`water-side-exchanger.md`](water-side-exchanger.md). No UA, GPM, or recovery-rate numbers are published.
+
 ## Status
-Design principles, high-level BOM, and first-cut flue / clearance / combustion-safety notes are in-tree. Water-side exchanger sizing, named-site draft measurements, and sensor integration remain open.
+Design principles, high-level BOM, first-cut flue / clearance / combustion-safety notes, and first-cut water-side exchanger classes are in-tree. Named-site draft measurements, measured exchanger performance, and sensor integration remain open.
