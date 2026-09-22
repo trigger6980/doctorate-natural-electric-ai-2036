@@ -16,8 +16,11 @@ Passive solar thermal collectors heat water. Density-driven thermosiphon circula
 - Completely passive when designed correctly — zero operating energy.
 - Freeze protection and stagnation protection must be designed for the local climate.
 
+## Pipe sizing and freeze protection
+See [`pipe-sizing-and-freeze.md`](pipe-sizing-and-freeze.md) for starting diameters, slope, drain-back vs antifreeze, and safety notes. Those ranges are first-cut engineering notes, not a certified site design.
+
 ## Control / Monitoring Sketch
 Temperature sensors on collector and tank can feed the energy-aware scheduler. When tank is already hot, collector loop can be isolated or excess heat diverted (e.g., to thermal mass or a second priority load).
 
 ## Status
-Design principles and BOM outline complete. Detailed pipe sizing tables, freeze-protection strategies, and sensor integration code will follow.
+Design principles, BOM outline, and first pipe/freeze notes complete. Sensor integration code and site-specific measurements will follow.
