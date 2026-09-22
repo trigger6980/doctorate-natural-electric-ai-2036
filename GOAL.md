@@ -23,4 +23,5 @@
 - [x] Model card 18 given the same interface + energy-budget depth (local mesh routing policy; no radio driver).
 - [x] Model card 19 given the same interface + energy-budget depth (energy-neutral probability estimator; no survival curve).
 - [x] Model card 20 given the same interface + energy-budget depth (tiny decision-tree disaggregator; no trained tree).
-- [ ] Additional model cards (21+) given the same interface + energy-budget depth.
+- [x] Model card 21 given the same interface + energy-budget depth (quantized random-forest policy; no trained forest).
+- [ ] Additional model cards (22+) given the same interface + energy-budget depth.
