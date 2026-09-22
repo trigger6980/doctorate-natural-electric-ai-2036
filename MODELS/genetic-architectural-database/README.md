@@ -19,7 +19,7 @@ See also:
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 - [Host sandbox](../../SANDBOX/README.md)
 
-Cards **01–12** now share the same interface + energy-budget + next-measurements pattern. Cards **13+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash.
+Cards **01–13** now share the same interface + energy-budget + next-measurements pattern. Cards **14+** remain short catalog stubs until the same pattern is applied. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Model 13 is interface-only: no coil driver and no tesla-to-joule fit.
 
 ---
 
@@ -39,7 +39,7 @@ Cards **01–12** now share the same interface + energy-budget + next-measuremen
 | 10 | Offline LLM Runtime Adapter | Off-grid AI Box | Medium–High | Interface specified |
 | 11 | Multi-Agent Energy Broker | Agentic Mesh | Low | Interface + host allocator + brokered executor |
 | 12 | Intermittent Compute Checkpoint Model | Batteryless | Ultra-low | Interface specified (host JSON only) |
-| 13 | Magnetic Field Harvest Predictor | Ambient Magnetic | Ultra-low | Catalog |
+| 13 | Magnetic Field Harvest Predictor | Ambient Magnetic | Ultra-low | Interface specified (no coil / no tesla fit) |
 | 14 | Vibration / TENG Feature Extractor | Mechanical Harvest | Ultra-low | Catalog |
 | 15 | Indoor Lux Adaptive Scheduler | Indoor PV | Ultra-low | Catalog |
 | 16 | Secure Integrity Auditor | Security | Low | Catalog |

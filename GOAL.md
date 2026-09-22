@@ -11,11 +11,11 @@
 - [x] Security/networking component skeleton started.
 - [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker + brokered executor; hardware measurements still pending).
 - [x] Operator AI task-graph executor beyond host skeleton for *policy gating* and *host-file checkpoint persistence* (on-device flash mapping and hardware energy observer still open).
-- [x] Model cards 04–12 given the same interface + energy-budget depth as models 01–03.
+- [x] Model cards 04–13 given the same interface + energy-budget depth as models 01–03.
 - [x] Model 05 host helper `joules_from_voltage` (uncalibrated; C must be supplied).
 - [x] Model 05 inverse helper `voltage_from_joules` wired into `simulate_step` only when `C_farads` is explicit.
 - [x] Model 11 host allocator stub (`allocate`) with tests; no mesh radio.
 - [x] Model 11 connected to the task-graph (`brokered_run`: grant before run; refuse maps to skip).
 - [x] Host sandbox runner for specialized-agent demo graph (`SANDBOX/run_prototypes.py`).
 - [x] Host CI workflow for public Python tests (`.github/workflows/host-tests.yml`).
-- [ ] Additional model cards (13+) given the same interface + energy-budget depth.
+- [ ] Additional model cards (14+) given the same interface + energy-budget depth.

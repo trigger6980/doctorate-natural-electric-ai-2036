@@ -1,20 +1,18 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-21 ~20:09 CDT (requested sandbox + next-priority run)
+**Last updated:** 2026-09-21 ~20:34 CDT (hourly dual-agent run)
 
-## This run (2026-09-21 20:09 CDT)
-Two specialized agents treated Model 11 as the design contract and executed the published next priorities. No metrics or customers were invented.
+## This run (2026-09-21 20:34 CDT)
+Two specialized agents executed the published next priority: deepen Model 13. No metrics or customers were invented. No new Python was added because a tesla-to-joule helper without a measured coupling factor would be fiction.
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Added `AGENTS/brokered_executor.py`: grant before run; grant below `min_joules` maps to skip.
-- Added tests for skip, reserve-refuse-all, and transmit-priority.
-- Deepened model card **12** (intermittent compute checkpoint) to the interface + energy-budget pattern. Host JSON only; no flash driver.
-- Added host sandbox `SANDBOX/run_prototypes.py` with four specialized agents (sense, infer, retrieve, generate). Default pool skips generate on purpose.
-- Added `.github/workflows/host-tests.yml` so public Python tests and the sandbox runner execute on push.
+- Added model card `MODELS/genetic-architectural-database/models/13-magnetic-field-harvest-predictor.md` with the shared interface + energy-budget + next-measurements pattern.
+- Updated the catalog index: card 13 is now **Interface specified (no coil / no tesla fit)**; cards 14+ remain stubs.
+- Marked GOAL.md cards 04–13 complete; next depth target is card 14.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Scope-assumptions now cover Model 12 flash and "sandbox ≠ field certification".
-- Public-vs-contract table and FAQ list cards 02–12 and the sandbox as host-only.
+- Scope-assumptions gained a Model 13 row: no coil driver, no tesla-to-joule fit, no mains-safe isolation claim.
+- Public-vs-contract table and FAQ now list cards 02–13 and state Model 13 is an observer interface only.
 - Still no prices, customers, or SLAs.
 
 ## Completed (cumulative)
@@ -25,7 +23,7 @@ Two specialized agents treated Model 11 as the design contract and executed the 
 - 2036 agent-skills authorization model.
 - Literature map + open problems starters.
 - Security / desktop-firewall skeleton + read-only listen inventory.
-- Genetic / Architectural Model Database with 50 catalogued models (detailed cards for 01–12).
+- Genetic / Architectural Model Database with 50 catalogued models (detailed cards for 01–13).
 - Operator AI Machinery + task-graph + policy gate + host JSON checkpoints + energy broker + brokered executor + host sandbox.
 - Enterprise Order & Contract page with inquiry checklist, assumptions table, placeholder tiers, FAQ.
 - Host CI workflow for prototype tests.
@@ -40,10 +38,10 @@ Two specialized agents treated Model 11 as the design contract and executed the 
 2. Enterprise & Business Ventures Agent — advances Enterprise Order page, professional commercial framing, and business readiness (truthful, no fabricated claims).
 
 ## In Progress / Next Priorities
-1. Deepen model card **13** (magnetic field harvest predictor) with the same interface + energy-budget pattern.
+1. Deepen model card **14** (vibration / TENG feature extractor) with the same interface + energy-budget pattern.
 2. Optionally add an energy argument to `Checkpoint.save` (Model 12 persist cost placeholder).
 3. Keep Enterprise language current; do not publish prices until a real quote process exists.
-4. Confirm the new `host-tests` workflow is green on GitHub Actions after this push.
+4. Confirm the `host-tests` workflow stays green on GitHub Actions.
 
 ## Standing Directive
 Use all available connectors and skills with quality prioritization. Authorize specialized agents via the skill system. Keep GitHub updated. Teach step-by-step. Prefer verifiable prototypes and truthful documentation over claims.
