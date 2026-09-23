@@ -48,4 +48,5 @@
 - [x] Model card 43 given the same interface + energy-budget depth (local preference alignment; no preference trainer).
 - [x] Model card 44 given the same interface + energy-budget depth (distilled reasoning trace; no teacher model).
 - [x] Model card 45 given the same interface + energy-budget depth (edge sparse GNN; no trained GNN).
-- [ ] Additional model cards (46+) given the same interface + energy-budget depth.
+- [x] Model card 46 given the same interface + energy-budget depth (temporal graph energy forecaster; no trained T-GNN).
+- [ ] Additional model cards (47+) given the same interface + energy-budget depth.

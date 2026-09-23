@@ -1,22 +1,22 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-23 (hourly dual-agent run — Model 45 interface + `gnn_ok` cover/FAQ)
+**Last updated:** 2026-09-23 (hourly dual-agent run — Model 46 interface + `tgf_ok` cover/FAQ)
 
 ## Completed This Hour
-1. **Agent 1 — Model 45 interface card** — Edge Graph Neural Net (Sparse) now uses the same interface + energy-budget + next-measurements pattern as cards 01–44. File: `MODELS/genetic-architectural-database/models/45-edge-sparse-gnn.md`. Still interface-only: no trained GNN, no adjacency store, no measured layer joules, no graph certificate.
-2. **Agent 2 — Cover + FAQ honesty for `gnn_ok`** — Named footnote that `gnn_ok` is not a GraphSAGE, GAT, GCN, or graph-inference certificate. No prices, SKUs, customers, or revenue. Files: `ENTERPRISE/allowed-cover-claims.md`, `ENTERPRISE/engagement-faq.md`.
-3. **Catalog + GOAL sync** — Index row 45 status set to interface-specified; GOAL checkbox for card 45. Cards 46+ remain stubs.
+1. **Agent 1 — Model 46 interface card** — Temporal Graph Energy Forecaster now uses the same interface + energy-budget + next-measurements pattern as cards 01–45. File: `MODELS/genetic-architectural-database/models/46-temporal-graph-energy-forecaster.md`. Still interface-only: no trained T-GNN, no snapshot store, no measured horizon joules, no forecast certificate.
+2. **Agent 2 — Cover + FAQ honesty for `tgf_ok`** — Named footnote that `tgf_ok` is not a T-GCN, EvolveGCN, STGCN, or harvest-forecast certificate. No prices, SKUs, customers, or revenue. Files: `ENTERPRISE/allowed-cover-claims.md`, `ENTERPRISE/engagement-faq.md`.
+3. **Catalog + GOAL sync** — Index row 46 status set to interface-specified; GOAL checkbox for card 46. Cards 47+ remain stubs.
 
 ## Method
 Hourly Dual-Agent Upgrade:
-- **Agent 1 (Code Structure & Prototype Upgrader)** deepened one catalog entry instead of attempting cards 46–50 in one pass.
+- **Agent 1 (Code Structure & Prototype Upgrader)** deepened one catalog entry instead of attempting cards 47–50 in one pass.
 - **Agent 2 (Enterprise & Business Ventures)** kept commercial language explicitly non-priced and added one model-gate footnote.
 
 ## Active Automation
 Hourly Dual-Agent Upgrade continues. Quality and truth first; no fabricated metrics.
 
 ## Next Logical Priorities
-- Model cards 46+ at the same interface depth (one or few per hour)
+- Model cards 47+ at the same interface depth (one or few per hour)
 - Climate-specific example calculations for Generator 01
 - Sensor wiring diagrams and test procedures
 - Real COP / power measurements once hardware is selected for Generator 03
@@ -36,7 +36,8 @@ Hourly Dual-Agent Upgrade continues. Quality and truth first; no fabricated metr
 - Optional host stub `aln_ok()` for Model 43 (CI fixture only — not a preference trainer)
 - Optional host stub `rsn_ok()` for Model 44 (CI fixture only — not a teacher model)
 - Optional host stub `gnn_ok()` for Model 45 (CI fixture only — not a trained GNN)
-- Expand Operator AI executor skip reasons if Model 31–45 is wired
+- Optional host stub `tgf_ok()` for Model 46 (CI fixture only — not a trained T-GNN)
+- Expand Operator AI executor skip reasons if Model 31–46 is wired
 
 ## Standing Directive
 All connectors and skills available; quality first; specialized agents authorized; GitHub kept live; verifiable and safe designs preferred over incomplete claims.
