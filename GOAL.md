@@ -45,4 +45,5 @@
 - [x] Model card 40 given the same interface + energy-budget depth (self-healing agent restart policy; no watchdog firmware).
 - [x] Model card 41 given the same interface + energy-budget depth (token-budget aware agent planner; no planner runtime).
 - [x] Model card 42 given the same interface + energy-budget depth (tool-use guardrail; no tool runtime).
-- [ ] Additional model cards (43+) given the same interface + energy-budget depth.
+- [x] Model card 43 given the same interface + energy-budget depth (local preference alignment; no preference trainer).
+- [ ] Additional model cards (44+) given the same interface + energy-budget depth.
