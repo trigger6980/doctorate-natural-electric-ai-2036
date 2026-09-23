@@ -43,6 +43,7 @@ If the cover names a model, add the matching refuse line:
 | 35 | `hcd_ok` is not a crank-dynamo, human-watt, or portable-duty certificate |
 | 36 | `mac_ok` is not a BLE-SIG, mesh-MAC, or airtime certificate |
 | 37 | `att_ok` is not a secure-boot, PSA, Common Criteria, or attestation certificate |
+| 38 | `fus_ok` is not a multimodal-fusion, Kalman, SLAM, or perception certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 

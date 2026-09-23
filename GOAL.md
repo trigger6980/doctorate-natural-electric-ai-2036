@@ -40,4 +40,5 @@
 - [x] Model card 35 given the same interface + energy-budget depth (hand-crank + solar duty planner; no crank firmware).
 - [x] Model card 36 given the same interface + energy-budget depth (BLE / mesh energy-aware MAC; no radio firmware).
 - [x] Model card 37 given the same interface + energy-budget depth (secure boot + model attestation lite; no boot firmware).
-- [ ] Additional model cards (38+) given the same interface + energy-budget depth.
+- [x] Model card 38 given the same interface + energy-budget depth (quantized multimodal sensor fusion; no fusion graph).
+- [ ] Additional model cards (39+) given the same interface + energy-budget depth.
