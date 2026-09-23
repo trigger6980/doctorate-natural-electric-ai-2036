@@ -31,4 +31,5 @@
 - [x] Model card 26 given the same interface + energy-budget depth (offline federated aggregate; no federated trainer).
 - [x] Model card 27 given the same interface + energy-budget depth (edge DP noise injector; no sampler firmware).
 - [x] Model card 28 given the same interface + energy-budget depth (physical AI low-level controller; no actuator driver).
-- [ ] Additional model cards (29+) given the same interface + energy-budget depth.
+- [x] Model card 29 given the same interface + energy-budget depth (world-model lite; no video encoder).
+- [ ] Additional model cards (30+) given the same interface + energy-budget depth.
