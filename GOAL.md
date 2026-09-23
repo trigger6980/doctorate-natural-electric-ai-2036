@@ -43,4 +43,5 @@
 - [x] Model card 38 given the same interface + energy-budget depth (quantized multimodal sensor fusion; no fusion graph).
 - [x] Model card 39 given the same interface + energy-budget depth (energy-signature anomaly detector; no trained detector).
 - [x] Model card 40 given the same interface + energy-budget depth (self-healing agent restart policy; no watchdog firmware).
-- [ ] Additional model cards (41+) given the same interface + energy-budget depth.
+- [x] Model card 41 given the same interface + energy-budget depth (token-budget aware agent planner; no planner runtime).
+- [ ] Additional model cards (42+) given the same interface + energy-budget depth.

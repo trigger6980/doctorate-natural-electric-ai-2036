@@ -46,6 +46,7 @@ If the cover names a model, add the matching refuse line:
 | 38 | `fus_ok` is not a multimodal-fusion, Kalman, SLAM, or perception certificate |
 | 39 | `ano_ok` is not an IDS, SCADA-alarm, predictive-maintenance, or energy-signature certificate |
 | 40 | `rst_ok` is not an HA, watchdog, systemd-restart, or self-heal certificate |
+| 41 | `tok_ok` is not an agent-planner, AutoGPT, LangChain, or token-accounting certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 
