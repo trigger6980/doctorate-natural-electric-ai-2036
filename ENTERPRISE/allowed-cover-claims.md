@@ -37,6 +37,7 @@ If the cover names a model, add the matching refuse line:
 | 29 | `wm_ok` is not a dynamics certificate |
 | 30 | `res_ok` is not a reservoir or analog-neuromorphic certificate |
 | 31 | `ion_ok` is not an ionic-synapse or materials certificate |
+| 32 | `coh_ok` is not a co-harvest, SWIPT, or bits-per-joule certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 
