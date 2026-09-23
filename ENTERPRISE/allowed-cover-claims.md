@@ -48,6 +48,7 @@ If the cover names a model, add the matching refuse line:
 | 40 | `rst_ok` is not an HA, watchdog, systemd-restart, or self-heal certificate |
 | 41 | `tok_ok` is not an agent-planner, AutoGPT, LangChain, or token-accounting certificate |
 | 42 | `grd_ok` is not a tool-runtime, MCP-production, LangChain-tools, or agent-safety certificate |
+| 43 | `aln_ok` is not an RLHF, DPO, constitutional-AI, or local-alignment certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 
