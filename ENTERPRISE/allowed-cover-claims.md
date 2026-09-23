@@ -47,6 +47,7 @@ If the cover names a model, add the matching refuse line:
 | 39 | `ano_ok` is not an IDS, SCADA-alarm, predictive-maintenance, or energy-signature certificate |
 | 40 | `rst_ok` is not an HA, watchdog, systemd-restart, or self-heal certificate |
 | 41 | `tok_ok` is not an agent-planner, AutoGPT, LangChain, or token-accounting certificate |
+| 42 | `grd_ok` is not a tool-runtime, MCP-production, LangChain-tools, or agent-safety certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 

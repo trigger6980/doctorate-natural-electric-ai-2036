@@ -1,22 +1,22 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-23 (hourly dual-agent run — Model 41 interface + `tok_ok` cover/FAQ)
+**Last updated:** 2026-09-23 (hourly dual-agent run — Model 42 interface + `grd_ok` cover/FAQ)
 
 ## Completed This Hour
-1. **Agent 1 — Model 41 interface card** — Token-Budget Aware Agent Planner now uses the same interface + energy-budget + next-measurements pattern as cards 01–40. File: `MODELS/genetic-architectural-database/models/41-token-budget-aware-agent-planner.md`. Still interface-only: no planner runtime, no token meter, no measured planner joules, no planning certificate.
-2. **Agent 2 — Cover + FAQ honesty for `tok_ok`** — Named footnote that `tok_ok` is not an agent-planner, AutoGPT, LangChain, or token-accounting certificate. No prices, SKUs, customers, or revenue. Files: `ENTERPRISE/allowed-cover-claims.md`, `ENTERPRISE/engagement-faq.md`.
-3. **Catalog + GOAL sync** — Index row 41 status set to interface-specified; GOAL checkbox for card 41.
+1. **Agent 1 — Model 42 interface card** — Tool-Use Guardrail now uses the same interface + energy-budget + next-measurements pattern as cards 01–41. File: `MODELS/genetic-architectural-database/models/42-tool-use-guardrail.md`. Still interface-only: no tool runtime, no allow-list firmware, no measured tool-call joules, no agent-safety certificate.
+2. **Agent 2 — Cover + FAQ honesty for `grd_ok`** — Named footnote that `grd_ok` is not a tool-runtime, MCP-production, LangChain-tools, or agent-safety certificate. No prices, SKUs, customers, or revenue. Files: `ENTERPRISE/allowed-cover-claims.md`, `ENTERPRISE/engagement-faq.md`.
+3. **Catalog + GOAL sync** — Index row 42 status set to interface-specified; GOAL checkbox for card 42.
 
 ## Method
 Hourly Dual-Agent Upgrade:
-- **Agent 1 (Code Structure & Prototype Upgrader)** deepened one catalog entry instead of attempting cards 42–50 in one pass.
+- **Agent 1 (Code Structure & Prototype Upgrader)** deepened one catalog entry instead of attempting cards 43–50 in one pass.
 - **Agent 2 (Enterprise & Business Ventures)** kept commercial language explicitly non-priced and added one model-gate footnote.
 
 ## Active Automation
 Hourly Dual-Agent Upgrade continues. Quality and truth first; no fabricated metrics.
 
 ## Next Logical Priorities
-- Model cards 42+ at the same interface depth (one or few per hour)
+- Model cards 43+ at the same interface depth (one or few per hour)
 - Climate-specific example calculations for Generator 01
 - Sensor wiring diagrams and test procedures
 - Real COP / power measurements once hardware is selected for Generator 03
@@ -32,7 +32,8 @@ Hourly Dual-Agent Upgrade continues. Quality and truth first; no fabricated metr
 - Optional host stub `ano_ok()` for Model 39 (CI fixture only — not a trained detector)
 - Optional host stub `rst_ok()` for Model 40 (CI fixture only — not watchdog firmware)
 - Optional host stub `tok_ok()` for Model 41 (CI fixture only — not a planner runtime)
-- Expand Operator AI executor skip reasons if Model 31–41 is wired
+- Optional host stub `grd_ok()` for Model 42 (CI fixture only — not a tool runtime)
+- Expand Operator AI executor skip reasons if Model 31–42 is wired
 
 ## Standing Directive
 All connectors and skills available; quality first; specialized agents authorized; GitHub kept live; verifiable and safe designs preferred over incomplete claims.
