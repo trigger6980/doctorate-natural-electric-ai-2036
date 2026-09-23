@@ -1,27 +1,28 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-22 (Dyad dual-agent completion of all four recommended hot-water + biome steps)
+**Last updated:** 2026-09-22 (hourly dual-agent run — Model 30 interface + placeholder engagement tiers)
 
-## Completed This Session (all four recommended steps)
-1. **Generator 01 deep-dive** — Collector sizing tables, thermosiphon rules, freeze-protection strategies (drain-back, glycol, etc.), stagnation protection, sensors, and minimal viable BOM. File: `01-solar-thermal-thermosiphon/DETAILED-DESIGN.md`
-2. **Generator 02 safety-critical details** — Combustion safety, clearances, water-side relief, fuel rules, hybrid solar prioritization, sensors/interlocks. Explicit Aegis warning that physical builds require proven designs + local expertise. File: `02-rocket-mass-biomass-hybrid/SAFETY-AND-DESIGN.md`
-3. **Generator 03 control code + components** — Component classes, realistic power-budget notes, concrete Python policy sketch compatible with energy_aware_scheduler, integration points. File: `03-thermoelectric-pv-hybrid/CONTROL-AND-COMPONENTS.md`
-4. **First concrete Sustainable Living Biome layout** — Logical closed-loop design combining all three generators with water, food, energy storage, and Operator AI prioritization. File: `sustainable-living-biomes/FIRST-CONCRETE-LAYOUT.md`
+## Completed This Hour
+1. **Agent 1 — Model 30 interface card** — Neuromorphic Reservoir Computer now uses the same interface + energy-budget + next-measurements pattern as cards 01–29. File: `MODELS/genetic-architectural-database/models/30-neuromorphic-reservoir.md`. Still interface-only: no analog reservoir, no measured echo-state joules, no physical-node certificate.
+2. **Agent 2 — Placeholder engagement tiers** — Named work *shapes* (study replica, field customization, operator integration, sovereign pack, measurement phase) without prices, SKUs, customers, or revenue. File: `ENTERPRISE/placeholder-engagement-tiers.md`.
+3. **Catalog + GOAL + FAQ sync** — Index row 30, GOAL checkbox for card 30, FAQ honesty line for `res_ok`.
 
 ## Method
-Dyad dual-agent process used throughout:
-- **Lumen** expanded possibilities, sizing, and integration ideas.
-- **Aegis** enforced safety, realism, power budgets, and reproducibility limits.
+Hourly Dual-Agent Upgrade:
+- **Agent 1 (Code Structure & Prototype Upgrader)** deepened one catalog entry instead of attempting cards 31–50 in one pass.
+- **Agent 2 (Enterprise & Business Ventures)** added lightweight commercial structure that stays explicitly non-priced.
 
 ## Active Automation
-Hourly Dual-Agent Upgrade continues to run and will now see the expanded hot-water and biome documentation.
+Hourly Dual-Agent Upgrade continues. Quality and truth first; no fabricated metrics.
 
 ## Next Logical Priorities
+- Model cards 31+ at the same interface depth (one or few per hour)
 - Climate-specific example calculations for Generator 01
 - Sensor wiring diagrams and test procedures
 - Real COP / power measurements once hardware is selected for Generator 03
 - Dimensional sketches or further safety references for Generator 02 (still research-grade only)
-- Expand the 50-model catalog and Operator AI executor
+- Optional host stub `res_ok()` for Model 30 (CI fixture only — not an analog node)
+- Expand Operator AI executor skip reasons if Model 30 is wired
 
 ## Standing Directive
 All connectors and skills available; quality first; specialized agents authorized; GitHub kept live; verifiable and safe designs preferred over incomplete claims.
