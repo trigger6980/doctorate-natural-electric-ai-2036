@@ -52,6 +52,7 @@ If the cover names a model, add the matching refuse line:
 | 44 | `rsn_ok` is not a teacher-student, process-reward, chain-of-thought, or reasoning certificate |
 | 45 | `gnn_ok` is not a GraphSAGE, GAT, GCN, or graph-inference certificate |
 | 46 | `tgf_ok` is not a T-GCN, EvolveGCN, STGCN, or harvest-forecast certificate |
+| 47 | `hmo_ok` is not an AutoGen, CrewAI, LangGraph, Swarm, or multi-agent orchestration certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 

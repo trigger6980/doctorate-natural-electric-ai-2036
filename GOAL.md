@@ -49,4 +49,5 @@
 - [x] Model card 44 given the same interface + energy-budget depth (distilled reasoning trace; no teacher model).
 - [x] Model card 45 given the same interface + energy-budget depth (edge sparse GNN; no trained GNN).
 - [x] Model card 46 given the same interface + energy-budget depth (temporal graph energy forecaster; no trained T-GNN).
-- [ ] Additional model cards (47+) given the same interface + energy-budget depth.
+- [x] Model card 47 given the same interface + energy-budget depth (hierarchical multi-agent orchestrator; no production orchestrator).
+- [ ] Additional model cards (48+) given the same interface + energy-budget depth.
