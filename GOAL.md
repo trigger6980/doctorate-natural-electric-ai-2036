@@ -36,4 +36,5 @@
 - [x] Model card 31 given the same interface + energy-budget depth (ionic synapse conductance; no wet-lab cell).
 - [x] Model card 32 given the same interface + energy-budget depth (energy-information co-harvest encoder; no co-harvest transducer).
 - [x] Model card 33 given the same interface + energy-budget depth (formal energy contract checker; no proof checker).
-- [ ] Additional model cards (34+) given the same interface + energy-budget depth.
+- [x] Model card 34 given the same interface + energy-budget depth (multi-source power path optimizer; no MPPT firmware).
+- [ ] Additional model cards (35+) given the same interface + energy-budget depth.
