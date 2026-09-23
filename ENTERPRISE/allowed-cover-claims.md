@@ -45,6 +45,7 @@ If the cover names a model, add the matching refuse line:
 | 37 | `att_ok` is not a secure-boot, PSA, Common Criteria, or attestation certificate |
 | 38 | `fus_ok` is not a multimodal-fusion, Kalman, SLAM, or perception certificate |
 | 39 | `ano_ok` is not an IDS, SCADA-alarm, predictive-maintenance, or energy-signature certificate |
+| 40 | `rst_ok` is not an HA, watchdog, systemd-restart, or self-heal certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 
