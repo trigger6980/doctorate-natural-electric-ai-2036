@@ -44,6 +44,7 @@ If the cover names a model, add the matching refuse line:
 | 36 | `mac_ok` is not a BLE-SIG, mesh-MAC, or airtime certificate |
 | 37 | `att_ok` is not a secure-boot, PSA, Common Criteria, or attestation certificate |
 | 38 | `fus_ok` is not a multimodal-fusion, Kalman, SLAM, or perception certificate |
+| 39 | `ano_ok` is not an IDS, SCADA-alarm, predictive-maintenance, or energy-signature certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 

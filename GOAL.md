@@ -41,4 +41,5 @@
 - [x] Model card 36 given the same interface + energy-budget depth (BLE / mesh energy-aware MAC; no radio firmware).
 - [x] Model card 37 given the same interface + energy-budget depth (secure boot + model attestation lite; no boot firmware).
 - [x] Model card 38 given the same interface + energy-budget depth (quantized multimodal sensor fusion; no fusion graph).
-- [ ] Additional model cards (39+) given the same interface + energy-budget depth.
+- [x] Model card 39 given the same interface + energy-budget depth (energy-signature anomaly detector; no trained detector).
+- [ ] Additional model cards (40+) given the same interface + energy-budget depth.
