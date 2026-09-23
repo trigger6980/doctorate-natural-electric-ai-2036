@@ -47,4 +47,5 @@
 - [x] Model card 42 given the same interface + energy-budget depth (tool-use guardrail; no tool runtime).
 - [x] Model card 43 given the same interface + energy-budget depth (local preference alignment; no preference trainer).
 - [x] Model card 44 given the same interface + energy-budget depth (distilled reasoning trace; no teacher model).
-- [ ] Additional model cards (45+) given the same interface + energy-budget depth.
+- [x] Model card 45 given the same interface + energy-budget depth (edge sparse GNN; no trained GNN).
+- [ ] Additional model cards (46+) given the same interface + energy-budget depth.
