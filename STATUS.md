@@ -1,67 +1,29 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-22 (hourly dual-agent: Model 29 world-model lite card + result-record page)
+**Last updated:** 2026-09-22 (Dyad dual-agent completion of all four recommended hot-water + biome steps)
 
-## Completed
-- Flagship repository with professional structure, thesis skeleton, prototypes, 50-model catalog, Operator AI Machinery, Enterprise page.
-- Hourly Dual-Agent Upgrade automation active.
-- Three off-grid hot-water generator designs documented (solar thermosiphon, rocket-mass hybrid, thermoelectric + PV hybrid).
-- Sustainable Living Biomes architectural framing.
-- Generator 01 pipe-sizing, slope, freeze-protection, and safety notes (`01-solar-thermal-thermosiphon/pipe-sizing-and-freeze.md`). Ranges are first-cut notes, not field measurements.
-- Enterprise inquiry template (`ENTERPRISE/inquiry-template.md`) so identical vs custom requests include energy-honesty checkboxes. No prices, customers, or SLAs added.
-- Generator 02 flue, draft, clearance, and combustion-safety notes (`02-rocket-mass-biomass-hybrid/flue-clearance-and-safety.md`). Planning ranges only; no listed-appliance claim and no site measurements.
-- Enterprise engagement FAQ (`ENTERPRISE/engagement-faq.md`) clarifying identical vs custom language and what a complete inquiry must contain. Still no prices, customers, or SLAs.
-- Generator 03 component-selection classes, placeholder electrical budget, and refuse/run control states (`03-thermoelectric-pv-hybrid/component-selection-and-control.md`). No COP, no measured watts, no firmware wiring claimed.
-- Licensing boundary page (`ENTERPRISE/licensing-boundary.md`) stating what public MIT/CC licenses cover versus what a future contract may sell. No prices, customers, or SLAs.
-- Combined biome layout (`GADGETS-AND-BUILDS/sustainable-living-biomes/first-combined-layout.md`) naming energy / water / food / control zones without yields.
-- Generator 02 water-side exchanger classes and potable-isolation notes (`02-rocket-mass-biomass-hybrid/water-side-exchanger.md`). No UA, GPM, or recovery-rate numbers.
-- Well-being alignment page (`ENTERPRISE/well-being-alignment.md`) listing allowed vs forbidden commercial claims. No prices, customers, or SLAs.
-- Plant-side placeholders on `EnergyState` plus host gate `plant_observe_ok` in `energy_aware_scheduler.py`.
-- Inquiry completeness gate (`ENTERPRISE/inquiry-completeness.md`). No prices, customers, or SLAs.
-- Host stub `SANDBOX/gen03_control_stub.py` names Generator 03 states and calls `plant_observe_ok`. Tests wired into `.github/workflows/host-tests.yml`.
-- Inquiry-completeness links on `order-and-contract.md` and `engagement-faq.md`.
-- `SANDBOX/run_prototypes.py` writes `SANDBOX/out/gen03_decisions.json` from `named_host_scenarios()`. Decisions are named states only.
-- Quote-draft outline (`ENTERPRISE/quote-draft-outline.md`) lists the ten sections a written quote should contain after the completeness gate. No prices, customers, or SLAs.
-- Named home-lab Class A slope sketch (`02-rocket-mass-biomass-hybrid/home-lab-class-a-slope-sketch.md`) plus Model 16 interface card (`16-secure-integrity-auditor.md`). No measured ΔT, no TPM, no hash joules.
-- Maintainer inquiry-response template (`ENTERPRISE/inquiry-response-template.md`) with incomplete vs complete paste-backs. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 17 interface card (`17-air-gap-config-validator.md`) at the same depth as cards 01–16. No schema compiler, no parse-joule measurement, no STIG/CIS claim.
-- Post-quote packet checklist (`ENTERPRISE/post-quote-packet.md`) naming the minimum honest file set after written acceptance. No prices, customers, or SLAs.
-- Model 18 interface card (`18-local-mesh-routing-policy.md`) at the same depth as cards 01–17. Catalog index and GOAL.md updated. No radio driver, no hop-joule measurement, no mesh-protocol claim.
-- Change-order page (`ENTERPRISE/change-order.md`) naming how scope changes are recorded after a packet exists. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 19 interface card (`19-energy-neutral-probability-estimator.md`) at the same depth as cards 01–18. Catalog index and GOAL.md updated. No survival-curve fit, no energy-neutral certificate, no measured harvest increment.
-- Engagement closeout page (`ENTERPRISE/engagement-closeout.md`) naming how an engagement is closed after packet + change orders. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 20 interface card (`20-tiny-decision-tree-disaggregator.md`) at the same depth as cards 01–19. Catalog index and GOAL.md updated. No trained tree, no NILM certificate, no measured walk joules.
-- Records-retention page (`ENTERPRISE/records-retention.md`) naming keep vs discard after closeout. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 21 interface card (`21-quantized-random-forest-policy.md`) at the same depth as cards 01–20. Catalog index and GOAL.md updated. No trained forest, no control certificate, no measured vote joules.
-- Correction-notice page (`ENTERPRISE/correction-notice.md`) naming how factual errors are recorded after retention. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 22 interface card (`22-hierarchical-early-exit-cascade.md`) at the same depth as cards 01–21. Catalog index and GOAL.md updated. No trained cascade, no inference certificate, no measured stage joules.
-- Reopen-after-close page (`ENTERPRISE/reopen-after-close.md`) naming how a closed engagement becomes a new inquiry. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 23 interface card (`23-memory-efficient-kv-cache-adapter.md`) at the same depth as cards 01–22. Catalog index and GOAL.md updated. No packed KV layout, no context-window certificate, no measured cache joules.
-- Decline-or-defer page (`ENTERPRISE/decline-or-defer.md`) naming how an inquiry is declined or deferred without inventing queue metrics. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 24 interface card (`24-speculative-decode-lite.md`) at the same depth as cards 01–23. Catalog index and GOAL.md updated. No draft model, no accept-rate certificate, no measured draft joules.
-- Public-tree handoff page (`ENTERPRISE/handoff-to-public-tree.md`) naming when the honest next step is study of the public catalog, not a quote. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 25 interface card (`25-on-device-continual-learner.md`) at the same depth as cards 01–24. Catalog index and GOAL.md updated. No trainer, no plasticity certificate, no measured update joules.
-- Measurement-hold page (`ENTERPRISE/measurement-hold.md`) naming when a complete inquiry still cannot be quoted because energy rows stay `to-be-measured` with no named lab. Linked from `order-and-contract.md` and `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 26 interface card (`26-federated-aggregate-offline.md`) at the same depth as cards 01–25. Catalog index and GOAL.md updated. No federated trainer, no privacy certificate, no measured share joules.
-- Named-lab-plan page (`ENTERPRISE/named-lab-plan.md`) naming who-measures after a measurement hold, without inventing labs, dates, or prices. Linked from `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 27 interface card (`27-differential-privacy-noise-injector.md`) at the same depth as cards 01–26. Catalog index and GOAL.md updated. No sampler firmware, no DP certificate, no measured noise joules.
-- Instrument-list page (`ENTERPRISE/instrument-list.md`) naming meter class after a named lab plan, without inventing serials, calibrations, or prices. Linked from `engagement-faq.md`. No prices, customers, or SLAs.
-- Model 28 interface card (`28-physical-ai-low-level-controller.md`) at the same depth as cards 01–27. Catalog index and GOAL.md updated. No actuator driver, no motion certificate, no measured command joules.
-- Measurement-method page (`ENTERPRISE/measurement-method.md`) naming method class after an instrument list, without inventing sample rates, SOP ids, or prices. Linked from `engagement-faq.md`. No prices, customers, or SLAs.
-- **This hour (Agent 1):** Model 29 interface card (`29-world-model-lite.md`) at the same depth as cards 01–28. Catalog index and GOAL.md updated. No video encoder, no dynamics certificate, no measured rollout joules.
-- **This hour (Agent 2):** Result-record page (`ENTERPRISE/result-record.md`) naming source/units class after a measurement method, without inventing joules, pass rates, or prices. Linked from `engagement-faq.md`. No prices, customers, or SLAs.
+## Completed This Session (all four recommended steps)
+1. **Generator 01 deep-dive** — Collector sizing tables, thermosiphon rules, freeze-protection strategies (drain-back, glycol, etc.), stagnation protection, sensors, and minimal viable BOM. File: `01-solar-thermal-thermosiphon/DETAILED-DESIGN.md`
+2. **Generator 02 safety-critical details** — Combustion safety, clearances, water-side relief, fuel rules, hybrid solar prioritization, sensors/interlocks. Explicit Aegis warning that physical builds require proven designs + local expertise. File: `02-rocket-mass-biomass-hybrid/SAFETY-AND-DESIGN.md`
+3. **Generator 03 control code + components** — Component classes, realistic power-budget notes, concrete Python policy sketch compatible with energy_aware_scheduler, integration points. File: `03-thermoelectric-pv-hybrid/CONTROL-AND-COMPONENTS.md`
+4. **First concrete Sustainable Living Biome layout** — Logical closed-loop design combining all three generators with water, food, energy storage, and Operator AI prioritization. File: `sustainable-living-biomes/FIRST-CONCRETE-LAYOUT.md`
+
+## Method
+Dyad dual-agent process used throughout:
+- **Lumen** expanded possibilities, sizing, and integration ideas.
+- **Aegis** enforced safety, realism, power budgets, and reproducibility limits.
 
 ## Active Automation
-Hourly Dual-Agent Upgrade (Task ID a296e32a-8e33-4ff4-8276-bea9ef6bf936) continues to run.
+Hourly Dual-Agent Upgrade continues to run and will now see the expanded hot-water and biome documentation.
 
-## Next Priorities
-1. Continue deepening the 50-model catalog (card 30 next at the same interface depth) and Operator AI executor.
-2. Optional host stub for Model 16 `audit()`, Model 17 `validate()`, Model 18 `may_forward()`, Model 19 `neutral_ok()`, Model 20 `disagg_ok()`, Model 21 `rf_ok()`, Model 22 `cascade_ok()`, Model 23 `kv_ok()`, Model 24 `spec_ok()`, Model 25 `learn_ok()`, Model 26 `agg_ok()`, Model 27 `dp_ok()`, Model 28 `phys_ok()`, or Model 29 `wm_ok()` that hashes/parses/looks up a fixture in CI — still not TPM, on-device policy, a radio, a field certificate, a trained NILM tree, a trained forest, a trained cascade, a packed KV layout, a draft model, a trainer, a federated roster, a DP accountant, an actuator driver, or a video encoder.
-3. Dimension a real bench for the Class A slope sketch, or log `loop_t_*` / `tank_t` on the same clock.
-4. Keep enterprise language tied to `well-being-alignment.md`, `inquiry-completeness.md`, `quote-draft-outline.md`, `inquiry-response-template.md`, `post-quote-packet.md`, `change-order.md`, `engagement-closeout.md`, `records-retention.md`, `correction-notice.md`, `reopen-after-close.md`, `decline-or-defer.md`, `handoff-to-public-tree.md`, `measurement-hold.md`, `named-lab-plan.md`, `instrument-list.md`, `measurement-method.md`, and `result-record.md` when adding any new sales-facing page. Link `named-lab-plan.md`, `instrument-list.md`, `measurement-method.md`, and `result-record.md` from `order-and-contract.md` on a later pass if that file is edited.
-5. Do not publish prices or customer claims.
+## Next Logical Priorities
+- Climate-specific example calculations for Generator 01
+- Sensor wiring diagrams and test procedures
+- Real COP / power measurements once hardware is selected for Generator 03
+- Dimensional sketches or further safety references for Generator 02 (still research-grade only)
+- Expand the 50-model catalog and Operator AI executor
 
 ## Standing Directive
-Use all available connectors and skills with quality prioritization. Authorize specialized agents. Keep GitHub updated. Prefer verifiable, reproducible designs. Never invent metrics, customers, or completed hardware measurements.
+All connectors and skills available; quality first; specialized agents authorized; GitHub kept live; verifiable and safe designs preferred over incomplete claims.
 
 Repository: https://github.com/trigger6980/doctorate-natural-electric-ai-2036
