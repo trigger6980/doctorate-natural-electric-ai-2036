@@ -19,7 +19,7 @@ Honesty rules:
 - Distinct from Model 41: Model 41 plans tokens for one agent. This card sequences *multiple named roles*.
 - Distinct from Model 42: Model 42 guards a tool path. This card guards *who may call whom*.
 - Distinct from Model 46: Model 46 forecasts energy on a named temporal graph. This card chooses *agent order*, not snapshot rolls.
-- Distinct from Model 48: Model 48 (still a stub) allocates sovereign compute. This card orchestrates agents, not machine slots.
+- Distinct from Model 48: Model 48 allocates sovereign compute slots. This card orchestrates agents, not machine slots.
 
 ## Interface (planned)
 
