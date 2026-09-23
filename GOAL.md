@@ -39,4 +39,5 @@
 - [x] Model card 34 given the same interface + energy-budget depth (multi-source power path optimizer; no MPPT firmware).
 - [x] Model card 35 given the same interface + energy-budget depth (hand-crank + solar duty planner; no crank firmware).
 - [x] Model card 36 given the same interface + energy-budget depth (BLE / mesh energy-aware MAC; no radio firmware).
-- [ ] Additional model cards (37+) given the same interface + energy-budget depth.
+- [x] Model card 37 given the same interface + energy-budget depth (secure boot + model attestation lite; no boot firmware).
+- [ ] Additional model cards (38+) given the same interface + energy-budget depth.
