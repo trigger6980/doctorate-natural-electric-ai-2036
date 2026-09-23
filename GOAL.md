@@ -37,4 +37,5 @@
 - [x] Model card 32 given the same interface + energy-budget depth (energy-information co-harvest encoder; no co-harvest transducer).
 - [x] Model card 33 given the same interface + energy-budget depth (formal energy contract checker; no proof checker).
 - [x] Model card 34 given the same interface + energy-budget depth (multi-source power path optimizer; no MPPT firmware).
-- [ ] Additional model cards (35+) given the same interface + energy-budget depth.
+- [x] Model card 35 given the same interface + energy-budget depth (hand-crank + solar duty planner; no crank firmware).
+- [ ] Additional model cards (36+) given the same interface + energy-budget depth.

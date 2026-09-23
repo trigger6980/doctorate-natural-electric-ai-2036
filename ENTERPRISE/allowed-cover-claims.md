@@ -40,6 +40,7 @@ If the cover names a model, add the matching refuse line:
 | 32 | `coh_ok` is not a co-harvest, SWIPT, or bits-per-joule certificate |
 | 33 | `ctr_ok` is not a formal-verification, SIL, or energy-contract certificate |
 | 34 | `ppo_ok` is not an MPPT, converter-efficiency, or power-path certificate |
+| 35 | `hcd_ok` is not a crank-dynamo, human-watt, or portable-duty certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 
