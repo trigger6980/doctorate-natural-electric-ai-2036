@@ -38,6 +38,7 @@ If the cover names a model, add the matching refuse line:
 | 30 | `res_ok` is not a reservoir or analog-neuromorphic certificate |
 | 31 | `ion_ok` is not an ionic-synapse or materials certificate |
 | 32 | `coh_ok` is not a co-harvest, SWIPT, or bits-per-joule certificate |
+| 33 | `ctr_ok` is not a formal-verification, SIL, or energy-contract certificate |
 
 Omit the row if that model is out of scope for the inquiry.
 
