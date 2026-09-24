@@ -1,6 +1,10 @@
 """Host tests for Model 50 inquiry completeness. Not a sales test."""
 
 from inquiry_completeness import (
+    LANE_NOT_READY,
+    LANE_OFF_REPO,
+    LANE_PUBLIC,
+    LANE_UNKNOWN,
     OUTLINE_SECTIONS,
     copy_headings,
     inquiry_ok,
@@ -11,6 +15,8 @@ from inquiry_completeness import (
     public_fill_keys,
     quote_action,
     refuse_reason,
+    section_lane,
+    section_lanes,
     stamp,
 )
 
@@ -107,6 +113,9 @@ def test_stamp_complete_discuss():
     assert labeled["off_repo_keys"] == ["commercial_figure_off_repo"]
     assert labeled["partition_disjoint"] is True
     assert labeled["partition_covers_outline"] is True
+    assert labeled["section_lanes"]["who_measures_joules"] == LANE_PUBLIC
+    assert labeled["section_lanes"]["commercial_figure_off_repo"] == LANE_OFF_REPO
+    assert set(labeled["section_lanes"]) == set(OUTLINE_SECTIONS)
 
 
 def test_stamp_refuses_observer_evidence():
@@ -128,6 +137,7 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["off_repo_keys"] == []
     assert labeled["partition_disjoint"] is True
     assert labeled["partition_covers_outline"] is False
+    assert all(lane == LANE_NOT_READY for lane in labeled["section_lanes"].values())
 
 
 def test_outline_ready_never_allows_price():
@@ -197,6 +207,31 @@ def test_partition_keys_ready_covers_and_stays_disjoint():
     assert blocked["price_allowed"] is False
 
 
+def test_section_lane_ready_and_blocked():
+    public = section_lane(COMPLETE, "who_measures_joules")
+    assert public["lane"] == LANE_PUBLIC
+    assert public["price_allowed"] is False
+    assert public["outline_ready"] is True
+    dollars = section_lane(COMPLETE, "commercial_figure_off_repo")
+    assert dollars["lane"] == LANE_OFF_REPO
+    assert dollars["price_allowed"] is False
+    unknown = section_lane(COMPLETE, "sku_price_column")
+    assert unknown["lane"] == LANE_UNKNOWN
+    assert unknown["price_allowed"] is False
+    blocked = section_lane({"model_ids": []}, "who_measures_joules")
+    assert blocked["lane"] == LANE_NOT_READY
+    assert blocked["price_allowed"] is False
+    refused = dict(COMPLETE)
+    refused["intended_use"] = "quote_evidence"
+    assert section_lane(refused, "commercial_figure_off_repo")["lane"] == LANE_NOT_READY
+    lanes = section_lanes(COMPLETE)
+    assert lanes["parties_and_date"] == LANE_PUBLIC
+    assert lanes["commercial_figure_off_repo"] == LANE_OFF_REPO
+    assert set(lanes) == set(OUTLINE_SECTIONS)
+    idle = section_lanes({"model_ids": []})
+    assert all(value == LANE_NOT_READY for value in idle.values())
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -213,4 +248,5 @@ if __name__ == "__main__":
     test_public_fill_keys_excludes_commercial_figure()
     test_off_repo_keys_only_when_ready()
     test_partition_keys_ready_covers_and_stays_disjoint()
+    test_section_lane_ready_and_blocked()
     print("inquiry_completeness tests passed")

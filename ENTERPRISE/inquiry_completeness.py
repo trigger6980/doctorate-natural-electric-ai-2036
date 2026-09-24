@@ -63,6 +63,11 @@ OUTLINE_SECTIONS = (
 # Only this section is never fillable in the public tree.
 OFF_REPO_SECTIONS = frozenset({"commercial_figure_off_repo"})
 
+LANE_PUBLIC = "public_fill"
+LANE_OFF_REPO = "off_repo"
+LANE_NOT_READY = "not_ready"
+LANE_UNKNOWN = "unknown_section"
+
 
 def _filled(value: object) -> bool:
     if value is None:
@@ -231,6 +236,48 @@ def partition_keys(inquiry: Mapping[str, object]) -> dict:
     }
 
 
+def section_lane(inquiry: Mapping[str, object], key: str) -> dict:
+    """Which filing lane one outline heading belongs to. Not a price.
+
+    Lanes:
+    - public_fill: outline ready and the key may be written in this tree
+    - off_repo: outline ready and the key is commercial_figure_off_repo
+    - not_ready: outline is not ready (including refused intended_use)
+    - unknown_section: key is not one of the ten outline headings
+    price_allowed is always false.
+    """
+    token = str(key or "").strip()
+    if token not in OUTLINE_SECTIONS:
+        return {
+            "key": token,
+            "lane": LANE_UNKNOWN,
+            "outline_ready": outline_ready(inquiry)["outline_ready"],
+            "price_allowed": False,
+        }
+    if not outline_ready(inquiry)["outline_ready"]:
+        return {
+            "key": token,
+            "lane": LANE_NOT_READY,
+            "outline_ready": False,
+            "price_allowed": False,
+        }
+    if token in OFF_REPO_SECTIONS:
+        lane = LANE_OFF_REPO
+    else:
+        lane = LANE_PUBLIC
+    return {
+        "key": token,
+        "lane": lane,
+        "outline_ready": True,
+        "price_allowed": False,
+    }
+
+
+def section_lanes(inquiry: Mapping[str, object]) -> dict[str, str]:
+    """Map every known outline heading to its lane. Not a rate card."""
+    return {key: section_lane(inquiry, key)["lane"] for key in OUTLINE_SECTIONS}
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
@@ -255,6 +302,7 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
         "off_repo_keys": off_repo_keys(inquiry),
         "partition_disjoint": part["disjoint"],
         "partition_covers_outline": part["covers_outline"],
+        "section_lanes": section_lanes(inquiry),
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
             "into a quote outline, not a price, SLA, or measured joule figure. "
@@ -263,6 +311,7 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
             "public_fill_keys never includes commercial_figure_off_repo. "
             "off_repo_keys is that commercial key when the outline is ready, else empty. "
             "partition_disjoint must stay true; partition_covers_outline is true only "
-            "when a draft outline exists and every section is assigned."
+            "when a draft outline exists and every section is assigned. "
+            "section_lanes maps each known heading to public_fill, off_repo, or not_ready."
         ),
     }
