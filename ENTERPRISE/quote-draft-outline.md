@@ -24,6 +24,8 @@ Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_rea
 
 `next_maintainer_action(inquiry)` is the filing verb that follows the tally: `decline`, `ask`, or `copy_headings`. Ready packets report `copy_headings`. Incomplete packets report `ask`. Well-being failures report `decline`. There is no `publish_price` verb. Stamp fields `next_action` and `next_action_copy_headings` are the same verb, not a rate card.
 
+`action_flags(inquiry)` records those three verbs as booleans plus `publish_price=false`. `exactly_one` must stay true. Stamp fields `action_flags` and `action_exactly_one` are a mutex check, not a price.
+
 ## Sections a written quote should contain
 
 1. **Parties and date** — names as given in the inquiry; no invented company logos.
@@ -43,7 +45,7 @@ Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_rea
 - SLA or MTBF numbers that have not been measured as a service.
 - Claims that `SANDBOX/out/gen03_decisions.json` certifies a heat stage.
 - Claims that cards 02–15 are licensed weight files.
-- Claims that `stamp().outline_ready`, `stamp().headings_copyable`, `stamp().public_fill_keys`, `stamp().off_repo_keys`, `stamp().partition_disjoint`, `stamp().partition_covers_outline`, `stamp().section_lanes`, `stamp().lane_counts`, or `stamp().next_action` is a signed quote or a price.
+- Claims that `stamp().outline_ready`, `stamp().headings_copyable`, `stamp().public_fill_keys`, `stamp().off_repo_keys`, `stamp().partition_disjoint`, `stamp().partition_covers_outline`, `stamp().section_lanes`, `stamp().lane_counts`, or `stamp().next_action`, or `stamp().action_flags`, or `stamp().action_exactly_one` is a signed quote or a price.
 
 If a cover letter needs those objects, decline or narrow scope. See [`well-being-alignment.md`](well-being-alignment.md).
 
