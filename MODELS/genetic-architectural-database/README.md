@@ -23,7 +23,7 @@ See also:
 - [Host sandbox](../../SANDBOX/README.md)
 - [Model 50 commercial template](models/50-enterprise-identical-model-template.md)
 
-Cards **01–50** now share an honesty pattern. Cards 01–49 use interface + energy-budget + next-measurements. Card **50** uses the same refuse/allow pattern as a *commercial template* that points at the order page — not a product sheet and not a SKU list. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Models 13–48 remain interface-only as previously recorded. Model 49 has a host fixture stub (`AGENTS/gas_search_gate.py`): no NAS controller and no architecture-search certificate. Model 50 has a host checklist (`ENTERPRISE/inquiry_completeness.py`) that only counts the six public completeness items.
+Cards **01–50** now share an honesty pattern. Cards 01–49 use interface + energy-budget + next-measurements. Card **50** uses the same refuse/allow pattern as a *commercial template* that points at the order page — not a product sheet and not a SKU list. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Models 13–48 remain interface-only as previously recorded. Model 49 has a host fixture stub (`AGENTS/gas_search_gate.py`) plus an optional policy-executor preflight (`gas_search` → `gas_<reason>`): no NAS controller and no architecture-search certificate. Model 50 has a host checklist (`ENTERPRISE/inquiry_completeness.py`) that only counts the six public completeness items.
 
 ---
 
@@ -79,7 +79,7 @@ Cards **01–50** now share an honesty pattern. Cards 01–49 use interface + en
 | 46 | Temporal Graph Energy Forecaster | Time-series | Medium | Interface specified (no trained T-GNN / no forecast certificate) |
 | 47 | Hierarchical Multi-Agent Orchestrator | Operator AI | Medium–High | Interface specified (no production orchestrator / no orchestration certificate) |
 | 48 | Sovereign Compute Resource Allocator | Systems | Medium | Interface specified (no cluster scheduler / no allocation certificate) |
-| 49 | Genetic Architecture Search Lite | Meta / AutoML | Medium | Interface + host fixture stub (no NAS controller / no architecture certificate) |
+| 49 | Genetic Architecture Search Lite | Meta / AutoML | Medium | Interface + host fixture stub + policy preflight (no NAS controller / no architecture certificate) |
 | 50 | Enterprise Identical Model Template | Commercial / Contract | Configurable | Interface + host completeness checklist (not a product sheet) |
 
 ---

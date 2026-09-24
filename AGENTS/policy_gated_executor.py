@@ -3,13 +3,17 @@
 Host-side only. Does not talk to hardware. The default policy mirrors
 `simple_threshold_policy` so this module can be tested without importing
 across prototype paths.
+
+Optional Model 49 preflight (`gas_search`) records a research skip token.
+That token is not an architecture certificate and is not an enterprise
+inquiry decision.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, Mapping, Optional
 
 from task_graph_executor import Checkpoint, TaskGraphExecutor
 
@@ -64,6 +68,48 @@ def allowed_task_tags(action: Action) -> frozenset:
     }[action]
 
 
+def _energy_mapping(state: EnergyState) -> Dict[str, float]:
+    return {"voltage_v": state.voltage_v, "rail_voltage_v": state.voltage_v}
+
+
+def apply_gas_preflight(
+    checkpoint: Optional[Checkpoint],
+    state: EnergyState,
+    gas_search: Optional[Mapping[str, Any]],
+) -> Optional[Checkpoint]:
+    """If gas_search is provided and refuse_reason is not ok, abort early.
+
+    gas_search keys used: search_table, hold_gas, plus any kwargs accepted
+    by gas_search_gate.refuse_reason except energy_state / v_min_safe
+    (those come from EnergyState / PolicyConfig when decide_and_run calls).
+    """
+    if not gas_search:
+        return None
+    from gas_search_gate import gas_action, refuse_reason
+
+    table = gas_search.get("search_table")
+    hold = gas_search.get("hold_gas")
+    extra = {
+        k: v
+        for k, v in gas_search.items()
+        if k not in {"search_table", "hold_gas", "energy_state", "v_min_safe"}
+    }
+    reason = refuse_reason(_energy_mapping(state), table, hold, **extra)
+    action = gas_action(_energy_mapping(state), table, hold, **extra)
+    if reason == "ok":
+        cp = checkpoint or Checkpoint()
+        cp.context["_gas_reason"] = "ok"
+        cp.context["_gas_action"] = action
+        return None
+
+    cp = checkpoint or Checkpoint()
+    cp.aborted_reason = f"gas_{reason}"
+    cp.context["_gas_reason"] = reason
+    cp.context["_gas_action"] = action
+    cp.context["_remaining_joules"] = state.estimated_joules
+    return cp
+
+
 def decide_and_run(
     executor: TaskGraphExecutor,
     state: EnergyState,
@@ -72,13 +118,22 @@ def decide_and_run(
     context: Optional[Dict[str, Any]] = None,
     checkpoint: Optional[Checkpoint] = None,
     task_tags: Optional[Dict[str, str]] = None,
+    gas_search: Optional[Mapping[str, Any]] = None,
 ) -> Checkpoint:
     """Run the graph only for tasks whose tag is allowed by the policy action.
 
     task_tags maps task name -> one of sense|infer|transmit.
     Untagged tasks are treated as infer (must have at least INFER energy).
+
+    gas_search, when provided, is a research preflight (Model 49). A refuse
+    token becomes aborted_reason='gas_<reason>'. Passing preflight does not
+    certify an architecture search.
     """
     cfg = cfg or PolicyConfig()
+    gas_abort = apply_gas_preflight(checkpoint, state, gas_search)
+    if gas_abort is not None:
+        return gas_abort
+
     policy = policy_fn or simple_threshold_policy
     action = policy(state, cfg)
     allowed = allowed_task_tags(action)
@@ -91,7 +146,6 @@ def decide_and_run(
         return cp
 
     tags = task_tags or {}
-    # Filter by cloning a reduced executor of allowed tasks only.
     allowed_tasks = []
     for name, task in executor.tasks.items():
         tag = tags.get(name, "infer")
@@ -112,4 +166,6 @@ def decide_and_run(
         checkpoint=checkpoint,
     )
     cp.context["_policy_action"] = action.name
+    if gas_search:
+        cp.context.setdefault("_gas_reason", "ok")
     return cp

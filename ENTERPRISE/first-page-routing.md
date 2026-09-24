@@ -22,7 +22,9 @@ Companions: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template
 
 ## Research gates are not commercial objects
 
-Model 49 (`gas_ok` in `AGENTS/gas_search_gate.py`) is a research refuse/allow gate on a fixture candidate table. Passing that host test does **not** mean a custom architecture is for sale, measured, or certified. Commercial language stays on Model 50 and the pages in this folder. Do not send an inquiry to Model 49 and do not treat `gas_ok` as `inquiry_ok`.
+Model 49 (`gas_ok` in `AGENTS/gas_search_gate.py`) is a research refuse/allow gate on a fixture candidate table. Passing that host test does **not** mean a custom architecture is for sale, measured, or certified.
+
+The policy-gated executor may now record the same refuse tokens as `aborted_reason='gas_<reason>'`. Those tokens are **research skip labels**. They are not decline codes, not quote statuses, and not `inquiry_ok`. Commercial language stays on Model 50 and the pages in this folder. Do not send an inquiry to Model 49.
 
 ## What this page must not do
 
@@ -30,7 +32,7 @@ Model 49 (`gas_ok` in `AGENTS/gas_search_gate.py`) is a research refuse/allow ga
 - Send the reader to a private CRM that this repository does not operate.
 - Treat Model 49 or Model 50 as certified products.
 - Promise that filling the inquiry template starts a contract.
-- Treat `eim_ok` / `inquiry_ok` / `gas_ok` as a signed agreement.
+- Treat `eim_ok` / `inquiry_ok` / `gas_ok` / `gas_<reason>` as a signed agreement.
 
 ## Maintainer use
 
