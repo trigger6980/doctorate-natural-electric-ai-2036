@@ -24,7 +24,7 @@ Companions: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template
 
 Model 49 (`gas_ok` in `AGENTS/gas_search_gate.py`) is a research refuse/allow gate on a fixture candidate table. Passing that host test does **not** mean a custom architecture is for sale, measured, or certified.
 
-The policy-gated executor may now record the same refuse tokens as `aborted_reason='gas_<reason>'`. Those tokens are **research skip labels**. They are not decline codes, not quote statuses, and not `inquiry_ok`. Commercial language stays on Model 50 and the pages in this folder. Do not send an inquiry to Model 49.
+The policy-gated executor may record refuse tokens as `aborted_reason='gas_<reason>'`. The host sandbox may also print `_gas_reason_ok` / `_gas_reason_missing_table` in `SANDBOX/out/summary.json`. Those tokens are **research skip labels**. They are not decline codes, not quote statuses, not `inquiry_ok`, and not evidence that a search farm exists. Commercial language stays on Model 50 and the pages in this folder. Do not send an inquiry to Model 49.
 
 ## What this page must not do
 
@@ -33,6 +33,7 @@ The policy-gated executor may now record the same refuse tokens as `aborted_reas
 - Treat Model 49 or Model 50 as certified products.
 - Promise that filling the inquiry template starts a contract.
 - Treat `eim_ok` / `inquiry_ok` / `gas_ok` / `gas_<reason>` as a signed agreement.
+- Treat sandbox `_gas_reason_*` fields as a commercial score.
 
 ## Maintainer use
 

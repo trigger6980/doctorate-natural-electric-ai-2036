@@ -9,7 +9,7 @@
 - [x] Thesis abstract + first research axis document pushed.
 - [x] 2036 skill set and agent authorization model documented.
 - [x] Security/networking component skeleton started.
-- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker + brokered executor + inquiry completeness + Model 49 gas gate + Model 49 gas preflight on the policy executor; hardware measurements still pending).
+- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker + brokered executor + inquiry completeness + Model 49 gas gate + Model 49 gas preflight on the policy executor + sandbox `_gas_reason` demo; hardware measurements still pending).
 - [x] Operator AI task-graph executor beyond host skeleton for *policy gating* and *host-file checkpoint persistence* (on-device flash mapping and hardware energy observer still open).
 - [x] Model cards 04–15 given the same interface + energy-budget depth as models 01–03.
 - [x] Model 05 host helper `joules_from_voltage` (uncalibrated; C must be supplied).
@@ -21,4 +21,5 @@
 - [x] Model cards 16–48 given the same interface + energy-budget depth (see prior STATUS rows; none are certified runtimes).
 - [x] Model card 49 given the same interface + energy-budget depth plus a host fixture stub (`gas_ok`); no NAS controller.
 - [x] Model 49 skip reasons optionally wired through `policy_gated_executor` as `gas_<reason>` (research preflight only; no architecture certificate).
+- [x] Host sandbox surfaces `_gas_reason` for an agreed-row table and a missing-table refuse (research labels only; no search farm).
 - [x] Model card 50 given the same honesty pattern as a *commercial template* (not a product sheet; no fake SKUs) plus a host six-item completeness checklist.
