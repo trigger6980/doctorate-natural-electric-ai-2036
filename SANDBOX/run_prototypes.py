@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "AGENTS"))
 sys.path.insert(0, str(ROOT / "PROTOTYPES" / "energy-harvester-tinyml" / "src"))
 sys.path.insert(0, str(ROOT / "SANDBOX"))
+sys.path.insert(0, str(ROOT / "ENTERPRISE"))
 
 from brokered_executor import brokered_run  # noqa: E402
 from claim_gate import stamp, stamp_many  # noqa: E402
@@ -19,6 +20,7 @@ from energy_aware_scheduler import run_simulation  # noqa: E402
 from energy_broker import EnergyRequest, allocate_all_or_nothing  # noqa: E402
 from energy_observer import record_sample  # noqa: E402
 from gen03_control_stub import named_host_scenarios  # noqa: E402
+from inquiry_completeness import stamp as inquiry_stamp  # noqa: E402
 from policy_gated_executor import EnergyState, decide_and_run  # noqa: E402
 from task_graph_executor import Task, TaskGraphExecutor  # noqa: E402
 
@@ -94,6 +96,41 @@ def run_observer_demo():
     }
 
 
+def run_inquiry_stamp_demo():
+    """Host Model 50 labels. Not a quote and not energy evidence."""
+    discuss = inquiry_stamp(
+        {
+            "model_ids": ["01"],
+            "license_shape": "identical",
+            "deploy_context": "host sandbox replica",
+            "energy_honesty": "to-be-measured",
+            "scope_table": {"joules": "to-be-measured"},
+            "deliverable_shape": "research_replica",
+            "intended_use": "discuss",
+        }
+    )
+    refused = inquiry_stamp(
+        {
+            "model_ids": ["01"],
+            "license_shape": "identical",
+            "deploy_context": "host sandbox replica",
+            "energy_honesty": "to-be-measured",
+            "scope_table": {"joules": "to-be-measured"},
+            "deliverable_shape": "research_replica",
+            "intended_use": "quote_evidence",
+            "energy_evidence": "claim_scan",
+        }
+    )
+    return {
+        "discuss": discuss,
+        "refused_quote_evidence": refused,
+        "note": (
+            "Inquiry stamp is a completeness snapshot. discuss may draft an outline. "
+            "quote_evidence plus claim_scan stays observer_not_evidence / ask."
+        ),
+    }
+
+
 def main() -> int:
     pool_j = float(os.environ.get("SANDBOX_POOL_J", "0.12"))
     reserve_j = float(os.environ.get("SANDBOX_RESERVE_J", "0.01"))
@@ -137,8 +174,12 @@ def main() -> int:
 
     observer_demo = run_observer_demo()
     (OUT / "energy_observer.json").write_text(
-        json.dumps(observer_demo, indent=2),
-        encoding="utf-8",
+        json.dumps(observer_demo, indent=2), encoding="utf-8",
+    )
+
+    inquiry_demo = run_inquiry_stamp_demo()
+    (OUT / "inquiry_stamp.json").write_text(
+        json.dumps(inquiry_demo, indent=2), encoding="utf-8",
     )
 
     summary = {
@@ -158,12 +199,16 @@ def main() -> int:
         "observer_is_field_measurement": observer_demo["placeholder"]["is_field_measurement"],
         "observer_claim_scan": observer_demo["claim_scan"],
         "energy_observer": observer_demo,
+        "inquiry_discuss_action": inquiry_demo["discuss"]["quote_action"],
+        "inquiry_refused_action": inquiry_demo["refused_quote_evidence"]["quote_action"],
+        "inquiry_stamp": inquiry_demo,
         "note": (
             "Host sandbox only. Placeholder joules. Generate skip under default pool "
             "is expected. Gen03 names are scenario flags, not measured watts. "
             "_gas_reason is a Model 49 research label, not a search farm and not a quote. "
             "Observer samples are host_placeholder / hardware_pending, never measured. "
-            "claim_scan is a host label, not a field certificate."
+            "claim_scan is a host label, not a field certificate. "
+            "inquiry_stamp is a completeness snapshot, not a contract."
         ),
     }
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")

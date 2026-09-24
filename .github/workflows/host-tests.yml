@@ -28,5 +28,6 @@ jobs:
           python SANDBOX/test_gen03_control_stub.py
           python SANDBOX/test_gas_preflight_demo.py
           python SANDBOX/test_energy_observer_demo.py
+          python SANDBOX/test_inquiry_stamp_demo.py
           python SANDBOX/run_prototypes.py
           python ENTERPRISE/test_inquiry_completeness.py

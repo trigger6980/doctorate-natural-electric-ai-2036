@@ -124,3 +124,21 @@ def quote_action(inquiry: Mapping[str, object]) -> str:
     if reason == "unknown":
         return "unknown"
     return "ask"
+
+
+def stamp(inquiry: Mapping[str, object]) -> dict:
+    """Host label packet. Not a quote, contract, or energy certificate."""
+    use = _intended_use(inquiry)
+    return {
+        "items_present": items_present(inquiry),
+        "items_required": len(REQUIRED),
+        "refuse_reason": refuse_reason(inquiry),
+        "quote_action": quote_action(inquiry),
+        "intended_use": use or None,
+        "energy_evidence": _evidence_token(inquiry) or None,
+        "inquiry_ok": inquiry_ok(inquiry),
+        "note": (
+            "Host completeness stamp only. draft is permission to write questions "
+            "into a quote outline, not a price, SLA, or measured joule figure."
+        ),
+    }

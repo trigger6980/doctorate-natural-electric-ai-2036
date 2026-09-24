@@ -21,6 +21,8 @@ Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_eviden
 
 Optional field `intended_use` is also not one of the six items. Allowed values: `discuss`, `ask`, `host_log`, `sandbox_demo`. Refused values (same set as the claim gate): `field_generation`, `quote_evidence`, `result_record`. Those return `observer_not_evidence` and `quote_action` is `ask`. Unknown uses return `unknown_claim` and also `ask`.
 
+`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
+
 ## Incomplete patterns that stay incomplete
 
 - “Need the 50 models” with no identical/custom split.
@@ -28,6 +30,7 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 - A request to hide an energy cost or to treat host-sandbox joules as certified field performance.
 - Attaching `SANDBOX/out/energy_observer.json` as proof of harvest or consumption.
 - Treating a host `claim_scan` of `host_log: ok` as permission to quote joules.
+- Treating `inquiry_stamp.quote_action = draft` as a price or SLA.
 - A cover letter that needs customer logos or SLA numbers this repository does not have.
 
 Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow scope or decline; do not invent a case study.
@@ -39,6 +42,7 @@ Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow sc
 - That weights, flash mapping, or hardware observers exist.
 - That Generator 01–03 sketches are listed appliances.
 - That a host claim-gate pass (`host_log` / `sandbox_demo`) is a field certificate.
+- That `stamp()` is a contract record.
 
 ## Maintainer reply shape (when complete)
 

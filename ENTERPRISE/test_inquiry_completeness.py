@@ -1,6 +1,6 @@
 """Host tests for Model 50 inquiry completeness. Not a sales test."""
 
-from inquiry_completeness import inquiry_ok, items_present, quote_action, refuse_reason
+from inquiry_completeness import inquiry_ok, items_present, quote_action, refuse_reason, stamp
 
 COMPLETE = {
     "model_ids": ["01"],
@@ -72,6 +72,29 @@ def test_hardware_pending_token_is_not_evidence():
     assert quote_action(packet) == "ask"
 
 
+def test_stamp_complete_discuss():
+    packet = dict(COMPLETE)
+    packet["intended_use"] = "discuss"
+    labeled = stamp(packet)
+    assert labeled["items_present"] == 6
+    assert labeled["refuse_reason"] == "ok"
+    assert labeled["quote_action"] == "draft"
+    assert labeled["intended_use"] == "discuss"
+    assert labeled["inquiry_ok"] is True
+    assert labeled["energy_evidence"] is None
+
+
+def test_stamp_refuses_observer_evidence():
+    packet = dict(COMPLETE)
+    packet["energy_evidence"] = "claim_scan"
+    packet["intended_use"] = "quote_evidence"
+    labeled = stamp(packet)
+    assert labeled["refuse_reason"] == "observer_not_evidence"
+    assert labeled["quote_action"] == "ask"
+    assert labeled["inquiry_ok"] is False
+    assert labeled["energy_evidence"] == "claim_scan"
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -81,4 +104,6 @@ if __name__ == "__main__":
     test_intended_use_quote_evidence_asks()
     test_intended_use_discuss_may_draft()
     test_hardware_pending_token_is_not_evidence()
+    test_stamp_complete_discuss()
+    test_stamp_refuses_observer_evidence()
     print("inquiry_completeness tests passed")
