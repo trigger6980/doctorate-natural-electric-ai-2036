@@ -46,6 +46,20 @@ ALLOWED_INTENDED_USE = {
     "ask",
 }
 
+# Section keys from ENTERPRISE/quote-draft-outline.md. Host labels only.
+OUTLINE_SECTIONS = (
+    "parties_and_date",
+    "model_numbers_and_ancestry",
+    "identical_vs_custom",
+    "deliverable_shape",
+    "in_scope_files",
+    "out_of_scope",
+    "energy_honesty_table",
+    "who_measures_joules",
+    "commercial_figure_off_repo",
+    "what_stays_public",
+)
+
 
 def _filled(value: object) -> bool:
     if value is None:
@@ -126,9 +140,26 @@ def quote_action(inquiry: Mapping[str, object]) -> str:
     return "ask"
 
 
+def outline_ready(inquiry: Mapping[str, object]) -> dict:
+    """Whether a quote *outline* may be filled. Never a price or SLA."""
+    action = quote_action(inquiry)
+    return {
+        "outline_ready": action == "draft",
+        "price_allowed": False,
+        "quote_action": action,
+        "sections": list(OUTLINE_SECTIONS),
+        "note": (
+            "outline_ready means the six completeness items passed and a maintainer "
+            "may copy headings from quote-draft-outline.md. price_allowed is always "
+            "false on this host helper; the commercial figure stays off-repo."
+        ),
+    }
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
+    outline = outline_ready(inquiry)
     return {
         "items_present": items_present(inquiry),
         "items_required": len(REQUIRED),
@@ -137,8 +168,12 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
         "intended_use": use or None,
         "energy_evidence": _evidence_token(inquiry) or None,
         "inquiry_ok": inquiry_ok(inquiry),
+        "outline_ready": outline["outline_ready"],
+        "price_allowed": outline["price_allowed"],
+        "outline_sections": outline["sections"],
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
-            "into a quote outline, not a price, SLA, or measured joule figure."
+            "into a quote outline, not a price, SLA, or measured joule figure. "
+            "price_allowed is always false on this helper."
         ),
     }

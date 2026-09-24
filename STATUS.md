@@ -1,11 +1,11 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: inquiry stamp)
+**Last updated:** 2026-09-24 (Hourly dual-agent: outline_ready)
 
 ## This hour
-- Agent 1 (Code Structure): Sandbox now writes `SANDBOX/out/inquiry_stamp.json` next to the energy observer demo. `run_inquiry_stamp_demo` shows a complete `discuss` packet (`quote_action=draft`) and a refused `quote_evidence` + `claim_scan` packet (`observer_not_evidence` / `ask`). Host CI runs `SANDBOX/test_inquiry_stamp_demo.py`. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): `inquiry_completeness.stamp` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`). Docs state that `draft` is permission to write a quote outline, not a price or SLA. Tests cover both the discuss and refused paths. No prices, no SKUs, no fake customers.
-- GOAL.md records the inquiry-stamp surface as complete; hardware measurements still open.
+- Agent 1 (Code Structure): Host checklist now exposes `outline_ready()`, `price_allowed` (always false), and `outline_sections` on `stamp()`. Tests cover the discuss path (`outline_ready=true`, `price_allowed=false`) and the refused `quote_evidence` path (`outline_ready=false`). Sandbox inquiry stamp demo asserts the same fields. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `outline_ready` only authorizes copying headings. Section 9 remains `commercial_figure_off_repo`. No prices, no SKUs, no fake customers.
+- GOAL.md records the outline-ready surface as complete; hardware measurements still open.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -16,7 +16,7 @@ A separate gadgets repository remains the home for off-grid hot water generators
 - Thesis and research axes
 - Energy-harvester-tinyml and related prototypes
 - 50-model Genetic / Architectural Database (cards 01–50 share the honesty pattern; card 49 host fixture + policy preflight + sandbox label surface; card 50 remains a commercial template)
-- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp; hardware hook still open)
+- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready; hardware hook still open)
 - Enterprise Order & Contract page + process notes
 - Hourly Dual-Agent automation
 - Cross-links to the gadgets repository

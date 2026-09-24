@@ -17,6 +17,8 @@ def test_discuss_may_draft():
     assert demo["discuss"]["quote_action"] == "draft"
     assert demo["discuss"]["intended_use"] == "discuss"
     assert demo["discuss"]["inquiry_ok"] is True
+    assert demo["discuss"]["outline_ready"] is True
+    assert demo["discuss"]["price_allowed"] is False
 
 
 def test_quote_evidence_asks():
@@ -26,6 +28,8 @@ def test_quote_evidence_asks():
     assert refused["quote_action"] == "ask"
     assert refused["inquiry_ok"] is False
     assert refused["energy_evidence"] == "claim_scan"
+    assert refused["outline_ready"] is False
+    assert refused["price_allowed"] is False
 
 
 if __name__ == "__main__":

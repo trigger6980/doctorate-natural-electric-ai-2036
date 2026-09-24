@@ -8,6 +8,8 @@ Companions: [`order-and-contract.md`](order-and-contract.md), [`engagement-faq.m
 
 Only after the six completeness items are present. Until then the next action is questions.
 
+Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_ready` / `price_allowed` fields on `stamp(inquiry)`. `outline_ready=true` means a maintainer may copy the headings below. `price_allowed` is **always false** on the public host helper. The commercial figure (section 9) is written only in an off-repo quote document.
+
 ## Sections a written quote should contain
 
 1. **Parties and date** — names as given in the inquiry; no invented company logos.
@@ -18,7 +20,7 @@ Only after the six completeness items are present. Until then the next action is
 6. **Out of scope** — explicit list. Default out-of-scope objects unless the inquiry marked them in-scope: trained weights, board-specific measurement packs, flash mapping, coil/piezo/photodiode drivers, tesla-to-joule or lux-to-joule fits, listed-appliance certification, Generator 01–03 field COP.
 7. **Energy-honesty table** — every row from `scope-assumptions.md` restated as agreed / to-be-measured / out of scope. Host-sandbox joules stay labeled host-sandbox.
 8. **Who measures joules** — buyer lab, joint test, or later phase. Blank is not allowed in a quote.
-9. **Commercial figure** — one number or a small set of options, written only in the quote document. This repository still has no published price column.
+9. **Commercial figure** — one number or a small set of options, written only in the quote document. This repository still has no published price column. Host key: `commercial_figure_off_repo`.
 10. **What stays public** — MIT/CC files remain public. Private artifacts stay private.
 
 ## Language that must not appear in the outline-as-filled
@@ -27,6 +29,7 @@ Only after the six completeness items are present. Until then the next action is
 - SLA or MTBF numbers that have not been measured as a service.
 - Claims that `SANDBOX/out/gen03_decisions.json` certifies a heat stage.
 - Claims that cards 02–15 are licensed weight files.
+- Claims that `stamp().outline_ready` is a signed quote or a price.
 
 If a cover letter needs those objects, decline or narrow scope. See [`well-being-alignment.md`](well-being-alignment.md).
 

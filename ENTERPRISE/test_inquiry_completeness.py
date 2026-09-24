@@ -1,6 +1,13 @@
 """Host tests for Model 50 inquiry completeness. Not a sales test."""
 
-from inquiry_completeness import inquiry_ok, items_present, quote_action, refuse_reason, stamp
+from inquiry_completeness import (
+    inquiry_ok,
+    items_present,
+    outline_ready,
+    quote_action,
+    refuse_reason,
+    stamp,
+)
 
 COMPLETE = {
     "model_ids": ["01"],
@@ -82,6 +89,9 @@ def test_stamp_complete_discuss():
     assert labeled["intended_use"] == "discuss"
     assert labeled["inquiry_ok"] is True
     assert labeled["energy_evidence"] is None
+    assert labeled["outline_ready"] is True
+    assert labeled["price_allowed"] is False
+    assert "commercial_figure_off_repo" in labeled["outline_sections"]
 
 
 def test_stamp_refuses_observer_evidence():
@@ -93,6 +103,19 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["quote_action"] == "ask"
     assert labeled["inquiry_ok"] is False
     assert labeled["energy_evidence"] == "claim_scan"
+    assert labeled["outline_ready"] is False
+    assert labeled["price_allowed"] is False
+
+
+def test_outline_ready_never_allows_price():
+    ready = outline_ready(COMPLETE)
+    assert ready["outline_ready"] is True
+    assert ready["price_allowed"] is False
+    assert ready["quote_action"] == "draft"
+    assert len(ready["sections"]) == 10
+    blocked = outline_ready({"model_ids": []})
+    assert blocked["outline_ready"] is False
+    assert blocked["price_allowed"] is False
 
 
 if __name__ == "__main__":
@@ -106,4 +129,5 @@ if __name__ == "__main__":
     test_hardware_pending_token_is_not_evidence()
     test_stamp_complete_discuss()
     test_stamp_refuses_observer_evidence()
+    test_outline_ready_never_allows_price()
     print("inquiry_completeness tests passed")
