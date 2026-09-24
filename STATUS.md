@@ -1,11 +1,11 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: section_lane)
+**Last updated:** 2026-09-24 (Hourly dual-agent: lane_counts)
 
 ## This hour
-- Agent 1 (Code Structure): Inquiry helper now exposes `section_lane(inquiry, key)` and `section_lanes(inquiry)`. Ready outlines map nine headings to `public_fill` and `commercial_figure_off_repo` to `off_repo`. Incomplete or refused packets map every known heading to `not_ready`. Unknown keys return `unknown_section`. Stamp carries `section_lanes`. Tests cover discuss, quote_evidence refuse, and unknown-key paths. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that a lane of `off_repo` is a filing reminder, not a published dollar amount. `price_allowed` remains false. No prices, no SKUs, no fake customers.
-- GOAL.md records the section-lane surface as complete; hardware measurements still open.
+- Agent 1 (Code Structure): Inquiry helper now exposes `lane_counts(inquiry)`. Ready packets tally `public_fill=9`, `off_repo=1`, `not_ready=0`. Incomplete or refused packets tally `not_ready=10`. Stamp carries `lane_counts` with `sums_to_known`. Tests cover discuss, quote_evidence refuse, and idle packets. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `lane_counts` is a filing tally, not a published dollar amount. `price_allowed` remains false. No prices, no SKUs, no fake customers.
+- GOAL.md records the lane-counts surface as complete; hardware measurements still open.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -16,7 +16,7 @@ A separate gadgets repository remains the home for off-grid hot water generators
 - Thesis and research axes
 - Energy-harvester-tinyml and related prototypes
 - 50-model Genetic / Architectural Database (cards 01–50 share the honesty pattern; card 49 host fixture + policy preflight + sandbox label surface; card 50 remains a commercial template)
-- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable + public_fill_keys + off_repo_keys + partition_keys + section_lanes; hardware hook still open)
+- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable + public_fill_keys + off_repo_keys + partition_keys + section_lanes + lane_counts; hardware hook still open)
 - Enterprise Order & Contract page + process notes
 - Hourly Dual-Agent automation
 - Cross-links to the gadgets repository

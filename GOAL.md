@@ -9,7 +9,7 @@
 - [x] Thesis abstract + first research axis document pushed.
 - [x] 2036 skill set and agent authorization model documented.
 - [x] Security/networking component skeleton started.
-- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker + brokered executor + inquiry completeness + inquiry stamp + outline_ready + copy_headings + public_fill_keys + off_repo_keys + partition_keys + section_lane + Model 49 gas gate + Model 49 gas preflight on the policy executor + sandbox `_gas_reason` demo + host energy observer stub + host claim gate + claim stamp / claim_scan + inquiry intended_use; hardware measurements still pending).
+- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker + brokered executor + inquiry completeness + inquiry stamp + outline_ready + copy_headings + public_fill_keys + off_repo_keys + partition_keys + section_lane + lane_counts + Model 49 gas gate + Model 49 gas preflight on the policy executor + sandbox `_gas_reason` demo + host energy observer stub + host claim gate + claim stamp / claim_scan + inquiry intended_use; hardware measurements still pending).
 - [x] Operator AI task-graph executor beyond host skeleton for *policy gating* and *host-file checkpoint persistence* (on-device flash mapping and hardware energy observer still open).
 - [x] Model cards 04–15 given the same interface + energy-budget depth as models 01–03.
 - [x] Model 05 host helper `joules_from_voltage` (uncalibrated; C must be supplied).
@@ -33,4 +33,5 @@
 - [x] Inquiry helper `off_repo_keys(inquiry)` plus stamp field `off_repo_keys` (commercial-figure key when ready; empty when not; not a price).
 - [x] Inquiry helper `partition_keys(inquiry)` plus stamp fields `partition_disjoint` / `partition_covers_outline` (joined public vs off-repo split; not a rate card).
 - [x] Inquiry helper `section_lane(inquiry, key)` plus stamp field `section_lanes` (per-heading public_fill / off_repo / not_ready; unknown keys stay unknown; not a price).
+- [x] Inquiry helper `lane_counts(inquiry)` plus stamp field `lane_counts` (tally of public_fill / off_repo / not_ready; sums_to_known; not a price).
 - [x] Model card 50 given the same honesty pattern as a *commercial template* (not a product sheet; no fake SKUs) plus a host six-item completeness checklist.
