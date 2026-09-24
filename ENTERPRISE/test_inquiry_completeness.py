@@ -9,6 +9,7 @@ from inquiry_completeness import (
     copy_headings,
     inquiry_ok,
     items_present,
+    lane_counts,
     off_repo_keys,
     outline_ready,
     partition_keys,
@@ -116,6 +117,11 @@ def test_stamp_complete_discuss():
     assert labeled["section_lanes"]["who_measures_joules"] == LANE_PUBLIC
     assert labeled["section_lanes"]["commercial_figure_off_repo"] == LANE_OFF_REPO
     assert set(labeled["section_lanes"]) == set(OUTLINE_SECTIONS)
+    assert labeled["lane_counts"][LANE_PUBLIC] == 9
+    assert labeled["lane_counts"][LANE_OFF_REPO] == 1
+    assert labeled["lane_counts"][LANE_NOT_READY] == 0
+    assert labeled["lane_counts"]["total_known"] == 10
+    assert labeled["lane_counts"]["sums_to_known"] is True
 
 
 def test_stamp_refuses_observer_evidence():
@@ -138,6 +144,10 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["partition_disjoint"] is True
     assert labeled["partition_covers_outline"] is False
     assert all(lane == LANE_NOT_READY for lane in labeled["section_lanes"].values())
+    assert labeled["lane_counts"][LANE_PUBLIC] == 0
+    assert labeled["lane_counts"][LANE_OFF_REPO] == 0
+    assert labeled["lane_counts"][LANE_NOT_READY] == 10
+    assert labeled["lane_counts"]["sums_to_known"] is True
 
 
 def test_outline_ready_never_allows_price():
@@ -232,6 +242,27 @@ def test_section_lane_ready_and_blocked():
     assert all(value == LANE_NOT_READY for value in idle.values())
 
 
+def test_lane_counts_ready_and_blocked():
+    ready = lane_counts(COMPLETE)
+    assert ready[LANE_PUBLIC] == 9
+    assert ready[LANE_OFF_REPO] == 1
+    assert ready[LANE_NOT_READY] == 0
+    assert ready["total_known"] == 10
+    assert ready["sums_to_known"] is True
+    assert ready["price_allowed"] is False
+    blocked = lane_counts({"model_ids": []})
+    assert blocked[LANE_PUBLIC] == 0
+    assert blocked[LANE_OFF_REPO] == 0
+    assert blocked[LANE_NOT_READY] == 10
+    assert blocked["sums_to_known"] is True
+    assert blocked["price_allowed"] is False
+    refused = dict(COMPLETE)
+    refused["intended_use"] = "quote_evidence"
+    idle = lane_counts(refused)
+    assert idle[LANE_NOT_READY] == 10
+    assert idle["price_allowed"] is False
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -249,4 +280,5 @@ if __name__ == "__main__":
     test_off_repo_keys_only_when_ready()
     test_partition_keys_ready_covers_and_stays_disjoint()
     test_section_lane_ready_and_blocked()
+    test_lane_counts_ready_and_blocked()
     print("inquiry_completeness tests passed")
