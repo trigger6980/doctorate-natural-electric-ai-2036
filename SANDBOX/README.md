@@ -11,6 +11,7 @@ It is not a VM, not an MCU, and not a licensed runtime pack.
 4. Model 12 host checkpoint write to `SANDBOX/out/checkpoint.json`.
 5. Generator 03 control-name log (`SANDBOX/out/gen03_decisions.json`) from labeled host scenarios. Names only; no watts.
 6. Model 49 gas preflight demo (`SANDBOX/out/gas_preflight.json`) via `policy_gated_executor.decide_and_run`. Surfaces `_gas_reason` for an agreed-row table and a missing-table refuse. Research labels only.
+7. Host energy observer demo (`SANDBOX/out/energy_observer.json`) via `AGENTS/energy_observer.py`. Sources are `host_placeholder` or `hardware_pending`. `is_field_measurement` is always false.
 
 ## How to run
 From the repository root:
@@ -35,6 +36,9 @@ With the default 0.12 J pool and 0.01 J reserve, generate is expected to be **sk
 
 ## Model 49 labels in this folder
 `summary.json` may include `_gas_reason_ok` and `_gas_reason_missing_table`. Those strings are the same research tokens used by `AGENTS/gas_search_gate.py`. They are not NAS results, not measured generation joules, not decline codes, and not `inquiry_ok`.
+
+## Energy observer labels in this folder
+`summary.json` may include `observer_source_placeholder` and `observer_is_field_measurement`. Those fields come from the host stub. They are not ADC readings, not a quote attachment, and not proof of harvest.
 
 ## What this sandbox does not do
 - Calibrate `C_farads`

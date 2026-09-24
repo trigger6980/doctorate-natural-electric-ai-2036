@@ -11,7 +11,7 @@ Provide a reliable, energy-aware, multi-agent orchestration layer that can:
 - Support both research experimentation and enterprise deployment
 
 ## Core Components (Current + Planned)
-1. **Energy State Observer** — continuous or sampled reading of voltage / estimated joules / harvest rate. Model 04 specifies the planned fusion interface; Model 05 specifies voltage→joules.
+1. **Energy State Observer** — host stub in `AGENTS/energy_observer.py` records `host_placeholder` or `hardware_pending` samples. `is_field_measurement()` is always false. Model 04 specifies the planned fusion interface; Model 05 specifies voltage→joules. No ADC or coulomb counter is attached.
 2. **Policy / Scheduler** — decides which models or agents may run (starts with threshold policy, evolves to learned and hierarchical).
 3. **Agent Registry** — catalog of available specialized agents (research, security, sensing, planning, etc.).
 4. **Task Graph Executor** — runs ordered or conditional workflows with checkpointing for intermittent compute. **Skeleton now in** `AGENTS/task_graph_executor.py` with tests in `AGENTS/test_task_graph_executor.py`.
@@ -37,4 +37,4 @@ Not yet implemented: parallel workers, hardware energy observer hook, cryptograp
 Many of the architectural models in the Genetic / Architectural Model Database are intended to plug into this operator machinery as interchangeable or composable components. Model 01 (threshold energy scheduler) is the first policy sitting in front of the executor. Model 03 is specified to use the same `policy_fn` slot. Model 02 is specified as an INFER-tagged task that the gate may skip. Models 04 and 05 specify the observer / joule-proxy that should eventually fill `estimated_joules`. Model 11 allocates the pool among local agents. Model 12 is the checkpoint contract. Model 49 may preflight the same graph with a fixture candidate table; a pass is not an architecture certificate.
 
 ## Status
-Foundational document plus a host-side executor skeleton, policy gate, JSON checkpoint files, energy broker, brokered executor, Model 49 gas preflight, and host sandbox. Hardware integration and configuration schemas will be added incrementally under `AGENTS/` and linked from the model catalog.
+Foundational document plus a host-side executor skeleton, policy gate, JSON checkpoint files, energy broker, brokered executor, Model 49 gas preflight, host energy observer stub, and host sandbox. Hardware integration and configuration schemas will be added incrementally under `AGENTS/` and linked from the model catalog.

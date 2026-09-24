@@ -26,6 +26,10 @@ Model 49 (`gas_ok` in `AGENTS/gas_search_gate.py`) is a research refuse/allow ga
 
 The policy-gated executor may record refuse tokens as `aborted_reason='gas_<reason>'`. The host sandbox may also print `_gas_reason_ok` / `_gas_reason_missing_table` in `SANDBOX/out/summary.json`. Those tokens are **research skip labels**. They are not decline codes, not quote statuses, not `inquiry_ok`, and not evidence that a search farm exists. Commercial language stays on Model 50 and the pages in this folder. Do not send an inquiry to Model 49.
 
+## Host observer samples are not quote evidence
+
+`AGENTS/energy_observer.py` may write `host_placeholder` or `hardware_pending` samples into `SANDBOX/out/energy_observer.json`. Those rows exist so host tests can run. They are not field measurements. Do not attach them to a quote, completeness packet, or result record as proof of harvest or consumption. Use [`measurement-hold.md`](measurement-hold.md) and [`measurement-method.md`](measurement-method.md) when energy numbers matter.
+
 ## What this page must not do
 
 - Invent a case id, turnaround clock, or price.
@@ -34,6 +38,7 @@ The policy-gated executor may record refuse tokens as `aborted_reason='gas_<reas
 - Promise that filling the inquiry template starts a contract.
 - Treat `eim_ok` / `inquiry_ok` / `gas_ok` / `gas_<reason>` as a signed agreement.
 - Treat sandbox `_gas_reason_*` fields as a commercial score.
+- Treat sandbox observer samples as measured joules or as a deliverable.
 
 ## Maintainer use
 
