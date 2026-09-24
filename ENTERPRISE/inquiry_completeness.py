@@ -1,1 +1,1 @@
-see-local-file
+"""Model 50 host checklist: six inquiry-completeness items.\n\nThis is not a CRM, not a quote, and not a contract.\n"""\n
