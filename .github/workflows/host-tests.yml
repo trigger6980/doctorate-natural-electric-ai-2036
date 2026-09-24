@@ -32,3 +32,4 @@ jobs:
           python SANDBOX/run_prototypes.py
           python ENTERPRISE/test_inquiry_completeness.py
           python ENTERPRISE/test_action_consistent.py
+          python ENTERPRISE/test_stamp_invariants.py

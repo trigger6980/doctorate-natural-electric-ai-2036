@@ -21,6 +21,11 @@ def test_discuss_may_draft():
     assert demo["discuss"]["price_allowed"] is False
     assert demo["discuss"]["headings_copyable"] is True
     assert demo["discuss"]["fill_on_repo"]["commercial_figure_off_repo"] is False
+    assert demo["discuss"]["stamp_invariants_ok"] is True
+    assert demo["discuss"]["stamp_invariants"]["ok"] is True
+    assert demo["discuss"]["stamp_invariants"]["publish_price"] is False
+    assert demo["discuss"]["stamp_invariants"]["covers_outline"] is True
+    assert demo["discuss"]["next_action"] == "copy_headings"
 
 
 def test_quote_evidence_asks():
@@ -35,6 +40,11 @@ def test_quote_evidence_asks():
     assert refused["headings_copyable"] is False
     assert refused["headings"] == []
     assert refused["fill_on_repo"]["commercial_figure_off_repo"] is False
+    assert refused["stamp_invariants_ok"] is True
+    assert refused["stamp_invariants"]["covers_outline"] is False
+    assert refused["stamp_invariants"]["covers_or_idle"] is True
+    assert refused["stamp_invariants"]["publish_price"] is False
+    assert refused["next_action"] == "ask"
 
 
 if __name__ == "__main__":

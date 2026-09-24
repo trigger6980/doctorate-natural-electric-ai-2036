@@ -1,10 +1,10 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: restore inquiry helper + stamp_invariants)
+**Last updated:** 2026-09-24 (Hourly dual-agent: sandbox stamp_invariants asserts + CI)
 
 ## This hour
-- Agent 1 (Code Structure): Restored `ENTERPRISE/inquiry_completeness.py` after a prior connector write truncated it to a two-line docstring. The restored helper again exports the six-item gate, outline/lane/action helpers, `action_consistent`, and the new `stamp_invariants(inquiry)` packet. Local host tests passed: `test_inquiry_completeness.py`, `test_action_consistent.py`, `test_stamp_invariants.py`. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): `stamp()` now carries `stamp_invariants_ok` and `stamp_invariants`. `price_allowed` remains false. There is still no `publish_price` verb. No prices, no SKUs, no fake customers. GOAL.md checkbox for stamp_invariants is marked complete as a *host coherence check*, not as a commercial certificate.
+- Agent 1 (Code Structure): Wired the sandbox inquiry demo tests to assert `stamp_invariants_ok` on both the discuss/draft path and the refused quote_evidence path. Idle outline still reports `covers_outline=false` and `covers_or_idle=true`. Added `ENTERPRISE/test_stamp_invariants.py` to `.github/workflows/host-tests.yml` so the host coherence packet is in CI. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): No prices, no SKUs, no fake customers. `price_allowed` remains false. There is still no `publish_price` verb. Regenerating `SANDBOX/out/inquiry_stamp.json` on a host run now inherits the invariant fields from `stamp()`; this hour only locked the assertions. Completeness snapshot is still not a contract.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -23,8 +23,8 @@ A separate gadgets repository remains the home for off-grid hot water generators
 ## Next logical priorities
 - Keep enterprise language inside ENTERPRISE/; do not add prices or case studies.
 - Hardware measurements remain pending; do not publish simulator or host-placeholder joules as field data.
-- Optional later: wire sandbox `inquiry_stamp.json` to include the new invariant fields if that file is regenerated on the next sandbox run.
 - Do not invent a `publish_price` verb.
+- Optional later: on-device flash mapping or a real energy observer — only after hardware exists.
 
 ## Standing Directive
 All connectors and skills available; quality first; specialized agents authorized; GitHub kept live.
