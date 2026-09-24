@@ -13,6 +13,7 @@ from inquiry_completeness import (
     inquiry_ok,
     items_present,
     lane_counts,
+    action_flags,
     next_maintainer_action,
     off_repo_keys,
     outline_ready,
@@ -296,6 +297,41 @@ def test_next_maintainer_action_three_verbs():
     assert asked["price_allowed"] is False
 
 
+def test_action_flags_mutex_and_no_publish_price():
+    ready = action_flags(COMPLETE)
+    assert ready["copy_headings"] is True
+    assert ready["ask"] is False
+    assert ready["decline"] is False
+    assert ready["publish_price"] is False
+    assert ready["exactly_one"] is True
+    assert ready["price_allowed"] is False
+    missing = action_flags({"model_ids": []})
+    assert missing["ask"] is True
+    assert missing["copy_headings"] is False
+    assert missing["decline"] is False
+    assert missing["publish_price"] is False
+    assert missing["exactly_one"] is True
+    harm = dict(COMPLETE)
+    harm["wellbeing_ok"] = False
+    declined = action_flags(harm)
+    assert declined["decline"] is True
+    assert declined["ask"] is False
+    assert declined["copy_headings"] is False
+    assert declined["publish_price"] is False
+    assert declined["exactly_one"] is True
+    labeled = stamp(COMPLETE)
+    assert labeled["action_exactly_one"] is True
+    assert labeled["action_flags"]["publish_price"] is False
+    assert labeled["action_flags"]["copy_headings"] is True
+    assert labeled["action_flags"]["exactly_one"] is True
+    refused = dict(COMPLETE)
+    refused["intended_use"] = "quote_evidence"
+    idle = stamp(refused)
+    assert idle["action_flags"]["ask"] is True
+    assert idle["action_flags"]["publish_price"] is False
+    assert idle["action_exactly_one"] is True
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -315,4 +351,5 @@ if __name__ == "__main__":
     test_section_lane_ready_and_blocked()
     test_lane_counts_ready_and_blocked()
     test_next_maintainer_action_three_verbs()
+    test_action_flags_mutex_and_no_publish_price()
     print("inquiry_completeness tests passed")
