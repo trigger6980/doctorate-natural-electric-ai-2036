@@ -366,6 +366,39 @@ def action_flags(inquiry: Mapping[str, object]) -> dict:
     }
 
 
+def action_consistent(inquiry: Mapping[str, object]) -> dict:
+    """Whether next_action matches the unique true action flag.
+
+    match is true only when exactly_one is true, publish_price is false,
+    and the verb equals that single true flag. Not a price.
+    """
+    nxt = next_maintainer_action(inquiry)
+    flags = action_flags(inquiry)
+    verb = nxt["action"]
+    candidates = (ACTION_DECLINE, ACTION_ASK, ACTION_COPY_HEADINGS)
+    true_flags = [name for name in candidates if flags[name]]
+    flag_verb = true_flags[0] if len(true_flags) == 1 else None
+    match = (
+        flags["exactly_one"]
+        and flags["publish_price"] is False
+        and flag_verb == verb
+        and verb in candidates
+    )
+    return {
+        "verb": verb,
+        "flag_verb": flag_verb,
+        "match": match,
+        "exactly_one": flags["exactly_one"],
+        "publish_price": False,
+        "price_allowed": False,
+        "note": (
+            "action_consistent is a host invariant. match means the filing "
+            "verb and the mutex flags name the same action. publish_price "
+            "stays false. This is not a rate card."
+        ),
+    }
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
@@ -375,6 +408,7 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
     counts = lane_counts(inquiry)
     nxt = next_maintainer_action(inquiry)
     flags = action_flags(inquiry)
+    check = action_consistent(inquiry)
     return {
         "items_present": items_present(inquiry),
         "items_required": len(REQUIRED),
@@ -411,6 +445,8 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
             "exactly_one": flags["exactly_one"],
         },
         "action_exactly_one": flags["exactly_one"],
+        "action_consistent": check["match"],
+        "action_flag_verb": check["flag_verb"],
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
             "into a quote outline, not a price, SLA, or measured joule figure. "
@@ -424,6 +460,8 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
             "lane_counts tallies those three lanes; sums_to_known must stay true. "
             "next_action is decline, ask, or copy_headings; never publish_price. "
             "action_flags records those three verbs plus publish_price=false; "
-            "action_exactly_one must stay true."
+            "action_exactly_one must stay true. "
+            "action_consistent is true only when next_action equals the unique "
+            "true flag and publish_price stays false."
         ),
     }
