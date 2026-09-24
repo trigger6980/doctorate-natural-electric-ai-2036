@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from claim_gate import allow, allow_sample, refuse_reason, scan_samples
+from claim_gate import allow, allow_sample, refuse_reason, scan_samples, stamp, stamp_many
 from energy_observer import record_sample
 
 
@@ -45,6 +45,22 @@ class ClaimGateTests(unittest.TestCase):
 
     def test_unknown_claim(self) -> None:
         self.assertEqual(refuse_reason("host_placeholder", "certified_kwh"), "unknown_claim")
+
+    def test_stamp_labels_allowed_and_refused(self) -> None:
+        sample = record_sample(4.6, 0.05, source="host_placeholder")
+        payload = stamp(sample)
+        self.assertEqual(payload["claims"]["host_log"], "ok")
+        self.assertEqual(payload["claims"]["quote_evidence"], "observer_not_evidence")
+        self.assertFalse(payload["is_field_measurement"])
+
+    def test_stamp_many_scan(self) -> None:
+        samples = [
+            record_sample(4.6, 0.05, source="host_placeholder"),
+            record_sample(0.0, 0.0, source="hardware_pending"),
+        ]
+        scan = stamp_many(samples)
+        self.assertEqual(scan["sandbox_demo"], "ok")
+        self.assertEqual(scan["result_record"], "observer_not_evidence")
 
 
 if __name__ == "__main__":

@@ -50,10 +50,35 @@ def test_observer_json_is_not_evidence():
     assert quote_action(packet) == "ask"
 
 
+def test_intended_use_quote_evidence_asks():
+    packet = dict(COMPLETE)
+    packet["intended_use"] = "quote_evidence"
+    assert inquiry_ok(packet) is False
+    assert refuse_reason(packet) == "observer_not_evidence"
+    assert quote_action(packet) == "ask"
+
+
+def test_intended_use_discuss_may_draft():
+    packet = dict(COMPLETE)
+    packet["intended_use"] = "discuss"
+    assert inquiry_ok(packet) is True
+    assert quote_action(packet) == "draft"
+
+
+def test_hardware_pending_token_is_not_evidence():
+    packet = dict(COMPLETE)
+    packet["energy_evidence"] = "hardware_pending"
+    assert refuse_reason(packet) == "observer_not_evidence"
+    assert quote_action(packet) == "ask"
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
     test_wellbeing_fail_declines()
     test_bad_shape_is_incomplete()
     test_observer_json_is_not_evidence()
+    test_intended_use_quote_evidence_asks()
+    test_intended_use_discuss_may_draft()
+    test_hardware_pending_token_is_not_evidence()
     print("inquiry_completeness tests passed")

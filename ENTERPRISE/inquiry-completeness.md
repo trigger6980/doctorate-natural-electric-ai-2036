@@ -17,7 +17,9 @@ An inquiry is complete enough when all of the following are present:
 
 Missing any of those six items means the next action is questions, not a draft quote.
 
-Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_evidence` is *not* one of the six items. If it is set to an observer token (`observer`, `energy_observer`, `energy_observer.json`, `host_placeholder`, `sandbox_observer`), the helper returns `observer_not_evidence` and `quote_action` is `ask`. That token is the same refuse used by `AGENTS/claim_gate.py`.
+Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_evidence` is *not* one of the six items. If it is set to an observer token (`observer`, `energy_observer`, `energy_observer.json`, `host_placeholder`, `hardware_pending`, `sandbox_observer`, `claim_scan`), the helper returns `observer_not_evidence` and `quote_action` is `ask`. That token is the same refuse used by `AGENTS/claim_gate.py`.
+
+Optional field `intended_use` is also not one of the six items. Allowed values: `discuss`, `ask`, `host_log`, `sandbox_demo`. Refused values (same set as the claim gate): `field_generation`, `quote_evidence`, `result_record`. Those return `observer_not_evidence` and `quote_action` is `ask`. Unknown uses return `unknown_claim` and also `ask`.
 
 ## Incomplete patterns that stay incomplete
 
@@ -25,6 +27,7 @@ Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_eviden
 - A request for measured COP, kWh, or crop yield taken from this public tree.
 - A request to hide an energy cost or to treat host-sandbox joules as certified field performance.
 - Attaching `SANDBOX/out/energy_observer.json` as proof of harvest or consumption.
+- Treating a host `claim_scan` of `host_log: ok` as permission to quote joules.
 - A cover letter that needs customer logos or SLA numbers this repository does not have.
 
 Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow scope or decline; do not invent a case study.

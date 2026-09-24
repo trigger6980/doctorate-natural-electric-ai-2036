@@ -10,9 +10,9 @@ This is not a legal opinion and not a measurement instrument.
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, Mapping
 
-from energy_observer import ALLOWED_SOURCES, EnergySample
+from energy_observer import ALLOWED_SOURCES, EnergySample, as_dict
 
 ALLOWED_CLAIMS = frozenset({"host_log", "sandbox_demo"})
 REFUSED_CLAIMS = frozenset({"field_generation", "quote_evidence", "result_record"})
@@ -46,3 +46,32 @@ def scan_samples(samples: Iterable[EnergySample], claim: str) -> str:
         if reason != "ok":
             return reason
     return "ok"
+
+
+def stamp(sample: EnergySample, claims: Iterable[str] | None = None) -> dict:
+    """Attach claim reasons to an observer dict. Host labels only."""
+    checks = list(claims) if claims is not None else [
+        "host_log",
+        "sandbox_demo",
+        "field_generation",
+        "quote_evidence",
+        "result_record",
+    ]
+    payload = as_dict(sample)
+    payload["claims"] = {claim: refuse_reason(sample.source, claim) for claim in checks}
+    return payload
+
+
+def stamp_many(
+    samples: Iterable[EnergySample], claims: Iterable[str] | None = None
+) -> Mapping[str, str]:
+    """First refuse token per claim across a sample list."""
+    material = list(samples)
+    checks = list(claims) if claims is not None else [
+        "host_log",
+        "sandbox_demo",
+        "field_generation",
+        "quote_evidence",
+        "result_record",
+    ]
+    return {claim: scan_samples(material, claim) for claim in checks}

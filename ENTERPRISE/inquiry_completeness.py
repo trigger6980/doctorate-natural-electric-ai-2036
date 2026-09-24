@@ -29,7 +29,21 @@ OBSERVER_EVIDENCE_TOKENS = {
     "energy_observer",
     "energy_observer.json",
     "host_placeholder",
+    "hardware_pending",
     "sandbox_observer",
+    "claim_scan",
+}
+# Same refused set as AGENTS/claim_gate.REFUSED_CLAIMS.
+REFUSED_INTENDED_USE = {
+    "field_generation",
+    "quote_evidence",
+    "result_record",
+}
+ALLOWED_INTENDED_USE = {
+    "host_log",
+    "sandbox_demo",
+    "discuss",
+    "ask",
 }
 
 
@@ -50,6 +64,13 @@ def _evidence_token(inquiry: Mapping[str, object]) -> str:
     return ""
 
 
+def _intended_use(inquiry: Mapping[str, object]) -> str:
+    raw = inquiry.get("intended_use", "")
+    if isinstance(raw, str):
+        return raw.strip().lower()
+    return ""
+
+
 def items_present(inquiry: Mapping[str, object]) -> int:
     return sum(1 for key in REQUIRED if _filled(inquiry.get(key)))
 
@@ -59,6 +80,11 @@ def refuse_reason(inquiry: Mapping[str, object]) -> str:
         return "wellbeing"
     if _evidence_token(inquiry) in OBSERVER_EVIDENCE_TOKENS:
         return "observer_not_evidence"
+    use = _intended_use(inquiry)
+    if use in REFUSED_INTENDED_USE:
+        return "observer_not_evidence"
+    if use and use not in ALLOWED_INTENDED_USE:
+        return "unknown_claim"
     missing_map = {
         "model_ids": "missing_model",
         "license_shape": "missing_shape",
@@ -91,7 +117,7 @@ def quote_action(inquiry: Mapping[str, object]) -> str:
     reason = refuse_reason(inquiry)
     if reason == "wellbeing":
         return "decline"
-    if reason == "observer_not_evidence":
+    if reason in {"observer_not_evidence", "unknown_claim"}:
         return "ask"
     if reason == "ok":
         return "draft"

@@ -14,9 +14,10 @@ sys.path.insert(0, str(ROOT / "PROTOTYPES" / "energy-harvester-tinyml" / "src"))
 sys.path.insert(0, str(ROOT / "SANDBOX"))
 
 from brokered_executor import brokered_run  # noqa: E402
+from claim_gate import stamp, stamp_many  # noqa: E402
 from energy_aware_scheduler import run_simulation  # noqa: E402
 from energy_broker import EnergyRequest, allocate_all_or_nothing  # noqa: E402
-from energy_observer import as_dict, record_sample  # noqa: E402
+from energy_observer import record_sample  # noqa: E402
 from gen03_control_stub import named_host_scenarios  # noqa: E402
 from policy_gated_executor import EnergyState, decide_and_run  # noqa: E402
 from task_graph_executor import Task, TaskGraphExecutor  # noqa: E402
@@ -81,11 +82,14 @@ def run_observer_demo():
     placeholder = record_sample(4.6, 0.05, source="host_placeholder")
     pending = record_sample(0.0, 0.0, source="hardware_pending")
     return {
-        "placeholder": as_dict(placeholder),
-        "hardware_pending": as_dict(pending),
+        "placeholder": stamp(placeholder),
+        "hardware_pending": stamp(pending),
+        "claim_scan": stamp_many([placeholder, pending]),
         "note": (
             "Observer source is host_placeholder or hardware_pending. "
-            "is_field_measurement is always false on this stub."
+            "is_field_measurement is always false on this stub. "
+            "claim_scan.host_log and sandbox_demo may be ok; "
+            "field_generation, quote_evidence, and result_record stay observer_not_evidence."
         ),
     }
 
@@ -152,12 +156,14 @@ def main() -> int:
         "gas_preflight": gas_demo,
         "observer_source_placeholder": observer_demo["placeholder"]["source"],
         "observer_is_field_measurement": observer_demo["placeholder"]["is_field_measurement"],
+        "observer_claim_scan": observer_demo["claim_scan"],
         "energy_observer": observer_demo,
         "note": (
             "Host sandbox only. Placeholder joules. Generate skip under default pool "
             "is expected. Gen03 names are scenario flags, not measured watts. "
             "_gas_reason is a Model 49 research label, not a search farm and not a quote. "
-            "Observer samples are host_placeholder / hardware_pending, never measured."
+            "Observer samples are host_placeholder / hardware_pending, never measured. "
+            "claim_scan is a host label, not a field certificate."
         ),
     }
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
