@@ -1,6 +1,9 @@
 """Host tests for Model 50 inquiry completeness. Not a sales test."""
 
 from inquiry_completeness import (
+    ACTION_ASK,
+    ACTION_COPY_HEADINGS,
+    ACTION_DECLINE,
     LANE_NOT_READY,
     LANE_OFF_REPO,
     LANE_PUBLIC,
@@ -10,6 +13,7 @@ from inquiry_completeness import (
     inquiry_ok,
     items_present,
     lane_counts,
+    next_maintainer_action,
     off_repo_keys,
     outline_ready,
     partition_keys,
@@ -122,6 +126,9 @@ def test_stamp_complete_discuss():
     assert labeled["lane_counts"][LANE_NOT_READY] == 0
     assert labeled["lane_counts"]["total_known"] == 10
     assert labeled["lane_counts"]["sums_to_known"] is True
+    assert labeled["next_action"] == ACTION_COPY_HEADINGS
+    assert labeled["next_action_copy_headings"] is True
+    assert labeled["price_allowed"] is False
 
 
 def test_stamp_refuses_observer_evidence():
@@ -148,6 +155,8 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["lane_counts"][LANE_OFF_REPO] == 0
     assert labeled["lane_counts"][LANE_NOT_READY] == 10
     assert labeled["lane_counts"]["sums_to_known"] is True
+    assert labeled["next_action"] == ACTION_ASK
+    assert labeled["next_action_copy_headings"] is False
 
 
 def test_outline_ready_never_allows_price():
@@ -263,6 +272,30 @@ def test_lane_counts_ready_and_blocked():
     assert idle["price_allowed"] is False
 
 
+def test_next_maintainer_action_three_verbs():
+    ready = next_maintainer_action(COMPLETE)
+    assert ready["action"] == ACTION_COPY_HEADINGS
+    assert ready["copy_headings"] is True
+    assert ready["price_allowed"] is False
+    assert ready["quote_action"] == "draft"
+    missing = next_maintainer_action({"model_ids": []})
+    assert missing["action"] == ACTION_ASK
+    assert missing["copy_headings"] is False
+    assert missing["price_allowed"] is False
+    harm = dict(COMPLETE)
+    harm["wellbeing_ok"] = False
+    declined = next_maintainer_action(harm)
+    assert declined["action"] == ACTION_DECLINE
+    assert declined["copy_headings"] is False
+    assert declined["price_allowed"] is False
+    refused = dict(COMPLETE)
+    refused["intended_use"] = "quote_evidence"
+    asked = next_maintainer_action(refused)
+    assert asked["action"] == ACTION_ASK
+    assert asked["refuse_reason"] == "observer_not_evidence"
+    assert asked["price_allowed"] is False
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -281,4 +314,5 @@ if __name__ == "__main__":
     test_partition_keys_ready_covers_and_stays_disjoint()
     test_section_lane_ready_and_blocked()
     test_lane_counts_ready_and_blocked()
+    test_next_maintainer_action_three_verbs()
     print("inquiry_completeness tests passed")

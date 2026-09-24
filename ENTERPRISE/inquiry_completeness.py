@@ -68,6 +68,10 @@ LANE_OFF_REPO = "off_repo"
 LANE_NOT_READY = "not_ready"
 LANE_UNKNOWN = "unknown_section"
 
+ACTION_DECLINE = "decline"
+ACTION_ASK = "ask"
+ACTION_COPY_HEADINGS = "copy_headings"
+
 
 def _filled(value: object) -> bool:
     if value is None:
@@ -305,6 +309,37 @@ def lane_counts(inquiry: Mapping[str, object]) -> dict:
     }
 
 
+def next_maintainer_action(inquiry: Mapping[str, object]) -> dict:
+    """One filing verb for the maintainer. Never a checkout or price.
+
+    Verbs:
+    - decline: wellbeing failed; do not draft
+    - ask: missing item, observer token, or refused intended_use
+    - copy_headings: six items present; titles only; dollars stay off-repo
+    There is no publish_price verb on this helper.
+    """
+    reason = refuse_reason(inquiry)
+    qa = quote_action(inquiry)
+    if qa == "decline" or reason == "wellbeing":
+        action = ACTION_DECLINE
+    elif qa == "draft" and reason == "ok":
+        action = ACTION_COPY_HEADINGS
+    else:
+        action = ACTION_ASK
+    return {
+        "action": action,
+        "quote_action": qa,
+        "refuse_reason": reason,
+        "copy_headings": action == ACTION_COPY_HEADINGS,
+        "price_allowed": False,
+        "note": (
+            "next_maintainer_action is a filing verb. copy_headings authorizes "
+            "titles from quote-draft-outline.md only. price_allowed stays false. "
+            "There is no publish_price verb on this public helper."
+        ),
+    }
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
@@ -312,6 +347,7 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
     copied = copy_headings(inquiry)
     part = partition_keys(inquiry)
     counts = lane_counts(inquiry)
+    nxt = next_maintainer_action(inquiry)
     return {
         "items_present": items_present(inquiry),
         "items_required": len(REQUIRED),
@@ -338,6 +374,8 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
             "total_known": counts["total_known"],
             "sums_to_known": counts["sums_to_known"],
         },
+        "next_action": nxt["action"],
+        "next_action_copy_headings": nxt["copy_headings"],
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
             "into a quote outline, not a price, SLA, or measured joule figure. "
@@ -348,6 +386,7 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
             "partition_disjoint must stay true; partition_covers_outline is true only "
             "when a draft outline exists and every section is assigned. "
             "section_lanes maps each known heading to public_fill, off_repo, or not_ready. "
-            "lane_counts tallies those three lanes; sums_to_known must stay true."
+            "lane_counts tallies those three lanes; sums_to_known must stay true. "
+            "next_action is decline, ask, or copy_headings; never publish_price."
         ),
     }
