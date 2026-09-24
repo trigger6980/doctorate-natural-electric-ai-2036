@@ -1,6 +1,7 @@
 """Host tests for Model 50 inquiry completeness. Not a sales test."""
 
 from inquiry_completeness import (
+    copy_headings,
     inquiry_ok,
     items_present,
     outline_ready,
@@ -92,6 +93,10 @@ def test_stamp_complete_discuss():
     assert labeled["outline_ready"] is True
     assert labeled["price_allowed"] is False
     assert "commercial_figure_off_repo" in labeled["outline_sections"]
+    assert labeled["headings_copyable"] is True
+    assert labeled["headings"] == labeled["outline_sections"]
+    assert labeled["fill_on_repo"]["commercial_figure_off_repo"] is False
+    assert labeled["fill_on_repo"]["who_measures_joules"] is True
 
 
 def test_stamp_refuses_observer_evidence():
@@ -105,6 +110,10 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["energy_evidence"] == "claim_scan"
     assert labeled["outline_ready"] is False
     assert labeled["price_allowed"] is False
+    assert labeled["headings_copyable"] is False
+    assert labeled["headings"] == []
+    assert labeled["fill_on_repo"]["who_measures_joules"] is False
+    assert labeled["fill_on_repo"]["commercial_figure_off_repo"] is False
 
 
 def test_outline_ready_never_allows_price():
@@ -116,6 +125,23 @@ def test_outline_ready_never_allows_price():
     blocked = outline_ready({"model_ids": []})
     assert blocked["outline_ready"] is False
     assert blocked["price_allowed"] is False
+
+
+def test_copy_headings_never_fills_price_on_repo():
+    copied = copy_headings(COMPLETE)
+    assert copied["headings_copyable"] is True
+    assert copied["price_allowed"] is False
+    assert copied["fill_on_repo"]["commercial_figure_off_repo"] is False
+    assert all(
+        copied["fill_on_repo"][key] is True
+        for key in copied["headings"]
+        if key != "commercial_figure_off_repo"
+    )
+    blocked = copy_headings({"model_ids": []})
+    assert blocked["headings_copyable"] is False
+    assert blocked["headings"] == []
+    assert blocked["price_allowed"] is False
+    assert blocked["fill_on_repo"]["commercial_figure_off_repo"] is False
 
 
 if __name__ == "__main__":
@@ -130,4 +156,5 @@ if __name__ == "__main__":
     test_stamp_complete_discuss()
     test_stamp_refuses_observer_evidence()
     test_outline_ready_never_allows_price()
+    test_copy_headings_never_fills_price_on_repo()
     print("inquiry_completeness tests passed")
