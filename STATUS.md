@@ -1,47 +1,25 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-23 (hourly dual-agent run — Model 48 interface + `scr_ok` cover/FAQ)
+**Last updated:** 2026-09-23 (Dedicated gadgets repository created)
 
-## Completed This Hour
-1. **Agent 1 — Model 48 interface card** — Sovereign Compute Resource Allocator now uses the same interface + energy-budget + next-measurements pattern as cards 01–47. File: `MODELS/genetic-architectural-database/models/48-sovereign-compute-resource-allocator.md`. Still interface-only: no cluster scheduler, no VM/container orchestrator, no measured slot joules, no allocation certificate.
-2. **Agent 2 — Cover + FAQ honesty for `scr_ok`** — Named footnote that `scr_ok` is not a Kubernetes, Nomad, Mesos, Slurm, hypervisor, or sovereign-cluster certificate. No prices, SKUs, customers, or revenue. Files: `ENTERPRISE/allowed-cover-claims.md`, `ENTERPRISE/engagement-faq.md`.
-3. **Catalog + GOAL sync** — Index row 48 status set to interface-specified; GOAL checkbox for card 48. Cards 49–50 remain stubs (50 stays the order-page template).
+## Major Milestone
+A separate, focused repository has been created for the off-grid hot water generators and sustainable living biomes:
 
-## Method
-Hourly Dual-Agent Upgrade:
-- **Agent 1 (Code Structure & Prototype Upgrader)** deepened one catalog entry instead of attempting cards 49–50 in one pass.
-- **Agent 2 (Enterprise & Business Ventures)** kept commercial language explicitly non-priced and added one model-gate footnote.
+**https://github.com/trigger6980/offgrid-hot-water-biomes-gadgets**
 
-## Active Automation
-Hourly Dual-Agent Upgrade continues. Quality and truth first; no fabricated metrics.
+It contains the full designs, BOMs orientation, safety guidance, control sketches, and first biome layout previously developed in this portfolio.
 
-## Next Logical Priorities
-- Model cards 49+ at the same interface depth (one or few per hour)
-- Climate-specific example calculations for Generator 01
-- Sensor wiring diagrams and test procedures
-- Real COP / power measurements once hardware is selected for Generator 03
-- Dimensional sketches or further safety references for Generator 02 (still research-grade only)
-- Optional host stub `ion_ok()` for Model 31 (CI fixture only — not a wet-lab cell)
-- Optional host stub `coh_ok()` for Model 32 (CI fixture only — not a co-harvest transducer)
-- Optional host stub `ctr_ok()` for Model 33 (CI fixture only — not a proof checker)
-- Optional host stub `ppo_ok()` for Model 34 (CI fixture only — not MPPT firmware)
-- Optional host stub `hcd_ok()` for Model 35 (CI fixture only — not crank firmware)
-- Optional host stub `mac_ok()` for Model 36 (CI fixture only — not radio firmware)
-- Optional host stub `att_ok()` for Model 37 (CI fixture only — not boot firmware)
-- Optional host stub `fus_ok()` for Model 38 (CI fixture only — not a trained fusion graph)
-- Optional host stub `ano_ok()` for Model 39 (CI fixture only — not a trained detector)
-- Optional host stub `rst_ok()` for Model 40 (CI fixture only — not watchdog firmware)
-- Optional host stub `tok_ok()` for Model 41 (CI fixture only — not a planner runtime)
-- Optional host stub `grd_ok()` for Model 42 (CI fixture only — not a tool runtime)
-- Optional host stub `aln_ok()` for Model 43 (CI fixture only — not a preference trainer)
-- Optional host stub `rsn_ok()` for Model 44 (CI fixture only — not a teacher model)
-- Optional host stub `gnn_ok()` for Model 45 (CI fixture only — not a trained GNN)
-- Optional host stub `tgf_ok()` for Model 46 (CI fixture only — not a trained T-GNN)
-- Optional host stub `hmo_ok()` for Model 47 (CI fixture only — not a production orchestrator)
-- Optional host stub `scr_ok()` for Model 48 (CI fixture only — not a cluster scheduler)
-- Expand Operator AI executor skip reasons if Model 31–48 is wired
+## This Portfolio Continues To Hold
+- Thesis and research axes
+- Energy-harvester-tinyml and related prototypes
+- 50-model Genetic / Architectural Database
+- Operator AI Machinery
+- Enterprise Order & Contract page
+- Hourly Dual-Agent automation
+- Cross-links to the gadgets repository
 
 ## Standing Directive
-All connectors and skills available; quality first; specialized agents authorized; GitHub kept live; verifiable and safe designs preferred over incomplete claims.
+All connectors and skills available; quality first; specialized agents authorized; GitHub kept live.
 
-Repository: https://github.com/trigger6980/doctorate-natural-electric-ai-2036
+Primary portfolio: https://github.com/trigger6980/doctorate-natural-electric-ai-2036  
+Gadgets & BOMs: https://github.com/trigger6980/offgrid-hot-water-biomes-gadgets
