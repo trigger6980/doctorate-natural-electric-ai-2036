@@ -21,7 +21,7 @@ Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_eviden
 
 Optional field `intended_use` is also not one of the six items. Allowed values: `discuss`, `ask`, `host_log`, `sandbox_demo`. Refused values (same set as the claim gate): `field_generation`, `quote_evidence`, `result_record`. Those return `observer_not_evidence` and `quote_action` is `ask`. Unknown uses return `unknown_claim` and also `ask`.
 
-`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`, `partition_disjoint`, `partition_covers_outline`, `section_lanes`, `lane_counts`, `next_action`, `next_action_copy_headings`, `action_flags`, `action_exactly_one`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
+`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`, `partition_disjoint`, `partition_covers_outline`, `section_lanes`, `lane_counts`, `next_action`, `next_action_copy_headings`, `action_flags`, `action_exactly_one`, `action_consistent`, `action_flag_verb`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
 
 `outline_ready(inquiry)` is true only when `quote_action` is `draft`. `price_allowed` is always `false` on this host helper. Section names match [`quote-draft-outline.md`](quote-draft-outline.md); they are headings, not filled commercial terms.
 
@@ -41,6 +41,8 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 
 `action_flags(inquiry)` is the mutex view of that verb: exactly one of `decline`, `ask`, or `copy_headings` is true, and `publish_price` is always false. Stamp fields: `action_flags`, `action_exactly_one`. `exactly_one` must stay true. The flags are not a checkout form.
 
+`action_consistent(inquiry)` is the invariant check: `match` is true only when `next_action` equals the unique true flag and `publish_price` is false. Stamp fields: `action_consistent`, `action_flag_verb`. A true match is not a published dollar amount.
+
 ## Incomplete patterns that stay incomplete
 
 - “Need the 50 models” with no identical/custom split.
@@ -57,6 +59,7 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 - Treating `lane_counts.off_repo = 1` as a published dollar amount.
 - Treating `next_action = copy_headings` as permission to publish a rate card.
 - Treating `action_flags.copy_headings = true` or `action_exactly_one = true` as a published dollar amount.
+- Treating `action_consistent = true` or `action_flag_verb = copy_headings` as a published dollar amount.
 - A cover letter that needs customer logos or SLA numbers this repository does not have.
 
 Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow scope or decline; do not invent a case study.
@@ -77,6 +80,7 @@ Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow sc
 - That `lane_counts` is a checkout form.
 - That `next_maintainer_action` is a checkout form.
 - That `action_flags` or `action_exactly_one` is a checkout form.
+- That `action_consistent` or `action_flag_verb` is a checkout form.
 
 ## Maintainer reply shape (when complete)
 
