@@ -1,19 +1,24 @@
-"""Sandbox must surface observer source labels, not field joules."""
+"""Host tests for the sandbox energy observer surface."""
 
-from __future__ import annotations
+import sys
+from pathlib import Path
 
-import unittest
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "SANDBOX"))
+sys.path.insert(0, str(ROOT / "AGENTS"))
 
-from energy_observer import as_dict, record_sample
+from run_prototypes import run_observer_demo
 
 
-class SandboxObserverDemoTests(unittest.TestCase):
-    def test_demo_row_matches_host_contract(self) -> None:
-        sample = record_sample(4.6, 0.05, source="host_placeholder")
-        row = as_dict(sample)
-        self.assertEqual(row["source"], "host_placeholder")
-        self.assertFalse(row["is_field_measurement"])
+def test_observer_labels_are_not_field():
+    demo = run_observer_demo()
+    assert demo["placeholder"]["source"] == "host_placeholder"
+    assert demo["placeholder"]["is_field_measurement"] is False
+    assert demo["hardware_pending"]["source"] == "hardware_pending"
+    assert demo["hardware_pending"]["is_field_measurement"] is False
+    assert "is_field_measurement is always false" in demo["note"]
 
 
 if __name__ == "__main__":
-    unittest.main()
+    test_observer_labels_are_not_field()
+    print("sandbox energy observer demo tests passed")
