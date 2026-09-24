@@ -1,10 +1,10 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: sandbox stamp_invariants asserts + CI)
+**Last updated:** 2026-09-24 (Hourly dual-agent: price_verbs_blocked + stamp covers_or_idle)
 
 ## This hour
-- Agent 1 (Code Structure): Wired the sandbox inquiry demo tests to assert `stamp_invariants_ok` on both the discuss/draft path and the refused quote_evidence path. Idle outline still reports `covers_outline=false` and `covers_or_idle=true`. Added `ENTERPRISE/test_stamp_invariants.py` to `.github/workflows/host-tests.yml` so the host coherence packet is in CI. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): No prices, no SKUs, no fake customers. `price_allowed` remains false. There is still no `publish_price` verb. Regenerating `SANDBOX/out/inquiry_stamp.json` on a host run now inherits the invariant fields from `stamp()`; this hour only locked the assertions. Completeness snapshot is still not a contract.
+- Agent 1 (Code Structure): Added host helper `price_verbs_blocked(inquiry)` so the filing verb must be one of `decline` / `ask` / `copy_headings` and never `publish_price` / `quote_price` / `set_rate`. Lifted `covers_or_idle` onto the top-level `stamp()` packet (it was nested only). Wired those fields into `stamp_invariants`. Added `ENTERPRISE/test_price_verbs.py` and CI. Sandbox demo tests now assert the lifted fields. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): Documented the helper in `inquiry-completeness.md` and added an FAQ answer that the public tree has no price verb. No prices, no SKUs, no fake customers. `price_allowed` remains false. Completeness snapshot is still not a contract.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:

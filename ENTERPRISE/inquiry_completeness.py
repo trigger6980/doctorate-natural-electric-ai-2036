@@ -55,6 +55,8 @@ LANE_UNKNOWN = "unknown_section"
 ACTION_DECLINE = "decline"
 ACTION_ASK = "ask"
 ACTION_COPY_HEADINGS = "copy_headings"
+ALLOWED_ACTIONS = frozenset({ACTION_DECLINE, ACTION_ASK, ACTION_COPY_HEADINGS})
+BLOCKED_PRICE_VERBS = frozenset({"publish_price", "quote_price", "set_rate"})
 
 
 def _present(inquiry: dict[str, Any], key: str) -> bool:
@@ -256,12 +258,34 @@ def action_consistent(inquiry: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def price_verbs_blocked(inquiry: dict[str, Any]) -> dict[str, Any]:
+    """True when the filing verb is decline/ask/copy_headings and never a price verb."""
+    nxt = next_maintainer_action(inquiry)
+    flags = action_flags(inquiry)
+    verb = nxt["action"]
+    blocked = (
+        verb in ALLOWED_ACTIONS
+        and verb not in BLOCKED_PRICE_VERBS
+        and flags["publish_price"] is False
+        and nxt["price_allowed"] is False
+    )
+    return {
+        "ok": blocked,
+        "verb": verb,
+        "allowed_verbs": sorted(ALLOWED_ACTIONS),
+        "blocked_verbs": sorted(BLOCKED_PRICE_VERBS),
+        "publish_price": False,
+        "price_allowed": False,
+    }
+
+
 def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
     """Host coherence check for stamp fields. Not a published dollar amount."""
     consistent = action_consistent(inquiry)
     flags = action_flags(inquiry)
     part = partition_keys(inquiry)
     counts = lane_counts(inquiry)
+    verbs = price_verbs_blocked(inquiry)
     covers_or_idle = part["covers_outline"] or (
         not part["outline_ready"] and counts[LANE_NOT_READY] == len(OUTLINE_SECTIONS)
     )
@@ -272,6 +296,7 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
         and covers_or_idle
         and counts["sums_to_known"] is True
         and flags["publish_price"] is False
+        and verbs["ok"] is True
     )
     return {
         "ok": ok,
@@ -281,6 +306,7 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
         "covers_outline": part["covers_outline"],
         "covers_or_idle": covers_or_idle,
         "sums_to_known": counts["sums_to_known"],
+        "price_verbs_blocked": verbs["ok"],
         "publish_price": False,
         "price_allowed": False,
     }
@@ -293,6 +319,7 @@ def stamp(inquiry: dict[str, Any]) -> dict[str, Any]:
     flags = action_flags(inquiry)
     consistent = action_consistent(inquiry)
     invariants = stamp_invariants(inquiry)
+    verbs = price_verbs_blocked(inquiry)
     return {
         "items_present": items_present(inquiry),
         "refuse_reason": refuse_reason(inquiry),
@@ -310,6 +337,7 @@ def stamp(inquiry: dict[str, Any]) -> dict[str, Any]:
         "off_repo_keys": off_repo_keys(inquiry),
         "partition_disjoint": part["disjoint"],
         "partition_covers_outline": part["covers_outline"],
+        "covers_or_idle": invariants["covers_or_idle"],
         "section_lanes": section_lanes(inquiry),
         "lane_counts": lane_counts(inquiry),
         "next_action": nxt["action"],
@@ -318,6 +346,8 @@ def stamp(inquiry: dict[str, Any]) -> dict[str, Any]:
         "action_exactly_one": flags["exactly_one"],
         "action_consistent": consistent["match"],
         "action_flag_verb": consistent["flag_verb"],
+        "price_verbs_blocked": verbs["ok"],
+        "price_verbs": verbs,
         "stamp_invariants_ok": invariants["ok"],
         "stamp_invariants": invariants,
     }
