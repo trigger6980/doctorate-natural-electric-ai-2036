@@ -340,6 +340,32 @@ def next_maintainer_action(inquiry: Mapping[str, object]) -> dict:
     }
 
 
+def action_flags(inquiry: Mapping[str, object]) -> dict:
+    """Mutex check on the three filing verbs. Never a checkout or price.
+
+    Exactly one of decline / ask / copy_headings must be true.
+    publish_price is always false on this helper.
+    """
+    nxt = next_maintainer_action(inquiry)
+    action = nxt["action"]
+    decline = action == ACTION_DECLINE
+    ask = action == ACTION_ASK
+    copy = action == ACTION_COPY_HEADINGS
+    true_count = int(decline) + int(ask) + int(copy)
+    return {
+        ACTION_DECLINE: decline,
+        ACTION_ASK: ask,
+        ACTION_COPY_HEADINGS: copy,
+        "publish_price": False,
+        "exactly_one": true_count == 1,
+        "price_allowed": False,
+        "note": (
+            "action_flags is a mutex on filing verbs. exactly_one must stay true. "
+            "publish_price stays false. This is not a rate card."
+        ),
+    }
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
@@ -348,6 +374,7 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
     part = partition_keys(inquiry)
     counts = lane_counts(inquiry)
     nxt = next_maintainer_action(inquiry)
+    flags = action_flags(inquiry)
     return {
         "items_present": items_present(inquiry),
         "items_required": len(REQUIRED),
@@ -376,6 +403,14 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
         },
         "next_action": nxt["action"],
         "next_action_copy_headings": nxt["copy_headings"],
+        "action_flags": {
+            ACTION_DECLINE: flags[ACTION_DECLINE],
+            ACTION_ASK: flags[ACTION_ASK],
+            ACTION_COPY_HEADINGS: flags[ACTION_COPY_HEADINGS],
+            "publish_price": flags["publish_price"],
+            "exactly_one": flags["exactly_one"],
+        },
+        "action_exactly_one": flags["exactly_one"],
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
             "into a quote outline, not a price, SLA, or measured joule figure. "
@@ -387,6 +422,8 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
             "when a draft outline exists and every section is assigned. "
             "section_lanes maps each known heading to public_fill, off_repo, or not_ready. "
             "lane_counts tallies those three lanes; sums_to_known must stay true. "
-            "next_action is decline, ask, or copy_headings; never publish_price."
+            "next_action is decline, ask, or copy_headings; never publish_price. "
+            "action_flags records those three verbs plus publish_price=false; "
+            "action_exactly_one must stay true."
         ),
     }
