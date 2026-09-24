@@ -1,11 +1,11 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: lane_counts)
+**Last updated:** 2026-09-24 (Hourly dual-agent: next_maintainer_action)
 
 ## This hour
-- Agent 1 (Code Structure): Inquiry helper now exposes `lane_counts(inquiry)`. Ready packets tally `public_fill=9`, `off_repo=1`, `not_ready=0`. Incomplete or refused packets tally `not_ready=10`. Stamp carries `lane_counts` with `sums_to_known`. Tests cover discuss, quote_evidence refuse, and idle packets. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `lane_counts` is a filing tally, not a published dollar amount. `price_allowed` remains false. No prices, no SKUs, no fake customers.
-- GOAL.md records the lane-counts surface as complete; hardware measurements still open.
+- Agent 1 (Code Structure): Inquiry helper now exposes `next_maintainer_action(inquiry)`. Ready packets return `copy_headings`. Incomplete or observer-refused packets return `ask`. Well-being failures return `decline`. Stamp carries `next_action` and `next_action_copy_headings`. Tests cover those three verbs. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `next_action` is a filing verb, not a published dollar amount. There is no `publish_price` verb. `price_allowed` remains false. No prices, no SKUs, no fake customers.
+- GOAL.md records the next-action surface as complete; hardware measurements still open.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -16,7 +16,7 @@ A separate gadgets repository remains the home for off-grid hot water generators
 - Thesis and research axes
 - Energy-harvester-tinyml and related prototypes
 - 50-model Genetic / Architectural Database (cards 01–50 share the honesty pattern; card 49 host fixture + policy preflight + sandbox label surface; card 50 remains a commercial template)
-- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable + public_fill_keys + off_repo_keys + partition_keys + section_lanes + lane_counts; hardware hook still open)
+- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable + public_fill_keys + off_repo_keys + partition_keys + section_lanes + lane_counts + next_action; hardware hook still open)
 - Enterprise Order & Contract page + process notes
 - Hourly Dual-Agent automation
 - Cross-links to the gadgets repository
