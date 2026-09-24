@@ -10,6 +10,8 @@ Only after the six completeness items are present. Until then the next action is
 
 Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_ready` / `price_allowed` fields on `stamp(inquiry)`. `outline_ready=true` means a maintainer may copy the headings below. `price_allowed` is **always false** on the public host helper. The commercial figure (section 9) is written only in an off-repo quote document.
 
+`copy_headings(inquiry)` is the same permission as a list: when ready it returns the ten section keys; when not ready it returns an empty list. `fill_on_repo["commercial_figure_off_repo"]` stays false in both cases.
+
 ## Sections a written quote should contain
 
 1. **Parties and date** — names as given in the inquiry; no invented company logos.
@@ -29,7 +31,7 @@ Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_rea
 - SLA or MTBF numbers that have not been measured as a service.
 - Claims that `SANDBOX/out/gen03_decisions.json` certifies a heat stage.
 - Claims that cards 02–15 are licensed weight files.
-- Claims that `stamp().outline_ready` is a signed quote or a price.
+- Claims that `stamp().outline_ready` or `stamp().headings_copyable` is a signed quote or a price.
 
 If a cover letter needs those objects, decline or narrow scope. See [`well-being-alignment.md`](well-being-alignment.md).
 
