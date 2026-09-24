@@ -1,11 +1,10 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: stamp_invariants docs + helper restore)
+**Last updated:** 2026-09-24 (Hourly dual-agent: restore inquiry helper + stamp_invariants)
 
 ## This hour
-- Agent 1 (Code Structure): Intended change was to add `stamp_invariants(inquiry)` to `ENTERPRISE/inquiry_completeness.py` so existing `test_stamp_invariants.py` can import it. A connector write truncated that file. The last known-good helper is commit `1743ffed` / blob `c52ca58`. Restoring that file is the immediate priority. Local copy with `stamp_invariants` compiled and passed host tests before the truncated push. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): GOAL.md now lists the stamp-invariants checkbox. Quote-outline and inquiry-completeness prose for that helper were prepared locally. There is still no `publish_price` verb. `price_allowed` remains false. No prices, no SKUs, no fake customers.
-- Do not treat this hour as a completed code ship until `inquiry_completeness.py` is restored to a full helper.
+- Agent 1 (Code Structure): Restored `ENTERPRISE/inquiry_completeness.py` after a prior connector write truncated it to a two-line docstring. The restored helper again exports the six-item gate, outline/lane/action helpers, `action_consistent`, and the new `stamp_invariants(inquiry)` packet. Local host tests passed: `test_inquiry_completeness.py`, `test_action_consistent.py`, `test_stamp_invariants.py`. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): `stamp()` now carries `stamp_invariants_ok` and `stamp_invariants`. `price_allowed` remains false. There is still no `publish_price` verb. No prices, no SKUs, no fake customers. GOAL.md checkbox for stamp_invariants is marked complete as a *host coherence check*, not as a commercial certificate.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -22,9 +21,10 @@ A separate gadgets repository remains the home for off-grid hot water generators
 - Cross-links to the gadgets repository
 
 ## Next logical priorities
-- Restore `ENTERPRISE/inquiry_completeness.py` from commit `1743ffed` and then add `stamp_invariants` for real.
-- Hardware measurements remain pending; do not publish simulator or host-placeholder joules as field data.
 - Keep enterprise language inside ENTERPRISE/; do not add prices or case studies.
+- Hardware measurements remain pending; do not publish simulator or host-placeholder joules as field data.
+- Optional later: wire sandbox `inquiry_stamp.json` to include the new invariant fields if that file is regenerated on the next sandbox run.
+- Do not invent a `publish_price` verb.
 
 ## Standing Directive
 All connectors and skills available; quality first; specialized agents authorized; GitHub kept live.

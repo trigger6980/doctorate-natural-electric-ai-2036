@@ -9,7 +9,7 @@
 - [x] Thesis abstract + first research axis document pushed.
 - [x] 2036 skill set and agent authorization model documented.
 - [x] Security/networking component skeleton started.
-- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker + brokered executor + inquiry completeness + inquiry stamp + outline_ready + copy_headings + public_fill_keys + off_repo_keys + partition_keys + section_lane + lane_counts + next_maintainer_action + action_flags + action_consistent + Model 49 gas gate + Model 49 gas preflight on the policy executor + sandbox `_gas_reason` demo + host energy observer stub + host claim gate + claim stamp / claim_scan + inquiry intended_use; hardware measurements still pending; `stamp_invariants` helper restore pending).
+- [ ] All artifacts verifiable and reproducible from the repository alone (tests exist for scheduler + voltage proxy + task-graph + policy gate + checkpoint files + listen inventory + energy broker + brokered executor + inquiry completeness + inquiry stamp + outline_ready + copy_headings + public_fill_keys + off_repo_keys + partition_keys + section_lane + lane_counts + next_maintainer_action + action_flags + action_consistent + stamp_invariants + Model 49 gas gate + Model 49 gas preflight on the policy executor + sandbox `_gas_reason` demo + host energy observer stub + host claim gate + claim stamp / claim_scan + inquiry intended_use; hardware measurements still pending).
 - [x] Operator AI task-graph executor beyond host skeleton for *policy gating* and *host-file checkpoint persistence* (on-device flash mapping and hardware energy observer still open).
 - [x] Model cards 04–15 given the same interface + energy-budget depth as models 01–03.
 - [x] Model 05 host helper `joules_from_voltage` (uncalibrated; C must be supplied).
@@ -37,5 +37,5 @@
 - [x] Inquiry helper `next_maintainer_action(inquiry)` plus stamp fields `next_action` / `next_action_copy_headings` (decline / ask / copy_headings; never publish_price).
 - [x] Inquiry helper `action_flags(inquiry)` plus stamp fields `action_flags` / `action_exactly_one` (mutex on decline / ask / copy_headings; publish_price always false).
 - [x] Inquiry helper `action_consistent(inquiry)` plus stamp fields `action_consistent` / `action_flag_verb` (verb matches unique true flag; publish_price stays false).
-- [ ] Inquiry helper `stamp_invariants(inquiry)` plus stamp fields `stamp_invariants_ok` / `stamp_invariants` (host coherence check; not a published dollar amount; blocked on helper-file restore).
+- [x] Inquiry helper `stamp_invariants(inquiry)` plus stamp fields `stamp_invariants_ok` / `stamp_invariants` (host coherence check; not a published dollar amount).
 - [x] Model card 50 given the same honesty pattern as a *commercial template* (not a product sheet; no fake SKUs) plus a host six-item completeness checklist.
