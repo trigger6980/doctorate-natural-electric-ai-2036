@@ -4,6 +4,7 @@ from inquiry_completeness import (
     copy_headings,
     inquiry_ok,
     items_present,
+    off_repo_keys,
     outline_ready,
     public_fill_keys,
     quote_action,
@@ -101,6 +102,7 @@ def test_stamp_complete_discuss():
     assert "commercial_figure_off_repo" not in labeled["public_fill_keys"]
     assert "who_measures_joules" in labeled["public_fill_keys"]
     assert len(labeled["public_fill_keys"]) == 9
+    assert labeled["off_repo_keys"] == ["commercial_figure_off_repo"]
 
 
 def test_stamp_refuses_observer_evidence():
@@ -119,6 +121,7 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["fill_on_repo"]["who_measures_joules"] is False
     assert labeled["fill_on_repo"]["commercial_figure_off_repo"] is False
     assert labeled["public_fill_keys"] == []
+    assert labeled["off_repo_keys"] == []
 
 
 def test_outline_ready_never_allows_price():
@@ -160,6 +163,14 @@ def test_public_fill_keys_excludes_commercial_figure():
     assert blocked == []
 
 
+def test_off_repo_keys_only_when_ready():
+    keys = off_repo_keys(COMPLETE)
+    assert keys == ["commercial_figure_off_repo"]
+    assert set(keys).isdisjoint(public_fill_keys(COMPLETE))
+    blocked = off_repo_keys({"model_ids": []})
+    assert blocked == []
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -174,4 +185,5 @@ if __name__ == "__main__":
     test_outline_ready_never_allows_price()
     test_copy_headings_never_fills_price_on_repo()
     test_public_fill_keys_excludes_commercial_figure()
+    test_off_repo_keys_only_when_ready()
     print("inquiry_completeness tests passed")
