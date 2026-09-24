@@ -1,5 +1,13 @@
 """Host tests for the sandbox Model 49 preflight surface."""
 
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "SANDBOX"))
+sys.path.insert(0, str(ROOT / "AGENTS"))
+sys.path.insert(0, str(ROOT / "PROTOTYPES" / "energy-harvester-tinyml" / "src"))
+
 from run_prototypes import run_gas_preflight_demos
 
 
