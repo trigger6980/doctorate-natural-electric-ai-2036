@@ -191,6 +191,18 @@ def public_fill_keys(inquiry: Mapping[str, object]) -> list[str]:
     return [key for key, allowed in copied["fill_on_repo"].items() if allowed]
 
 
+def off_repo_keys(inquiry: Mapping[str, object]) -> list[str]:
+    """Section keys that must stay off the public tree.
+
+    When the outline is ready this is the OFF_REPO_SECTIONS list
+    (currently only commercial_figure_off_repo). When the outline is
+    not ready this is empty — there is no draft to partition.
+    """
+    if not outline_ready(inquiry)["outline_ready"]:
+        return []
+    return [key for key in OUTLINE_SECTIONS if key in OFF_REPO_SECTIONS]
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
@@ -211,11 +223,13 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
         "headings": copied["headings"],
         "fill_on_repo": copied["fill_on_repo"],
         "public_fill_keys": public_fill_keys(inquiry),
+        "off_repo_keys": off_repo_keys(inquiry),
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
             "into a quote outline, not a price, SLA, or measured joule figure. "
             "price_allowed is always false on this helper. "
             "headings_copyable only authorizes copying titles from quote-draft-outline.md. "
-            "public_fill_keys never includes commercial_figure_off_repo."
+            "public_fill_keys never includes commercial_figure_off_repo. "
+            "off_repo_keys is that commercial key when the outline is ready, else empty."
         ),
     }
