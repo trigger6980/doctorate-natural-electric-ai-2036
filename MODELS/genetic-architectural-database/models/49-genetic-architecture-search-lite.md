@@ -2,7 +2,7 @@
 
 **Domain:** Meta / AutoML  
 **Energy Profile:** Medium (uncalibrated)  
-**Status:** Catalog + interface specification (no search trainer, no NAS controller, no architecture certificate)  
+**Status:** Catalog + interface specification + host fixture stub (no search trainer, no NAS controller, no architecture certificate)  
 **Operator role:** Optional host gate that refuses a search generation when the named search table is missing, a candidate energy row is `to-be-measured` without a hold, or the wake class is unknown. Not AutoML-as-a-service, not a genetic algorithm runtime, and not a certified architecture search.
 
 ## Description
@@ -49,7 +49,7 @@ Planned entry points:
 - `gas_ok(energy_state, search_table, hold_gas) -> bool`
 - `gate_task(task_id, gas_ok) -> allow | skip` — Operator AI policy hook
 
-No host helper is checked in for this card yet. A later stub may walk a fixture candidate table on the laptop CI runner; that is still not a NAS controller.
+Host helper (laptop CI only): `AGENTS/gas_search_gate.py` walks a fixture candidate table. Passing those tests is **not** a NAS controller and **not** proof a candidate was trained.
 
 Typical composition:
 1. Model 01 floor — refuse if the rail is already in SLEEP.
@@ -87,10 +87,10 @@ Safety rules:
 - Compatible with enterprise energy-honesty rows (`agreed` / `to-be-measured` / `out of scope`) and measurement-hold packets
 
 ## Implementation Notes
-Not implemented. When added, live under `AGENTS/` next to the policy-gated executor so a skip reason can be `missing_table`, `unmeasured`, `no_hold`, or `airgap` as well as prior skip tokens (`energy`, `policy`, `integrity`, … `hmo`, `scr`). Keep joule costs labeled uncalibrated until a host + rail measurement exists. Do not check proprietary search weights or fake architecture marks into this public card.
+Host stub lives at `AGENTS/gas_search_gate.py` with tests in `AGENTS/test_gas_search_gate.py`. A skip reason can be `missing_table`, `unmeasured`, `no_hold`, or `airgap` as well as prior skip tokens (`energy`, `grant`, `slot`, …). Keep joule costs labeled uncalibrated until a host + rail measurement exists. Do not check proprietary search weights or fake architecture marks into this public card.
 
 ## Next measurements (not done)
 - Time and current for keep_parent vs mutate vs hold on the intended host + rail.
 - Decide whether search tables are fixed, versioned, or out of this card.
 - Wire a skip reason through `policy_gated_executor` without claiming an architecture certificate.
-- Optional host stub: `gas_ok()` on a fixture candidate table in CI — still not a NAS controller.
+- Host stub exists; it is still not a NAS controller.
