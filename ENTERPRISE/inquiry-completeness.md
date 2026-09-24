@@ -21,7 +21,7 @@ Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_eviden
 
 Optional field `intended_use` is also not one of the six items. Allowed values: `discuss`, `ask`, `host_log`, `sandbox_demo`. Refused values (same set as the claim gate): `field_generation`, `quote_evidence`, `result_record`. Those return `observer_not_evidence` and `quote_action` is `ask`. Unknown uses return `unknown_claim` and also `ask`.
 
-`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
+`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`, `partition_disjoint`, `partition_covers_outline`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
 
 `outline_ready(inquiry)` is true only when `quote_action` is `draft`. `price_allowed` is always `false` on this host helper. Section names match [`quote-draft-outline.md`](quote-draft-outline.md); they are headings, not filled commercial terms.
 
@@ -30,6 +30,8 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 `public_fill_keys(inquiry)` is the filtered list of keys where `fill_on_repo[key]` is true. When the outline is ready that list has nine keys and never includes `commercial_figure_off_repo`. When the outline is not ready the list is empty.
 
 `off_repo_keys(inquiry)` is the complementary list: when the outline is ready it is exactly `["commercial_figure_off_repo"]`. When the outline is not ready it is empty. Presence of that key is not a price and is not permission to invent dollars in this repository.
+
+`partition_keys(inquiry)` joins those two lists and records `disjoint` plus `covers_outline`. When a draft is allowed the union of the lists equals the ten outline headings and the lists share no key. When a draft is not allowed both lists are empty, `disjoint` stays true, and `covers_outline` is false. Neither flag is a commercial figure.
 
 ## Incomplete patterns that stay incomplete
 
@@ -42,6 +44,7 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 - Treating `outline_ready = true` or `headings_copyable = true` as permission to publish a rate card in this repository.
 - Treating `public_fill_keys` as permission to write dollars into a public file.
 - Treating `off_repo_keys` as a published price column.
+- Treating `partition_disjoint` or `partition_covers_outline` as a signed quote.
 - A cover letter that needs customer logos or SLA numbers this repository does not have.
 
 Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow scope or decline; do not invent a case study.
@@ -57,6 +60,7 @@ Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow sc
 - That `price_allowed` will become true in this public tree.
 - That `fill_on_repo` or `public_fill_keys` authorizes writing dollars into a public file.
 - That `off_repo_keys` is a rate card.
+- That `partition_keys` is a checkout form.
 
 ## Maintainer reply shape (when complete)
 

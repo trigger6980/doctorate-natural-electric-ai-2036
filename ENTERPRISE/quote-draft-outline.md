@@ -16,6 +16,8 @@ Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_rea
 
 `off_repo_keys(inquiry)` is the complementary partition: when ready it is exactly `["commercial_figure_off_repo"]`. When not ready it is empty. That list is a reminder of where dollars must not be written in this repository; it is not a price.
 
+`partition_keys(inquiry)` is the joined view: public list, off-repo list, `disjoint` (must stay true), and `covers_outline` (true only when a draft may exist and every heading is assigned to one side). `price_allowed` on that packet is always false. The partition is a filing aid, not a signed quote.
+
 ## Sections a written quote should contain
 
 1. **Parties and date** — names as given in the inquiry; no invented company logos.
@@ -35,7 +37,7 @@ Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_rea
 - SLA or MTBF numbers that have not been measured as a service.
 - Claims that `SANDBOX/out/gen03_decisions.json` certifies a heat stage.
 - Claims that cards 02–15 are licensed weight files.
-- Claims that `stamp().outline_ready`, `stamp().headings_copyable`, `stamp().public_fill_keys`, or `stamp().off_repo_keys` is a signed quote or a price.
+- Claims that `stamp().outline_ready`, `stamp().headings_copyable`, `stamp().public_fill_keys`, `stamp().off_repo_keys`, `stamp().partition_disjoint`, or `stamp().partition_covers_outline` is a signed quote or a price.
 
 If a cover letter needs those objects, decline or narrow scope. See [`well-being-alignment.md`](well-being-alignment.md).
 

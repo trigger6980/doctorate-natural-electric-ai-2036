@@ -1,11 +1,11 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: off_repo_keys)
+**Last updated:** 2026-09-24 (Hourly dual-agent: partition_keys)
 
 ## This hour
-- Agent 1 (Code Structure): Inquiry helper now exposes `off_repo_keys(inquiry)` and stamp field `off_repo_keys`. When the outline is ready the list is exactly `["commercial_figure_off_repo"]` and is disjoint from `public_fill_keys`. When the outline is not ready the list is empty. Tests cover the discuss path and the refused `quote_evidence` path. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `off_repo_keys` is a reminder of where dollars must not be written in this repository, not a published price column. No prices, no SKUs, no fake customers.
-- GOAL.md records the off-repo-keys surface as complete; hardware measurements still open.
+- Agent 1 (Code Structure): Inquiry helper now exposes `partition_keys(inquiry)` and stamp fields `partition_disjoint` / `partition_covers_outline`. When the outline is ready the public list and the off-repo list are disjoint and their union equals the ten outline headings. When the outline is not ready both lists are empty, `disjoint` stays true, and `covers_outline` is false. Tests cover the discuss path and the refused `quote_evidence` path. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `partition_keys` is a filing aid for where a maintainer may write headings versus where dollars stay off-repo. `price_allowed` remains false. No prices, no SKUs, no fake customers.
+- GOAL.md records the partition-keys surface as complete; hardware measurements still open.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -16,7 +16,7 @@ A separate gadgets repository remains the home for off-grid hot water generators
 - Thesis and research axes
 - Energy-harvester-tinyml and related prototypes
 - 50-model Genetic / Architectural Database (cards 01–50 share the honesty pattern; card 49 host fixture + policy preflight + sandbox label surface; card 50 remains a commercial template)
-- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable + public_fill_keys + off_repo_keys; hardware hook still open)
+- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable + public_fill_keys + off_repo_keys + partition_keys; hardware hook still open)
 - Enterprise Order & Contract page + process notes
 - Hourly Dual-Agent automation
 - Cross-links to the gadgets repository

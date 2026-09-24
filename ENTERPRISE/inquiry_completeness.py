@@ -203,11 +203,40 @@ def off_repo_keys(inquiry: Mapping[str, object]) -> list[str]:
     return [key for key in OUTLINE_SECTIONS if key in OFF_REPO_SECTIONS]
 
 
+def partition_keys(inquiry: Mapping[str, object]) -> dict:
+    """Public vs off-repo section partition. Not a rate card.
+
+    When the outline is ready the two lists are disjoint and their union
+    equals OUTLINE_SECTIONS. When the outline is not ready both lists are
+    empty and covers_outline is false. price_allowed is always false.
+    """
+    public = public_fill_keys(inquiry)
+    off = off_repo_keys(inquiry)
+    ready = outline_ready(inquiry)["outline_ready"]
+    public_set = set(public)
+    off_set = set(off)
+    return {
+        "outline_ready": ready,
+        "public_fill_keys": public,
+        "off_repo_keys": off,
+        "disjoint": public_set.isdisjoint(off_set),
+        "covers_outline": ready and (public_set | off_set) == set(OUTLINE_SECTIONS),
+        "price_allowed": False,
+        "note": (
+            "partition_keys is a host split of outline headings. "
+            "disjoint must stay true. covers_outline is true only when a draft "
+            "may exist and every section is either public-fill or off-repo. "
+            "price_allowed is always false; dollars stay off this tree."
+        ),
+    }
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
     outline = outline_ready(inquiry)
     copied = copy_headings(inquiry)
+    part = partition_keys(inquiry)
     return {
         "items_present": items_present(inquiry),
         "items_required": len(REQUIRED),
@@ -224,12 +253,16 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
         "fill_on_repo": copied["fill_on_repo"],
         "public_fill_keys": public_fill_keys(inquiry),
         "off_repo_keys": off_repo_keys(inquiry),
+        "partition_disjoint": part["disjoint"],
+        "partition_covers_outline": part["covers_outline"],
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
             "into a quote outline, not a price, SLA, or measured joule figure. "
             "price_allowed is always false on this helper. "
             "headings_copyable only authorizes copying titles from quote-draft-outline.md. "
             "public_fill_keys never includes commercial_figure_off_repo. "
-            "off_repo_keys is that commercial key when the outline is ready, else empty."
+            "off_repo_keys is that commercial key when the outline is ready, else empty. "
+            "partition_disjoint must stay true; partition_covers_outline is true only "
+            "when a draft outline exists and every section is assigned."
         ),
     }

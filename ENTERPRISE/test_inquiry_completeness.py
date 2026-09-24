@@ -1,11 +1,13 @@
 """Host tests for Model 50 inquiry completeness. Not a sales test."""
 
 from inquiry_completeness import (
+    OUTLINE_SECTIONS,
     copy_headings,
     inquiry_ok,
     items_present,
     off_repo_keys,
     outline_ready,
+    partition_keys,
     public_fill_keys,
     quote_action,
     refuse_reason,
@@ -103,6 +105,8 @@ def test_stamp_complete_discuss():
     assert "who_measures_joules" in labeled["public_fill_keys"]
     assert len(labeled["public_fill_keys"]) == 9
     assert labeled["off_repo_keys"] == ["commercial_figure_off_repo"]
+    assert labeled["partition_disjoint"] is True
+    assert labeled["partition_covers_outline"] is True
 
 
 def test_stamp_refuses_observer_evidence():
@@ -122,6 +126,8 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["fill_on_repo"]["commercial_figure_off_repo"] is False
     assert labeled["public_fill_keys"] == []
     assert labeled["off_repo_keys"] == []
+    assert labeled["partition_disjoint"] is True
+    assert labeled["partition_covers_outline"] is False
 
 
 def test_outline_ready_never_allows_price():
@@ -171,6 +177,26 @@ def test_off_repo_keys_only_when_ready():
     assert blocked == []
 
 
+def test_partition_keys_ready_covers_and_stays_disjoint():
+    part = partition_keys(COMPLETE)
+    assert part["outline_ready"] is True
+    assert part["price_allowed"] is False
+    assert part["disjoint"] is True
+    assert part["covers_outline"] is True
+    assert part["off_repo_keys"] == ["commercial_figure_off_repo"]
+    assert "commercial_figure_off_repo" not in part["public_fill_keys"]
+    assert set(part["public_fill_keys"]) | set(part["off_repo_keys"]) == set(
+        OUTLINE_SECTIONS
+    )
+    blocked = partition_keys({"model_ids": []})
+    assert blocked["outline_ready"] is False
+    assert blocked["public_fill_keys"] == []
+    assert blocked["off_repo_keys"] == []
+    assert blocked["disjoint"] is True
+    assert blocked["covers_outline"] is False
+    assert blocked["price_allowed"] is False
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -186,4 +212,5 @@ if __name__ == "__main__":
     test_copy_headings_never_fills_price_on_repo()
     test_public_fill_keys_excludes_commercial_figure()
     test_off_repo_keys_only_when_ready()
+    test_partition_keys_ready_covers_and_stays_disjoint()
     print("inquiry_completeness tests passed")
