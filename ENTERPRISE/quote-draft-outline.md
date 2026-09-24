@@ -12,6 +12,8 @@ Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_rea
 
 `copy_headings(inquiry)` is the same permission as a list: when ready it returns the ten section keys; when not ready it returns an empty list. `fill_on_repo["commercial_figure_off_repo"]` stays false in both cases.
 
+`public_fill_keys(inquiry)` is the nine keys a maintainer may actually fill in the public tree. It never contains `commercial_figure_off_repo`. When the outline is not ready it is an empty list.
+
 ## Sections a written quote should contain
 
 1. **Parties and date** — names as given in the inquiry; no invented company logos.
@@ -31,7 +33,7 @@ Host helper: `inquiry_completeness.outline_ready(inquiry)` plus the `outline_rea
 - SLA or MTBF numbers that have not been measured as a service.
 - Claims that `SANDBOX/out/gen03_decisions.json` certifies a heat stage.
 - Claims that cards 02–15 are licensed weight files.
-- Claims that `stamp().outline_ready` or `stamp().headings_copyable` is a signed quote or a price.
+- Claims that `stamp().outline_ready`, `stamp().headings_copyable`, or `stamp().public_fill_keys` is a signed quote or a price.
 
 If a cover letter needs those objects, decline or narrow scope. See [`well-being-alignment.md`](well-being-alignment.md).
 

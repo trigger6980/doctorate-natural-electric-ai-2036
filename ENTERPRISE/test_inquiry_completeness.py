@@ -5,6 +5,7 @@ from inquiry_completeness import (
     inquiry_ok,
     items_present,
     outline_ready,
+    public_fill_keys,
     quote_action,
     refuse_reason,
     stamp,
@@ -97,6 +98,9 @@ def test_stamp_complete_discuss():
     assert labeled["headings"] == labeled["outline_sections"]
     assert labeled["fill_on_repo"]["commercial_figure_off_repo"] is False
     assert labeled["fill_on_repo"]["who_measures_joules"] is True
+    assert "commercial_figure_off_repo" not in labeled["public_fill_keys"]
+    assert "who_measures_joules" in labeled["public_fill_keys"]
+    assert len(labeled["public_fill_keys"]) == 9
 
 
 def test_stamp_refuses_observer_evidence():
@@ -114,6 +118,7 @@ def test_stamp_refuses_observer_evidence():
     assert labeled["headings"] == []
     assert labeled["fill_on_repo"]["who_measures_joules"] is False
     assert labeled["fill_on_repo"]["commercial_figure_off_repo"] is False
+    assert labeled["public_fill_keys"] == []
 
 
 def test_outline_ready_never_allows_price():
@@ -144,6 +149,17 @@ def test_copy_headings_never_fills_price_on_repo():
     assert blocked["fill_on_repo"]["commercial_figure_off_repo"] is False
 
 
+def test_public_fill_keys_excludes_commercial_figure():
+    keys = public_fill_keys(COMPLETE)
+    assert "commercial_figure_off_repo" not in keys
+    assert "parties_and_date" in keys
+    assert "who_measures_joules" in keys
+    assert "what_stays_public" in keys
+    assert len(keys) == 9
+    blocked = public_fill_keys({"model_ids": []})
+    assert blocked == []
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
@@ -157,4 +173,5 @@ if __name__ == "__main__":
     test_stamp_refuses_observer_evidence()
     test_outline_ready_never_allows_price()
     test_copy_headings_never_fills_price_on_repo()
+    test_public_fill_keys_excludes_commercial_figure()
     print("inquiry_completeness tests passed")

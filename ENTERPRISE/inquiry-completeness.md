@@ -21,11 +21,13 @@ Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_eviden
 
 Optional field `intended_use` is also not one of the six items. Allowed values: `discuss`, `ask`, `host_log`, `sandbox_demo`. Refused values (same set as the claim gate): `field_generation`, `quote_evidence`, `result_record`. Those return `observer_not_evidence` and `quote_action` is `ask`. Unknown uses return `unknown_claim` and also `ask`.
 
-`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
+`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
 
 `outline_ready(inquiry)` is true only when `quote_action` is `draft`. `price_allowed` is always `false` on this host helper. Section names match [`quote-draft-outline.md`](quote-draft-outline.md); they are headings, not filled commercial terms.
 
 `copy_headings(inquiry)` returns those titles only when the outline is ready. `headings` is an empty list when `quote_action` is not `draft`. `fill_on_repo["commercial_figure_off_repo"]` is always `false`. Copying headings is not permission to publish a rate card.
+
+`public_fill_keys(inquiry)` is the filtered list of keys where `fill_on_repo[key]` is true. When the outline is ready that list has nine keys and never includes `commercial_figure_off_repo`. When the outline is not ready the list is empty.
 
 ## Incomplete patterns that stay incomplete
 
@@ -36,6 +38,7 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 - Treating a host `claim_scan` of `host_log: ok` as permission to quote joules.
 - Treating `inquiry_stamp.quote_action = draft` as a price or SLA.
 - Treating `outline_ready = true` or `headings_copyable = true` as permission to publish a rate card in this repository.
+- Treating `public_fill_keys` as permission to write dollars into a public file.
 - A cover letter that needs customer logos or SLA numbers this repository does not have.
 
 Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow scope or decline; do not invent a case study.
@@ -49,7 +52,7 @@ Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow sc
 - That a host claim-gate pass (`host_log` / `sandbox_demo`) is a field certificate.
 - That `stamp()` is a contract record.
 - That `price_allowed` will become true in this public tree.
-- That `fill_on_repo` authorizes writing dollars into a public file.
+- That `fill_on_repo` or `public_fill_keys` authorizes writing dollars into a public file.
 
 ## Maintainer reply shape (when complete)
 

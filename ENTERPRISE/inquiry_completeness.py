@@ -182,6 +182,15 @@ def copy_headings(inquiry: Mapping[str, object]) -> dict:
     }
 
 
+def public_fill_keys(inquiry: Mapping[str, object]) -> list[str]:
+    """Section keys a maintainer may fill in the public tree.
+
+    Empty when the outline is not ready. Never includes commercial_figure_off_repo.
+    """
+    copied = copy_headings(inquiry)
+    return [key for key, allowed in copied["fill_on_repo"].items() if allowed]
+
+
 def stamp(inquiry: Mapping[str, object]) -> dict:
     """Host label packet. Not a quote, contract, or energy certificate."""
     use = _intended_use(inquiry)
@@ -201,10 +210,12 @@ def stamp(inquiry: Mapping[str, object]) -> dict:
         "headings_copyable": copied["headings_copyable"],
         "headings": copied["headings"],
         "fill_on_repo": copied["fill_on_repo"],
+        "public_fill_keys": public_fill_keys(inquiry),
         "note": (
             "Host completeness stamp only. draft is permission to write questions "
             "into a quote outline, not a price, SLA, or measured joule figure. "
             "price_allowed is always false on this helper. "
-            "headings_copyable only authorizes copying titles from quote-draft-outline.md."
+            "headings_copyable only authorizes copying titles from quote-draft-outline.md. "
+            "public_fill_keys never includes commercial_figure_off_repo."
         ),
     }

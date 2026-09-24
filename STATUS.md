@@ -1,11 +1,11 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: headings_copyable)
+**Last updated:** 2026-09-24 (Hourly dual-agent: public_fill_keys)
 
 ## This hour
-- Agent 1 (Code Structure): Host checklist now exposes `copy_headings()` plus stamp fields `headings_copyable`, `headings`, and `fill_on_repo`. When the outline is not ready, `headings` is an empty list and every `fill_on_repo` flag is false. Tests cover the discuss path and the refused `quote_evidence` path. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `headings_copyable` only authorizes copying titles. `fill_on_repo["commercial_figure_off_repo"]` remains false. No prices, no SKUs, no fake customers.
-- GOAL.md records the headings-copyable surface as complete; hardware measurements still open.
+- Agent 1 (Code Structure): Inquiry helper now exposes `public_fill_keys(inquiry)` and stamp field `public_fill_keys`. When the outline is ready the list has nine keys and never includes `commercial_figure_off_repo`. When the outline is not ready the list is empty. Tests cover the discuss path and the refused `quote_evidence` path. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): `quote-draft-outline.md` and `inquiry-completeness.md` state that `public_fill_keys` is not permission to write dollars into a public file. `fill_on_repo["commercial_figure_off_repo"]` remains false. No prices, no SKUs, no fake customers.
+- GOAL.md records the public-fill-keys surface as complete; hardware measurements still open.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -16,7 +16,7 @@ A separate gadgets repository remains the home for off-grid hot water generators
 - Thesis and research axes
 - Energy-harvester-tinyml and related prototypes
 - 50-model Genetic / Architectural Database (cards 01–50 share the honesty pattern; card 49 host fixture + policy preflight + sandbox label surface; card 50 remains a commercial template)
-- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable; hardware hook still open)
+- Operator AI Machinery (host energy observer + claim gate + stamp; inquiry stamp + outline_ready + headings_copyable + public_fill_keys; hardware hook still open)
 - Enterprise Order & Contract page + process notes
 - Hourly Dual-Agent automation
 - Cross-links to the gadgets repository
