@@ -24,6 +24,13 @@ ALLOWED_DELIVERABLES = {
     "sovereign",
 }
 ALLOWED_HONESTY = {"agreed", "to-be-measured", "out of scope"}
+OBSERVER_EVIDENCE_TOKENS = {
+    "observer",
+    "energy_observer",
+    "energy_observer.json",
+    "host_placeholder",
+    "sandbox_observer",
+}
 
 
 def _filled(value: object) -> bool:
@@ -36,6 +43,13 @@ def _filled(value: object) -> bool:
     return True
 
 
+def _evidence_token(inquiry: Mapping[str, object]) -> str:
+    raw = inquiry.get("energy_evidence", "")
+    if isinstance(raw, str):
+        return raw.strip().lower()
+    return ""
+
+
 def items_present(inquiry: Mapping[str, object]) -> int:
     return sum(1 for key in REQUIRED if _filled(inquiry.get(key)))
 
@@ -43,6 +57,8 @@ def items_present(inquiry: Mapping[str, object]) -> int:
 def refuse_reason(inquiry: Mapping[str, object]) -> str:
     if inquiry.get("wellbeing_ok") is False:
         return "wellbeing"
+    if _evidence_token(inquiry) in OBSERVER_EVIDENCE_TOKENS:
+        return "observer_not_evidence"
     missing_map = {
         "model_ids": "missing_model",
         "license_shape": "missing_shape",
@@ -75,6 +91,8 @@ def quote_action(inquiry: Mapping[str, object]) -> str:
     reason = refuse_reason(inquiry)
     if reason == "wellbeing":
         return "decline"
+    if reason == "observer_not_evidence":
+        return "ask"
     if reason == "ok":
         return "draft"
     if reason == "unknown":

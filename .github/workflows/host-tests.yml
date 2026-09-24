@@ -23,6 +23,7 @@ jobs:
           python AGENTS/test_brokered_executor.py
           python AGENTS/test_gas_search_gate.py
           python AGENTS/test_energy_observer.py
+          python AGENTS/test_claim_gate.py
           python SECURITY/desktop-firewall-components/test_listen_inventory.py
           python SANDBOX/test_gen03_control_stub.py
           python SANDBOX/test_gas_preflight_demo.py

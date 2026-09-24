@@ -30,6 +30,8 @@ The policy-gated executor may record refuse tokens as `aborted_reason='gas_<reas
 
 `AGENTS/energy_observer.py` may write `host_placeholder` or `hardware_pending` samples into `SANDBOX/out/energy_observer.json`. Those rows exist so host tests can run. They are not field measurements. Do not attach them to a quote, completeness packet, or result record as proof of harvest or consumption. Use [`measurement-hold.md`](measurement-hold.md) and [`measurement-method.md`](measurement-method.md) when energy numbers matter.
 
+`AGENTS/claim_gate.py` encodes the same rule: `host_log` and `sandbox_demo` may pass; `field_generation`, `quote_evidence`, and `result_record` return `observer_not_evidence`. The inquiry helper uses that same token if `energy_evidence` names the observer file.
+
 ## What this page must not do
 
 - Invent a case id, turnaround clock, or price.
@@ -39,6 +41,7 @@ The policy-gated executor may record refuse tokens as `aborted_reason='gas_<reas
 - Treat `eim_ok` / `inquiry_ok` / `gas_ok` / `gas_<reason>` as a signed agreement.
 - Treat sandbox `_gas_reason_*` fields as a commercial score.
 - Treat sandbox observer samples as measured joules or as a deliverable.
+- Treat a claim-gate `host_log` pass as a field certificate.
 
 ## Maintainer use
 

@@ -42,9 +42,18 @@ def test_bad_shape_is_incomplete():
     assert refuse_reason(packet) == "missing_shape"
 
 
+def test_observer_json_is_not_evidence():
+    packet = dict(COMPLETE)
+    packet["energy_evidence"] = "energy_observer.json"
+    assert inquiry_ok(packet) is False
+    assert refuse_reason(packet) == "observer_not_evidence"
+    assert quote_action(packet) == "ask"
+
+
 if __name__ == "__main__":
     test_complete_packet_may_draft()
     test_missing_model_asks()
     test_wellbeing_fail_declines()
     test_bad_shape_is_incomplete()
+    test_observer_json_is_not_evidence()
     print("inquiry_completeness tests passed")

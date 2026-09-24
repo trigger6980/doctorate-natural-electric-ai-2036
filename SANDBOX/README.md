@@ -38,7 +38,7 @@ With the default 0.12 J pool and 0.01 J reserve, generate is expected to be **sk
 `summary.json` may include `_gas_reason_ok` and `_gas_reason_missing_table`. Those strings are the same research tokens used by `AGENTS/gas_search_gate.py`. They are not NAS results, not measured generation joules, not decline codes, and not `inquiry_ok`.
 
 ## Energy observer labels in this folder
-`summary.json` may include `observer_source_placeholder` and `observer_is_field_measurement`. Those fields come from the host stub. They are not ADC readings, not a quote attachment, and not proof of harvest.
+`summary.json` may include `observer_source_placeholder` and `observer_is_field_measurement`. Those fields come from the host stub. They are not ADC readings, not a quote attachment, and not proof of harvest. `AGENTS/claim_gate.py` refuses `quote_evidence`, `field_generation`, and `result_record` uses of these rows.
 
 ## What this sandbox does not do
 - Calibrate `C_farads`
