@@ -24,3 +24,4 @@ jobs:
           python SECURITY/desktop-firewall-components/test_listen_inventory.py
           python SANDBOX/test_gen03_control_stub.py
           python SANDBOX/run_prototypes.py
+          python ENTERPRISE/test_inquiry_completeness.py

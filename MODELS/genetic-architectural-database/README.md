@@ -21,8 +21,9 @@ See also:
 - [Allowed cover-letter claims](../../ENTERPRISE/allowed-cover-claims.md)
 - [Operator AI Machinery](../../AGENTS/operator-ai-machinery.md)
 - [Host sandbox](../../SANDBOX/README.md)
+- [Model 50 commercial template](models/50-enterprise-identical-model-template.md)
 
-Cards **01–49** now share the same interface + energy-budget + next-measurements pattern. Card **50** remains the commercial template / order page until the same honesty pattern is applied without turning it into a product sheet. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Models 13–48 remain interface-only as previously recorded. Model 49 is interface-only: no NAS controller and no architecture-search certificate.
+Cards **01–50** now share an honesty pattern. Cards 01–49 use interface + energy-budget + next-measurements. Card **50** uses the same refuse/allow pattern as a *commercial template* that points at the order page — not a product sheet and not a SKU list. Model 05 has a host helper (`joules_from_voltage` / `voltage_from_joules`) that is **analytic and uncalibrated**. Model 11 has a host allocator stub (`AGENTS/energy_broker.py`) plus a brokered task-graph path (`AGENTS/brokered_executor.py`). Model 12 documents the existing host JSON checkpoint as an interface, not flash. Models 13–48 remain interface-only as previously recorded. Model 49 is interface-only: no NAS controller and no architecture-search certificate. Model 50 has a host checklist (`ENTERPRISE/inquiry_completeness.py`) that only counts the six public completeness items.
 
 ---
 
@@ -79,14 +80,14 @@ Cards **01–49** now share the same interface + energy-budget + next-measuremen
 | 47 | Hierarchical Multi-Agent Orchestrator | Operator AI | Medium–High | Interface specified (no production orchestrator / no orchestration certificate) |
 | 48 | Sovereign Compute Resource Allocator | Systems | Medium | Interface specified (no cluster scheduler / no allocation certificate) |
 | 49 | Genetic Architecture Search Lite | Meta / AutoML | Medium | Interface specified (no NAS controller / no architecture certificate) |
-| 50 | Enterprise Identical Model Template | Commercial / Contract | Configurable | Order Page |
+| 50 | Enterprise Identical Model Template | Commercial / Contract | Configurable | Interface + host completeness checklist (not a product sheet) |
 
 ---
 
 ## How to Use This Database
 
 - Researchers: reference the architecture descriptions and extend the skeletons.
-- Enterprise: start at [first-page routing](../../ENTERPRISE/first-page-routing.md), then the Order & Contract page to request identical or customized instances under formal agreement. Attach the scope-assumptions table so energy claims stay labeled. Use placeholder engagement tiers to name the *shape* of work — not a price. Use allowed cover-letter claims so quotes stay inside what the public tree can support.
+- Enterprise: start at [first-page routing](../../ENTERPRISE/first-page-routing.md), then the [Model 50 card](models/50-enterprise-identical-model-template.md) and the Order & Contract page to request identical or customized instances under formal agreement. Attach the scope-assumptions table so energy claims stay labeled. Use placeholder engagement tiers to name the *shape* of work — not a price. Use allowed cover-letter claims so quotes stay inside what the public tree can support.
 - Contributors: open issues or PRs to deepen any entry with code, measurements, or citations.
 
 All models are intended to remain compatible with the Natural Electric principle: energy state is a first-class runtime signal.
