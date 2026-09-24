@@ -21,7 +21,7 @@ Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_eviden
 
 Optional field `intended_use` is also not one of the six items. Allowed values: `discuss`, `ask`, `host_log`, `sandbox_demo`. Refused values (same set as the claim gate): `field_generation`, `quote_evidence`, `result_record`. Those return `observer_not_evidence` and `quote_action` is `ask`. Unknown uses return `unknown_claim` and also `ask`.
 
-`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`, `partition_disjoint`, `partition_covers_outline`, `section_lanes`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
+`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`, `partition_disjoint`, `partition_covers_outline`, `section_lanes`, `lane_counts`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
 
 `outline_ready(inquiry)` is true only when `quote_action` is `draft`. `price_allowed` is always `false` on this host helper. Section names match [`quote-draft-outline.md`](quote-draft-outline.md); they are headings, not filled commercial terms.
 
@@ -34,6 +34,8 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 `partition_keys(inquiry)` joins those two lists and records `disjoint` plus `covers_outline`. When a draft is allowed the union of the lists equals the ten outline headings and the lists share no key. When a draft is not allowed both lists are empty, `disjoint` stays true, and `covers_outline` is false. Neither flag is a commercial figure.
 
 `section_lane(inquiry, key)` is the per-heading view of the same partition. Known keys return `public_fill` or `off_repo` only when the outline is ready; otherwise they return `not_ready`. A key that is not one of the ten headings returns `unknown_section`. `section_lanes(inquiry)` is the map of all ten known keys. `price_allowed` stays false on every lane packet.
+
+`lane_counts(inquiry)` tallies those known headings: when ready, `public_fill=9`, `off_repo=1`, `not_ready=0`; when not ready, `not_ready=10`. `sums_to_known` must stay true. The tally is a filing aid, not a price column.
 
 ## Incomplete patterns that stay incomplete
 
@@ -48,6 +50,7 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 - Treating `off_repo_keys` as a published price column.
 - Treating `partition_disjoint` or `partition_covers_outline` as a signed quote.
 - Treating `section_lane(..., "commercial_figure_off_repo").lane = off_repo` as a published dollar amount.
+- Treating `lane_counts.off_repo = 1` as a published dollar amount.
 - A cover letter that needs customer logos or SLA numbers this repository does not have.
 
 Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow scope or decline; do not invent a case study.
@@ -65,6 +68,7 @@ Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow sc
 - That `off_repo_keys` is a rate card.
 - That `partition_keys` is a checkout form.
 - That `section_lane` or `section_lanes` is a checkout form.
+- That `lane_counts` is a checkout form.
 
 ## Maintainer reply shape (when complete)
 
