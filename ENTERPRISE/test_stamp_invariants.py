@@ -28,6 +28,7 @@ def test_stamp_invariants_ready_and_idle():
     assert ready["covers_or_idle"] is True
     assert ready["sums_to_known"] is True
     assert ready["commercial_lane_sealed"] is True
+    assert ready["lane_fill_aligned"] is True
     assert ready["publish_price"] is False
     assert ready["price_allowed"] is False
     missing = stamp_invariants({"model_ids": []})
@@ -35,6 +36,7 @@ def test_stamp_invariants_ready_and_idle():
     assert missing["covers_outline"] is False
     assert missing["covers_or_idle"] is True
     assert missing["commercial_lane_sealed"] is True
+    assert missing["lane_fill_aligned"] is True
     harm = dict(COMPLETE)
     harm["wellbeing_ok"] = False
     declined = stamp_invariants(harm)
@@ -48,6 +50,7 @@ def test_stamp_invariants_ready_and_idle():
     assert labeled["stamp_invariants"]["ok"] is True
     assert labeled["stamp_invariants"]["publish_price"] is False
     assert labeled["commercial_lane_sealed"] is True
+    assert labeled["lane_fill_aligned"] is True
     assert labeled["action_flag_verb"] == ACTION_COPY_HEADINGS
     idle = stamp(refused)
     assert idle["stamp_invariants_ok"] is True
