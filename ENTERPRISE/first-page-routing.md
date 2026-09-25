@@ -2,7 +2,7 @@
 
 This page tells a first-time enterprise reader **which public page to open first**. It is not an intake bot, not an SLA, and not a claim that a human is standing by.
 
-Companions: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`inquiry-completeness.md`](inquiry-completeness.md), [`engagement-faq.md`](engagement-faq.md), [`handoff-to-public-tree.md`](handoff-to-public-tree.md), [`decline-or-defer.md`](decline-or-defer.md), [`well-being-alignment.md`](well-being-alignment.md), [Model 50 commercial template](../MODELS/genetic-architectural-database/models/50-enterprise-identical-model-template.md).
+Companions: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template.md`](inquiry-template.md), [`inquiry-completeness.md`](inquiry-completeness.md), [`engagement-faq.md`](engagement-faq.md), [`handoff-to-public-tree.md`](handoff-to-public-tree.md), [`decline-or-defer.md`](decline-or-defer.md), [`well-being-alignment.md`](well-being-alignment.md), [`placeholder-engagement-tiers.md`](placeholder-engagement-tiers.md), [Model 50 commercial template](../MODELS/genetic-architectural-database/models/50-enterprise-identical-model-template.md).
 
 ## Start here
 
@@ -12,6 +12,7 @@ Companions: [`order-and-contract.md`](order-and-contract.md), [`inquiry-template
 | You want identical or custom work and can name a model number | [`inquiry-template.md`](inquiry-template.md) then [`inquiry-completeness.md`](inquiry-completeness.md) |
 | You need the commercial *object* (identical vs custom, no prices) | [Model 50 card](../MODELS/genetic-architectural-database/models/50-enterprise-identical-model-template.md) |
 | You need the commercial shape, not a form yet | [`order-and-contract.md`](order-and-contract.md) |
+| You know the *shape* of work (study replica / field customization / operator integration / sovereign pack / measurement phase) but not the form | [`placeholder-engagement-tiers.md`](placeholder-engagement-tiers.md) then [`inquiry-template.md`](inquiry-template.md) |
 | You need process answers (what a quote is / is not) | [`engagement-faq.md`](engagement-faq.md) |
 | You need what public licenses already cover | [`licensing-boundary.md`](licensing-boundary.md) |
 | Energy numbers are still unlabeled | [`scope-assumptions.md`](scope-assumptions.md) then [`measurement-hold.md`](measurement-hold.md) |
@@ -32,6 +33,8 @@ The policy-gated executor may record refuse tokens as `aborted_reason='gas_<reas
 
 `AGENTS/claim_gate.py` encodes the same rule: `host_log` and `sandbox_demo` may pass; `field_generation`, `quote_evidence`, and `result_record` return `observer_not_evidence`. The inquiry helper uses that same token if `energy_evidence` names the observer file.
 
+Host offgrid duty fixture rows (`SANDBOX/out/offgrid_duty_log.json`) are the same class of artifact: controlled pack-voltage fixtures, not ADC readings and not quote evidence.
+
 ## What this page must not do
 
 - Invent a case id, turnaround clock, or price.
@@ -40,8 +43,9 @@ The policy-gated executor may record refuse tokens as `aborted_reason='gas_<reas
 - Promise that filling the inquiry template starts a contract.
 - Treat `eim_ok` / `inquiry_ok` / `gas_ok` / `gas_<reason>` as a signed agreement.
 - Treat sandbox `_gas_reason_*` fields as a commercial score.
-- Treat sandbox observer samples as measured joules or as a deliverable.
+- Treat sandbox observer samples or offgrid duty fixture logs as measured joules or as a deliverable.
 - Treat a claim-gate `host_log` pass as a field certificate.
+- Treat placeholder engagement tier names as SKUs or published fees.
 
 ## Maintainer use
 

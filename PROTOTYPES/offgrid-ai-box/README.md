@@ -26,15 +26,17 @@ Full schematic guidance and photos will be added as physical builds are complete
 ```
 pack_volts = read_pack_voltage()                 # proxy for available energy (caller-supplied on host)
 action     = energy_duty.decide(pack_volts, ...) # SLEEP / IDLE_LISTEN / INFER / REFUSE
-if action == "INFER":
+policy     = duty_to_policy.map(action)          # → Operator AI Action (SLEEP/SENSE/INFER)
+if policy allows INFER:
     run_local_model(...)                         # only when budget allows; no WAN fallback
 else:
     sleep_or_listen()
 ```
 
-Host-side helper already in tree:
+Host-side helpers already in tree:
 - [`energy_duty.py`](energy_duty.py) — decides SLEEP / IDLE_LISTEN / INFER / REFUSE from a caller-supplied pack voltage. It does **not** read an ADC.
-- Tests: [`test_energy_duty.py`](test_energy_duty.py) (host).
+- [`duty_to_policy.py`](duty_to_policy.py) — maps those strings onto the Operator AI policy Action interface and supplies a `policy_fn` for `decide_and_run` (host path). Also provides `fixture_log` for controlled voltage rows.
+- Tests: [`test_energy_duty.py`](test_energy_duty.py), [`test_duty_to_policy.py`](test_duty_to_policy.py) (host).
 
 Planned composition with Operator AI Machinery:
 - Model 01 (Threshold Energy Scheduler) supplies the live rail floor.
@@ -45,13 +47,15 @@ Planned composition with Operator AI Machinery:
 ## Directory Layout
 
 - `energy_duty.py` — host duty stub
-- `test_energy_duty.py` — host unit tests
+- `duty_to_policy.py` — host adapter to policy Action / policy_fn
+- `test_energy_duty.py` — host unit tests for duty
+- `test_duty_to_policy.py` — host unit tests for the adapter
 - `BOM.md` — commodity parts orientation
 - (future) `src/`, `docs/`, first-boot scripts, enclosure notes
 
 ## Status (honest)
 
-**Present:** Outline, BOM orientation, host energy-duty stub with unit tests, and explicit links to Model 10 / Model 35 / Model 01.
+**Present:** Outline, BOM orientation, host energy-duty stub with unit tests, host duty→policy adapter with unit tests, controlled host voltage fixture log (sandbox), and explicit links to Model 10 / Model 35 / Model 01.
 
 **Not present:** Trained/quantized on-device models, measured field joules, calibrated pack C, hardware photos, enclosure notes, first-boot scripts, measured idle current, or energy-neutral certificates.
 
@@ -59,8 +63,8 @@ This prototype maps to Model 10 (Offline LLM Runtime Adapter), Model 35 (Hand-Cr
 
 ## Next vertical slices (ordered, no invented claims)
 
-1. Capture a short host voltage / duty log under controlled pack-voltage fixtures (still host, not field certificate).
-2. Wire the duty decision into the same policy interface used by the Operator AI task-graph / policy-gated executor (host path only).
+1. Capture a short host voltage / duty log under controlled pack-voltage fixtures (still host, not field certificate). **Done (host):** `duty_to_policy.fixture_log` + `SANDBOX/out/offgrid_duty_log.json`.
+2. Wire the duty decision into the same policy interface used by the Operator AI task-graph / policy-gated executor (host path only). **Done (host):** `make_duty_policy_fn` → `decide_and_run(policy_fn=...)`.
 3. Decide one primary workload (TinyML policy vs local LLM) and document the refuse path when the voltage proxy is below the documented floor.
 4. Add a measurement-method note under `docs/` once a lab and instrument class are named (see ENTERPRISE/measurement-method.md).
 5. Only after (4): publish a labeled result record if pack current and voltage are measured on hardware.
