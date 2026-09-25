@@ -12,11 +12,15 @@ The label "measured" is refused. Callers that need a real ADC must
 implement a separate path that still returns only pack_volts: float
 and keeps is_field_measurement=False until a named lab + instrument
 class + measurement-method note exist (see ENTERPRISE/).
+
+Shared helper feed_via_reader() is the single path used by first_boot,
+duty_to_policy.fixture_log, and SANDBOX/compose_first_boot_demo so the
+feed contract stays uniform.
 """
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Tuple
 
 ALLOWED_SOURCES = frozenset({"host_placeholder", "hardware_pending"})
 
@@ -67,3 +71,26 @@ def as_feed(reading: dict) -> float:
     if reading.get("is_field_measurement") is True:
         raise ValueError("field measurement claims are refused on this host path")
     return float(reading["pack_volts"])
+
+
+def feed_via_reader(
+    pack_volts: float,
+    *,
+    source: str = "host_placeholder",
+) -> Tuple[float, dict]:
+    """Single host path: pack_volts → read_pack_volts → as_feed + reader_meta.
+
+    Used by first_boot, duty_to_policy.fixture_log, and compose_first_boot
+    so the documented feed contract stays uniform. Returns
+    (feed_volts, reader_meta) where reader_meta carries:
+      reader_source, reader_is_field_measurement, reader_is_firmware
+    Never claims field measurement or firmware.
+    """
+    reading = read_pack_volts(float(pack_volts), source=source)
+    feed_volts = as_feed(reading)
+    reader_meta = {
+        "reader_source": reading["source"],
+        "reader_is_field_measurement": reading["is_field_measurement"],
+        "reader_is_firmware": reading["is_firmware"],
+    }
+    return feed_volts, reader_meta

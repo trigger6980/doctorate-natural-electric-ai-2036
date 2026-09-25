@@ -5,7 +5,7 @@ Compatible with AGENTS/policy_gated_executor.Action and decide_and_run(policy_fn
 
 Optional via_host_reader path exercises the same host_voltage_reader feed
 contract already used by first_boot / compose_first_boot_demo: pack_volts
-pass through read_pack_volts + as_feed before decide. Sources remain
+pass through feed_via_reader before decide. Sources remain
 host_placeholder | hardware_pending only; is_field_measurement stays False.
 """
 
@@ -14,7 +14,7 @@ from __future__ import annotations
 from typing import Callable, Optional
 
 from energy_duty import FLOOR_VOLTS, decide
-from host_voltage_reader import as_feed, read_pack_volts
+from host_voltage_reader import feed_via_reader
 
 # Local string constants so this module stays importable without AGENTS on path
 # when only the prototype tree is on sys.path. The policy_fn returned still
@@ -78,8 +78,8 @@ def fixture_log(
     """Controlled host voltage → duty → policy-action log. Not a field certificate.
 
     When via_host_reader is True, each voltage is wrapped through
-    host_voltage_reader.read_pack_volts + as_feed so the documented feed
-    contract is exercised before energy_duty.decide. Reader meta tags are
+    host_voltage_reader.feed_via_reader so the documented feed contract
+    is exercised before energy_duty.decide. Reader meta tags are
     recorded on each row; is_field_measurement remains False.
     """
     rows = []
@@ -87,13 +87,9 @@ def fixture_log(
         feed_volts = float(v)
         reader_meta = None
         if via_host_reader:
-            reading = read_pack_volts(feed_volts, source=reader_source)
-            feed_volts = as_feed(reading)
-            reader_meta = {
-                "reader_source": reading["source"],
-                "reader_is_field_measurement": reading["is_field_measurement"],
-                "reader_is_firmware": reading["is_firmware"],
-            }
+            feed_volts, reader_meta = feed_via_reader(
+                feed_volts, source=reader_source
+            )
         duty = decide(
             feed_volts, infer_requested=infer_requested, floor_volts=floor_volts
         )

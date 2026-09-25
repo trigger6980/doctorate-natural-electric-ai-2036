@@ -6,9 +6,9 @@ that either allows the primary TinyML path or refuses inference.
 
 Optional via_host_reader path exercises the same host_voltage_reader
 feed contract already used by duty_to_policy.fixture_log and
-compose_first_boot_demo: pack_volts pass through read_pack_volts +
-as_feed before decide. Sources remain host_placeholder |
-hardware_pending only; is_field_measurement stays False.
+compose_first_boot_demo: pack_volts pass through feed_via_reader before
+decide. Sources remain host_placeholder | hardware_pending only;
+is_field_measurement stays False.
 
 STATUS: first-boot refuse sketch that refuses inference below the
 documented floor — still host / documentation until hardware exists.
@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from energy_duty import FLOOR_VOLTS, decide
 from duty_to_policy import duty_string_to_policy_action
-from host_voltage_reader import as_feed, read_pack_volts
+from host_voltage_reader import feed_via_reader
 
 PRIMARY_WORKLOAD = "tinyml_policy"
 SECONDARY_WORKLOAD = "offline_llm"
@@ -36,21 +36,16 @@ def first_boot(
     """Return a host boot record. Never claims field measurement.
 
     When via_host_reader is True, pack_volts is wrapped through
-    host_voltage_reader.read_pack_volts + as_feed so the documented
-    feed contract is exercised before energy_duty.decide. Reader meta
-    tags are recorded on the boot record; is_field_measurement remains
-    False.
+    host_voltage_reader.feed_via_reader so the documented feed contract
+    is exercised before energy_duty.decide. Reader meta tags are
+    recorded on the boot record; is_field_measurement remains False.
     """
     feed_volts = float(pack_volts)
     reader_meta = None
     if via_host_reader:
-        reading = read_pack_volts(feed_volts, source=reader_source)
-        feed_volts = as_feed(reading)
-        reader_meta = {
-            "reader_source": reading["source"],
-            "reader_is_field_measurement": reading["is_field_measurement"],
-            "reader_is_firmware": reading["is_firmware"],
-        }
+        feed_volts, reader_meta = feed_via_reader(
+            feed_volts, source=reader_source
+        )
     duty = decide(
         feed_volts,
         infer_requested=infer_requested,

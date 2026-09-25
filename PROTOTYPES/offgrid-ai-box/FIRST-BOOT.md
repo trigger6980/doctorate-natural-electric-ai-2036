@@ -8,7 +8,10 @@ Host script that refuses inference below the documented voltage floor.
   (including optional `via_host_reader` cases)
 - `host_voltage_reader.py` — pure host reader that returns a pack_volts record
   suitable for feeding `first_boot` / `energy_duty.decide` (sources:
-  `host_placeholder` | `hardware_pending` only)
+  `host_placeholder` | `hardware_pending` only). Shared helper
+  `feed_via_reader(pack_volts, source=...)` returns `(feed_volts, reader_meta)`
+  and is the single path used by first_boot, duty_to_policy.fixture_log, and
+  compose_first_boot.
 - `duty_to_policy.fixture_log(..., via_host_reader=True)` — same feed contract
   for the duty → policy adapter path (see `test_duty_to_policy.py`)
 - `SANDBOX/compose_first_boot_demo.py` — same feed contract for composition
@@ -88,9 +91,12 @@ passed through `as_feed` into `first_boot`, `energy_duty.decide`, or
 }
 ```
 
-`first_boot(..., via_host_reader=True, reader_source=...)` exercises that
-path natively (same contract as `duty_to_policy.fixture_log` and
-`compose_first_boot`). All three remain host-only.
+Preferred single entry for the optional reader path is
+`feed_via_reader(pack_volts, source=...)` → `(feed_volts, reader_meta)`.
+`first_boot(..., via_host_reader=True, reader_source=...)`,
+`duty_to_policy.fixture_log(..., via_host_reader=True)`, and
+`compose_first_boot(..., via_host_reader=True)` all use that helper.
+All three remain host-only.
 
 Rules that stay true after any hardware plug-in:
 
@@ -105,7 +111,8 @@ Rules that stay true after any hardware plug-in:
 5. The host reader never emits source=`measured`; that label is refused so
    sandbox numbers cannot be promoted into field claims.
 6. The duty adapter (`duty_to_policy.fixture_log`), the first-boot path, and
-   the composition path share the same feed contract; none is firmware.
+   the composition path share the same feed contract via `feed_via_reader`;
+   none is firmware.
 
 This contract advances the STATUS priority “wire a real ADC into the same
 policy interface” without inventing firmware, serial numbers, or field numbers.

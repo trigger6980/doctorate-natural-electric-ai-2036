@@ -2,7 +2,12 @@
 
 import pytest
 
-from host_voltage_reader import ALLOWED_SOURCES, as_feed, read_pack_volts
+from host_voltage_reader import (
+    ALLOWED_SOURCES,
+    as_feed,
+    feed_via_reader,
+    read_pack_volts,
+)
 from first_boot import first_boot
 
 
@@ -55,3 +60,24 @@ def test_allowed_sources_frozenset():
     assert "host_placeholder" in ALLOWED_SOURCES
     assert "hardware_pending" in ALLOWED_SOURCES
     assert "measured" not in ALLOWED_SOURCES
+
+
+def test_feed_via_reader_host_placeholder():
+    volts, meta = feed_via_reader(3.2, source="host_placeholder")
+    assert volts == 3.2
+    assert meta["reader_source"] == "host_placeholder"
+    assert meta["reader_is_field_measurement"] is False
+    assert meta["reader_is_firmware"] is False
+
+
+def test_feed_via_reader_hardware_pending():
+    volts, meta = feed_via_reader(3.9, source="hardware_pending")
+    assert volts == 3.9
+    assert meta["reader_source"] == "hardware_pending"
+    assert meta["reader_is_field_measurement"] is False
+    assert meta["reader_is_firmware"] is False
+
+
+def test_feed_via_reader_measured_refused():
+    with pytest.raises(ValueError, match="not allowed"):
+        feed_via_reader(3.6, source="measured")

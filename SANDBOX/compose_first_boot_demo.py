@@ -1,7 +1,7 @@
 """Host composition: energy-harvester voltage proxy + offgrid first_boot.
 
 STATUS next-priority (host path). Caller-supplied pack volts only, or
-pack volts obtained through host_voltage_reader.read_pack_volts + as_feed.
+pack volts obtained through host_voltage_reader.feed_via_reader.
 Optional joules estimate when C_farads is explicit (Model 05 host helper).
 Never claims ADC, firmware, or field measurement.
 """
@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / "PROTOTYPES" / "energy-harvester-tinyml" / "src"))
 sys.path.insert(0, str(ROOT / "PROTOTYPES" / "offgrid-ai-box"))
 
 from first_boot import first_boot  # noqa: E402
-from host_voltage_reader import as_feed, read_pack_volts  # noqa: E402
+from host_voltage_reader import feed_via_reader  # noqa: E402
 from supercap_voltage_proxy import joules_from_voltage  # noqa: E402
 
 
@@ -35,21 +35,17 @@ def compose_first_boot(
     """Compose host voltage proxy (optional) with first_boot refuse path.
 
     When via_host_reader is True, pack_volts is first wrapped through
-    host_voltage_reader.read_pack_volts + as_feed so the documented
-    feed contract is exercised. C_farads must be explicit to attach
-    estimated_joules. Unknown C is not a license to guess. Output is
-    always host-sourced; is_field_measurement stays False.
+    host_voltage_reader.feed_via_reader so the documented feed contract
+    is exercised. C_farads must be explicit to attach estimated_joules.
+    Unknown C is not a license to guess. Output is always host-sourced;
+    is_field_measurement stays False.
     """
     feed_volts = float(pack_volts)
     reader_meta = None
     if via_host_reader:
-        reading = read_pack_volts(feed_volts, source=reader_source)
-        feed_volts = as_feed(reading)
-        reader_meta = {
-            "reader_source": reading["source"],
-            "reader_is_field_measurement": reading["is_field_measurement"],
-            "reader_is_firmware": reading["is_firmware"],
-        }
+        feed_volts, reader_meta = feed_via_reader(
+            feed_volts, source=reader_source
+        )
     boot = first_boot(
         feed_volts,
         infer_requested=infer_requested,
