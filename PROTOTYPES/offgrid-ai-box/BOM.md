@@ -39,6 +39,7 @@ Companion: [`README.md`](README.md), energy-harvester-tinyml scheduler concepts,
 - Runtime target: **primary = TinyML policy** (threshold / quantized classifier or scheduler, same class as energy-harvester-tinyml). **Optional secondary = llama.cpp-class quantized LLM** only when duty grants INFER and budget supports it.
 - Energy duty helper in this folder (`energy_duty.py`) is a **host stub**. It does not read a real ADC.
 - Refuse path: pack voltage below `FLOOR_VOLTS` (3.50 V placeholder) → REFUSE/SLEEP → policy SLEEP; no inference runs.
+- Host first-boot refuse sketch: `first_boot.py` + `test_first_boot.py` + `FIRST-BOOT.md` (same floor as energy_duty). Host composition with optional Model 05 joules when C_farads is explicit is under `SANDBOX/compose_first_boot_demo.py` and folded into `run_prototypes.py`. **Not firmware, not ADC, not measured joules.**
 
 ## Energy honesty
 
@@ -51,4 +52,4 @@ Companion: [`README.md`](README.md), energy-harvester-tinyml scheduler concepts,
 - [ ] Photograph a first physical assembly.
 - [ ] Record idle current of the chosen SBC at the intended voltage.
 - [x] Decide one primary workload (TinyML policy vs local LLM). **Done:** TinyML-first; LLM optional secondary (see README).
-- [ ] Write a first-boot script that refuses inference when the voltage proxy is below a documented threshold.
+- [x] Write a first-boot refuse sketch that refuses inference when the voltage proxy is below a documented threshold. **Done (host only):** `first_boot.py`, tests, `FIRST-BOOT.md`; composition in SANDBOX. Still not on-device firmware and not an ADC read.

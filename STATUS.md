@@ -1,26 +1,25 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 03:00 CDT (Hourly dual-agent — fold compose_first_boot into run_prototypes)
+**Last updated:** 2026-09-25 04:07 CDT (Hourly dual-agent — BOM first-boot checkbox closed)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Folded host composition demo into `SANDBOX/run_prototypes.py` (STATUS next-priority #4 optional):
-  - New `run_compose_first_boot_demo()` calls `compose_first_boot_demo.demo_rows()`
-  - Writes `SANDBOX/out/compose_first_boot.json`
-  - Surfaces in `summary.json`: `compose_first_boot_below_duty`, `compose_first_boot_with_c_joules`, `compose_first_boot_all_host_only`, and full `compose_first_boot` block
-  - Honesty labels unchanged: host-only, joules only when C explicit, never firmware / ADC / field
-- Synced `SANDBOX/README.md` so the folded path and summary fields are documented
-- Standalone CLI `compose_first_boot_demo.py` and its unit tests remain; CI already runs both
+- Closed the outdated first-boot checkbox in `PROTOTYPES/offgrid-ai-box/BOM.md`:
+  - Marked host first-boot refuse sketch as done (`first_boot.py`, tests, `FIRST-BOOT.md`)
+  - Documented host composition path under SANDBOX (optional Model 05 joules only when C_farads explicit)
+  - Honesty labels preserved: host only, not firmware, not ADC, not measured joules
+  - Other hardware items (photo, idle current) remain open
+- No new prototype code, no invented metrics, no firmware claims
 
 ### Agent 2 — Enterprise & Business Ventures Agent
 - No new commercial page, price language, or engagement claim
-- Composition remains a research host path only; not an engagement deliverable, not quote evidence, not measured joules
+- BOM remains a research shopping list; commercial figure stays off-repo
 - STATUS + automation-note pattern continues: connector push or monitoring-only — no invented commits
 
 ## Prior completed (still true)
 - Host first-boot refuse sketch (`first_boot.py`, `test_first_boot.py`, `FIRST-BOOT.md`)
-- Host composition demo (`compose_first_boot_demo.py`, `test_compose_first_boot_demo.py`)
+- Host composition demo (`compose_first_boot_demo.py`, `test_compose_first_boot_demo.py`) folded into `run_prototypes.py`
 - `ENTERPRISE/automation-note.md` (buyers not asked to push GitHub)
 - All **50 model cards** present under `MODELS/genetic-architectural-database/models/`.
 - **50 agents** registry complete (`AGENTS/fifty-agents.md`, `agent_registry.py`, tests).
@@ -29,8 +28,8 @@
 - ENTERPRISE inquiry process, placeholder tiers, well-being alignment live.
 
 ## Honesty (what "finished" means)
-Finished here = host composition is reachable both as a standalone CLI and inside the main sandbox runner summary, still using the same floor and the same optional-C joules rule.
-Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C, or measured joules.
+Finished here = BOM checkbox matches the already-present host first-boot sketch and composition path, with the same floor and optional-C joules rule.
+Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C, measured joules, or physical assembly photos.
 
 ## Next logical priorities
 1. Wire a real ESP32-C3 (or SBC) ADC read into the same policy interface used by host tests (or keep the host path explicit).
