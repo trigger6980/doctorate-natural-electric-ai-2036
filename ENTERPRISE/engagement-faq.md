@@ -29,7 +29,7 @@ Incomplete inquiries receive questions. They do not receive a draft quote. After
 - Operator AI pieces in this repository are host sketches. On-device flash mapping and hardware energy observers are still open unless a later commit says they shipped.
 
 ## Does this repository publish a price?
-No. The host stamp keeps `price_allowed = false`. The filing verbs are only `decline`, `ask`, and `copy_headings`. `publish_price`, `quote_price`, and `set_rate` are blocked by `price_verbs_blocked`. Commercial figures belong in an off-repo quote after the six-item gate, not in this public tree. Treating `price_verbs_blocked = true` as a dollar amount is a misuse of the helper.
+No. The host stamp keeps `price_allowed = false`. The filing verbs are only `decline`, `ask`, and `copy_headings`. `publish_price`, `quote_price`, and `set_rate` are blocked by `price_verbs_blocked`. The heading `commercial_figure_off_repo` has `on_repo_value = None` via `commercial_figure_blank`. Commercial figures belong in an off-repo quote after the six-item gate, not in this public tree. Treating `price_verbs_blocked = true` or `commercial_figure_blank = true` as a dollar amount is a misuse of the helper.
 
 ## Value propositions that are allowed in a quote cover letter
 Use only claims the public tree can support. The short allow-list lives in [`allowed-cover-claims.md`](allowed-cover-claims.md):
