@@ -22,6 +22,8 @@ Demonstrate a minimal, reproducible system in which:
 
 Full schematic guidance and photos will be added as physical builds are completed. Start with ESP32-C3 + small solar + supercap for lowest power.
 
+See also [`BOM.md`](BOM.md).
+
 ## Software Architecture
 
 ```
@@ -34,15 +36,32 @@ log_and_sleep_until_next_slot()
 
 Policy can be a simple threshold rule or a quantized RL policy trained offline.
 
+Host-side helpers already in tree:
+- `src/energy_aware_scheduler.py` — threshold / policy skeleton
+- `src/supercap_voltage_proxy.py` — analytic voltage↔joules helper (uncalibrated; C must be supplied)
+- Tests under `tests/` run on CI via `.github/workflows/host-tests.yml`
+
 ## Directory Layout
 
-- `src/` — core C++/MicroPython or Arduino sketches
+- `src/` — core Python host stubs (and future C++/MicroPython / Arduino sketches)
 - `models/` — quantized models (placeholder for now)
-- `tests/` — energy and functional tests
-- `docs/` — measurement methodology
+- `tests/` — energy and functional tests (host)
+- `docs/` — measurement methodology (to be filled when lab method exists)
 
-## Status
-Skeleton. Core scheduler sketch and test harness structure pushed. Full quantized models, real energy traces, and hardware photos are next vertical slices.
+## Status (honest)
+
+**Present:** Host scheduler skeleton, uncalibrated supercap voltage proxy, unit tests, and a commodity-oriented BOM.
+
+**Not present:** Trained/quantized on-device models, measured field joules, calibrated C for the voltage proxy, hardware photos, or energy-neutral certificates.
+
+This prototype maps to Model 01 (Threshold Energy Scheduler) and Model 05 (Supercap Voltage Proxy) in the Genetic / Architectural Model Database. Host numbers are not field certificates.
+
+## Next vertical slices (ordered, no invented claims)
+
+1. Capture a short host voltage log under controlled indoor light (still host, not field certificate).
+2. Wire a real ESP32-C3 ADC read into the same policy interface used by the host tests.
+3. Add a measurement-method note under `docs/` once a lab and instrument class are named (see ENTERPRISE/measurement-method.md).
+4. Only after (3): publish a labeled result record if joules are measured.
 
 ## Reproducibility
-All code is intended to compile and run on commodity ESP32 boards. No proprietary silicon required.
+All host code runs under the public CI workflow. Board firmware targets commodity ESP32 boards. No proprietary silicon required. Physical builds remain open work.
