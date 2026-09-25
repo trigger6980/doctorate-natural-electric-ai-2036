@@ -102,8 +102,9 @@ Rules that stay true after any hardware plug-in:
 
 1. Low voltage always wins; no “try the model anyway” path.
 2. `is_field_measurement` remains False until a named lab + instrument class +
-   measurement-method note exist and a result record is labeled (see
-   ENTERPRISE/measurement-method.md).
+   measurement-method note exist and a result record is labeled (see the full
+   chain under ENTERPRISE/: measurement-hold → named-lab-plan → instrument-list
+   → measurement-method → result-record). Host stubs never skip that chain.
 3. Host composition with Model 05 joules is allowed only when `C_farads` is
    explicit; that value is analytic, not measured.
 4. On-device first-boot firmware, calibrated C, idle current photos, and

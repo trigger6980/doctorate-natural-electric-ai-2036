@@ -1,16 +1,15 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 13:01 CDT (Hourly dual-agent — compose reader-meta contract + measurement-method honesty alignment)
+**Last updated:** 2026-09-25 14:00 CDT (Hourly dual-agent — result-record host-stubs alignment + FIRST-BOOT full-chain cross-link)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Extended `SANDBOX/test_compose_first_boot_demo.py` so every `via_host_reader=True` path asserts that the reader_* keys present on the record are exactly `READER_META_KEYS` (`reader_source` / `reader_is_field_measurement` / `reader_is_firmware`)
-- Completes the shared `feed_via_reader` contract coverage at all three host call sites (first_boot, duty_to_policy.fixture_log, compose_first_boot) without adding ADC, firmware, or field claims
+- Updated `PROTOTYPES/offgrid-ai-box/FIRST-BOOT.md` rule 2 to name the complete measurement-chain path (hold → named-lab-plan → instrument-list → measurement-method → result-record) so the host feed contract is documented against the final honesty page; no ADC, firmware, or field claims added
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Honesty restatement in `ENTERPRISE/measurement-method.md` forbidden list: host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, duty fixture, compose, `energy_observer`) remain non-evidence (`reader_is_field_measurement=False`); never substitute for named-lab + instrument-class + measurement-method
-- Aligns the final page in the measurement chain (hold → named-lab → instrument → method) with the existing restatements; no prices, customers, SLAs, or invented lab names
+- Honesty restatement in `ENTERPRISE/result-record.md` forbidden list: host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, duty fixture, compose, `energy_observer`) remain non-evidence (`reader_is_field_measurement=False`); never substitute for named-lab + instrument-class + measurement-method
+- Completes the measurement-chain pages (hold → named-lab → instrument → method → result) with the same non-evidence restatement; no prices, customers, SLAs, or invented lab names
 
 ## Prior completed (still true)
 - Shared `feed_via_reader` path used by first_boot, duty_to_policy.fixture_log, and compose_first_boot (DRY host feed contract)
@@ -27,7 +26,7 @@
 - Offgrid TinyML-first primary workload + refuse path documented.
 - Energy-harvester-tinyml honesty block and Model 01 / Model 05 mapping.
 - ENTERPRISE inquiry process, placeholder tiers, well-being alignment live.
-- Named-lab-plan and instrument-list pages carry the same non-evidence restatement as measurement-hold.
+- Named-lab-plan, instrument-list, measurement-method, and measurement-hold pages carry the same non-evidence restatement as result-record.
 
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
@@ -36,9 +35,9 @@ reader meta keys are contract-checked at the helper and at all three host
 call sites (first_boot / fixture_log / compose), and the reader tests are
 CI-gated, while every record stays tagged host-only and is_field_measurement=False.
 The full measurement-chain pages (hold, named-lab-plan, instrument-list,
-measurement-method) now carry the same non-evidence restatement. Not finished =
-ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C, measured
-joules, or physical assembly photos.
+measurement-method, result-record) now carry the same non-evidence restatement.
+Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
+measured joules, or physical assembly photos.
 
 ## Next logical priorities
 1. Implement a real ESP32-C3 (or SBC) ADC reader that returns only

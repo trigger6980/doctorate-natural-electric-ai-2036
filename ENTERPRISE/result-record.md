@@ -42,6 +42,7 @@ A result record is **not** a packet, **not** a quote price, and **not** a field 
 - Attaching a placeholder price to a result record.
 - Claiming Models 19–29 became certified because a note named `sender-supplied`.
 - Treating a result record as if a packet, change order, or closeout already exists.
+- Treating host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, `duty_to_policy.fixture_log`, sandbox composition demos, `energy_observer`) as substitutes for a named-lab + instrument-class + measurement-method plan. Those stubs carry `is_field_measurement=False` / `reader_is_field_measurement=False` and must stay off any quote that implies measured joules or calibrated C. The shared `feed_via_reader` path and its three host call sites are never instrument-class evidence.
 
 See [`well-being-alignment.md`](well-being-alignment.md).
 
