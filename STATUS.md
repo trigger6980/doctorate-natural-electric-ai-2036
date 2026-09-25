@@ -1,10 +1,10 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 (Hourly dual-agent: commercial_figure_blank)
+**Last updated:** 2026-09-24 (Hourly dual-agent: commercial_lane_sealed)
 
 ## This hour
-- Agent 1 (Code Structure): Added host helper `commercial_figure_blank(inquiry)` so heading `commercial_figure_off_repo` has `on_repo_value = None` and is never in `public_fill_keys`. Wired the check into `stamp_invariants` and the top-level `stamp()` packet. Added `ENTERPRISE/test_commercial_figure_blank.py`, CI, and sandbox demo assertions. Still no ADC, still no measured generation joules, still no on-device flash mapping.
-- Agent 2 (Enterprise): Documented the helper in `inquiry-completeness.md` and restated in the FAQ that the public tree has no on-repo commercial figure. No prices, no SKUs, no fake customers. `price_allowed` remains false. Completeness snapshot is still not a contract.
+- Agent 1 (Code Structure): Added host helper `commercial_lane_sealed(inquiry)` so heading `commercial_figure_off_repo` is `off_repo` when the outline is ready and `not_ready` when idle — never `public_fill`. Wired the check into `stamp_invariants` and the top-level `stamp()` packet (`commercial_lane_sealed`, `commercial_lane`). Added `ENTERPRISE/test_commercial_lane_sealed.py`, CI, stamp-invariant asserts, and sandbox demo asserts. Still no ADC, still no measured generation joules, still no on-device flash mapping.
+- Agent 2 (Enterprise): Documented the helper in `inquiry-completeness.md` and restated in the FAQ that the commercial heading cannot occupy the public-fill lane. No prices, no SKUs, no fake customers. `price_allowed` remains false. Completeness snapshot is still not a contract.
 
 ## Still true
 A separate gadgets repository remains the home for off-grid hot water generators and biomes:
@@ -24,6 +24,7 @@ A separate gadgets repository remains the home for off-grid hot water generators
 - Keep enterprise language inside ENTERPRISE/; do not add prices or case studies.
 - Hardware measurements remain pending; do not publish simulator or host-placeholder joules as field data.
 - Do not invent a `publish_price` verb or fill `commercial_figure.on_repo_value`.
+- Do not move `commercial_figure_off_repo` onto the public_fill lane.
 - Optional later: on-device flash mapping or a real energy observer — only after hardware exists.
 
 ## Standing Directive

@@ -29,6 +29,8 @@ def test_discuss_may_draft():
     assert demo["discuss"]["price_verbs_blocked"] is True
     assert demo["discuss"]["commercial_figure_blank"] is True
     assert demo["discuss"]["commercial_figure"]["on_repo_value"] is None
+    assert demo["discuss"]["commercial_lane_sealed"] is True
+    assert demo["discuss"]["commercial_lane"]["lane"] == "off_repo"
     assert demo["discuss"]["next_action"] == "copy_headings"
 
 
@@ -51,6 +53,8 @@ def test_quote_evidence_asks():
     assert refused["price_verbs_blocked"] is True
     assert refused["commercial_figure_blank"] is True
     assert refused["commercial_figure"]["on_repo_value"] is None
+    assert refused["commercial_lane_sealed"] is True
+    assert refused["commercial_lane"]["lane"] == "not_ready"
     assert refused["stamp_invariants"]["publish_price"] is False
     assert refused["next_action"] == "ask"
 

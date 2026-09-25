@@ -300,6 +300,31 @@ def commercial_figure_blank(inquiry: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def commercial_lane_sealed(inquiry: dict[str, Any]) -> dict[str, Any]:
+    """Commercial heading never uses the public_fill lane. Not a price."""
+    figure = commercial_figure_blank(inquiry)
+    lane = section_lane(inquiry, COMMERCIAL_KEY)["lane"]
+    ready = quote_action(inquiry) == "draft"
+    expected = LANE_OFF_REPO if ready else LANE_NOT_READY
+    sealed = (
+        figure["ok"] is True
+        and figure["on_repo_value"] is None
+        and COMMERCIAL_KEY not in public_fill_keys(inquiry)
+        and lane == expected
+        and lane != LANE_PUBLIC
+    )
+    return {
+        "ok": sealed,
+        "key": COMMERCIAL_KEY,
+        "lane": lane,
+        "expected_lane": expected,
+        "never_public_fill": lane != LANE_PUBLIC,
+        "on_repo_value": None,
+        "publish_price": False,
+        "price_allowed": False,
+    }
+
+
 def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
     """Host coherence check for stamp fields. Not a published dollar amount."""
     consistent = action_consistent(inquiry)
@@ -308,6 +333,7 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
     counts = lane_counts(inquiry)
     verbs = price_verbs_blocked(inquiry)
     figure = commercial_figure_blank(inquiry)
+    sealed = commercial_lane_sealed(inquiry)
     covers_or_idle = part["covers_outline"] or (
         not part["outline_ready"] and counts[LANE_NOT_READY] == len(OUTLINE_SECTIONS)
     )
@@ -321,6 +347,8 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
         and verbs["ok"] is True
         and figure["ok"] is True
         and figure["on_repo_value"] is None
+        and sealed["ok"] is True
+        and sealed["lane"] != LANE_PUBLIC
     )
     return {
         "ok": ok,
@@ -332,6 +360,7 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
         "sums_to_known": counts["sums_to_known"],
         "price_verbs_blocked": verbs["ok"],
         "commercial_figure_blank": figure["ok"],
+        "commercial_lane_sealed": sealed["ok"],
         "publish_price": False,
         "price_allowed": False,
     }
@@ -346,6 +375,7 @@ def stamp(inquiry: dict[str, Any]) -> dict[str, Any]:
     invariants = stamp_invariants(inquiry)
     verbs = price_verbs_blocked(inquiry)
     figure = commercial_figure_blank(inquiry)
+    sealed = commercial_lane_sealed(inquiry)
     return {
         "items_present": items_present(inquiry),
         "refuse_reason": refuse_reason(inquiry),
@@ -376,6 +406,8 @@ def stamp(inquiry: dict[str, Any]) -> dict[str, Any]:
         "price_verbs": verbs,
         "commercial_figure_blank": figure["ok"],
         "commercial_figure": figure,
+        "commercial_lane_sealed": sealed["ok"],
+        "commercial_lane": sealed,
         "stamp_invariants_ok": invariants["ok"],
         "stamp_invariants": invariants,
     }
