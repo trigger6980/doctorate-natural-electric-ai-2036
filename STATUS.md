@@ -1,20 +1,20 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 11:00 CDT (Hourly dual-agent — reader meta keys + CI gate)
+**Last updated:** 2026-09-25 12:07 CDT (Hourly dual-agent — reader-meta call-site contract + named-lab/instrument honesty)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Added `READER_META_KEYS` frozenset on `host_voltage_reader` and a contract assert inside `feed_via_reader` so meta stays exactly `reader_source` / `reader_is_field_measurement` / `reader_is_firmware`
-- Extended `test_host_voltage_reader.py` with meta-key contract tests and a path-tolerant shared-source check against `energy_observer.ALLOWED_SOURCES`
-- Gated the reader tests in CI: `.github/workflows/host-tests.yml` now runs `(cd PROTOTYPES/offgrid-ai-box && python test_host_voltage_reader.py)`
+- Extended `test_first_boot.py` and `test_duty_to_policy.py` so every `via_host_reader=True` path asserts that the reader_* keys present on the record are exactly `READER_META_KEYS` (`reader_source` / `reader_is_field_measurement` / `reader_is_firmware`)
+- Tightens the shared `feed_via_reader` contract at the two host call sites without adding ADC, firmware, or field claims
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Honesty restatement in `ENTERPRISE/measurement-hold.md` forbidden list: `feed_via_reader` + first_boot + fixture_log + compose + energy_observer remain non-evidence (`reader_is_field_measurement=False`); never substitute for named-lab + instrument-class + measurement-method
-- No new commercial page, price language, engagement claim, or invented customer
+- Honesty restatement in `ENTERPRISE/named-lab-plan.md` and `ENTERPRISE/instrument-list.md` forbidden lists: host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, duty fixture, compose, `energy_observer`) remain non-evidence (`reader_is_field_measurement=False`); never substitute for named-lab + instrument-class + measurement-method
+- Aligns both pages with the existing `measurement-hold.md` restatement; no prices, customers, SLAs, or invented lab names
 
 ## Prior completed (still true)
 - Shared `feed_via_reader` path used by first_boot, duty_to_policy.fixture_log, and compose_first_boot (DRY host feed contract)
+- `READER_META_KEYS` frozenset + contract assert inside `feed_via_reader`; reader tests CI-gated
 - Host voltage reader stub (`host_voltage_reader.py`, tests) with allowed sources host_placeholder | hardware_pending only
 - Host policy interface contract for future ADC documented in FIRST-BOOT.md
 - Host first-boot refuse sketch (`first_boot.py`, `test_first_boot.py`, `FIRST-BOOT.md`)
@@ -31,10 +31,12 @@
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
 host_voltage_reader feed contract via the shared `feed_via_reader` helper,
-reader meta keys are contract-checked, and the reader tests are CI-gated,
+reader meta keys are contract-checked at the helper and at the first_boot /
+fixture_log call sites, and the reader tests are CI-gated,
 while every record stays tagged host-only and is_field_measurement=False.
-Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
-measured joules, or physical assembly photos.
+Named-lab-plan and instrument-list pages now carry the same non-evidence
+restatement as measurement-hold. Not finished = ESP32-C3 ADC wiring, on-device
+first-boot firmware, calibrated C, measured joules, or physical assembly photos.
 
 ## Next logical priorities
 1. Implement a real ESP32-C3 (or SBC) ADC reader that returns only

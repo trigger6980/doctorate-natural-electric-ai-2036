@@ -2,6 +2,7 @@
 
 from first_boot import PRIMARY_WORKLOAD, first_boot
 from energy_duty import FLOOR_VOLTS
+from host_voltage_reader import READER_META_KEYS
 
 
 def test_below_floor_refuses_inference():
@@ -39,6 +40,9 @@ def test_via_host_reader_below_floor_host_placeholder():
     assert rec["reader_source"] == "host_placeholder"
     assert rec["reader_is_field_measurement"] is False
     assert rec["reader_is_firmware"] is False
+    # Contract: reader meta keys are exactly the documented set.
+    reader_keys = {k for k in rec if k.startswith("reader_")}
+    assert reader_keys == READER_META_KEYS
     assert rec["duty"] == "REFUSE"
     assert rec["policy_action"] == "SLEEP"
     assert rec["inference_allowed"] is False
@@ -59,6 +63,8 @@ def test_via_host_reader_above_floor_hardware_pending():
     assert rec["reader_source"] == "hardware_pending"
     assert rec["reader_is_field_measurement"] is False
     assert rec["reader_is_firmware"] is False
+    reader_keys = {k for k in rec if k.startswith("reader_")}
+    assert reader_keys == READER_META_KEYS
     assert rec["duty"] == "INFER"
     assert rec["policy_action"] == "INFER"
     assert rec["inference_allowed"] is True

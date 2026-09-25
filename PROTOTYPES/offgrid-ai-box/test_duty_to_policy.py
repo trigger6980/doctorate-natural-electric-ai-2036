@@ -8,6 +8,7 @@ from duty_to_policy import (
     make_duty_policy_fn,
 )
 from energy_duty import FLOOR_VOLTS
+from host_voltage_reader import READER_META_KEYS
 
 
 class DutyToPolicyTests(unittest.TestCase):
@@ -73,6 +74,9 @@ class DutyToPolicyTests(unittest.TestCase):
         self.assertEqual(r["reader_source"], "host_placeholder")
         self.assertIs(r["reader_is_field_measurement"], False)
         self.assertIs(r["reader_is_firmware"], False)
+        # Contract: reader meta keys are exactly the documented set.
+        reader_keys = {k for k in r if k.startswith("reader_")}
+        self.assertEqual(reader_keys, READER_META_KEYS)
         self.assertEqual(r["duty"], "REFUSE")
         self.assertEqual(r["policy_action"], "SLEEP")
         self.assertIs(r["is_field_measurement"], False)
@@ -93,6 +97,8 @@ class DutyToPolicyTests(unittest.TestCase):
         self.assertEqual(r["policy_action"], "INFER")
         self.assertIs(r["reader_is_field_measurement"], False)
         self.assertIs(r["is_field_measurement"], False)
+        reader_keys = {k for k in r if k.startswith("reader_")}
+        self.assertEqual(reader_keys, READER_META_KEYS)
 
 
 if __name__ == "__main__":
