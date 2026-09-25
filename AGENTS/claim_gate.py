@@ -6,6 +6,15 @@ They may not be used as field generation figures, quote evidence, or
 result-record numbers.
 
 This is not a legal opinion and not a measurement instrument.
+
+Honesty boundary (same chain as energy_observer, FIRST-BOOT, and
+ENTERPRISE result-record):
+Refused claims (field_generation, quote_evidence, result_record) map to
+the requirement that a named lab + instrument class + measurement-method
+note exist before any result is labeled. See ENTERPRISE/: measurement-hold
+→ named-lab-plan → instrument-list → measurement-method → result-record.
+Allowed claims (host_log, sandbox_demo) never promote host stubs into
+that chain; observer_not_evidence stays the refuse token.
 """
 
 from __future__ import annotations
