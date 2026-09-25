@@ -1,6 +1,7 @@
 """Host tests for compose_first_boot_demo. Not a hardware certificate."""
 
 from compose_first_boot_demo import compose_first_boot, demo_rows
+from host_voltage_reader import READER_META_KEYS
 
 
 def test_below_floor_refuses_and_leaves_joules_unset_without_c():
@@ -52,6 +53,9 @@ def test_via_host_reader_below_floor():
     assert rec["reader_source"] == "host_placeholder"
     assert rec["reader_is_field_measurement"] is False
     assert rec["reader_is_firmware"] is False
+    # Contract: reader meta keys are exactly the documented set (third call site).
+    reader_keys = {k for k in rec if k.startswith("reader_")}
+    assert reader_keys == READER_META_KEYS
     assert rec["duty"] == "REFUSE"
     assert rec["inference_allowed"] is False
     assert rec["is_field_measurement"] is False
@@ -71,6 +75,8 @@ def test_via_host_reader_with_c_and_hardware_pending():
     assert rec["estimated_joules"] is not None
     assert rec["is_field_measurement"] is False
     assert rec["reader_is_field_measurement"] is False
+    reader_keys = {k for k in rec if k.startswith("reader_")}
+    assert reader_keys == READER_META_KEYS
 
 
 if __name__ == "__main__":
