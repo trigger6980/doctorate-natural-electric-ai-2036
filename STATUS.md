@@ -1,27 +1,27 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 02:08 CDT (Hourly dual-agent — first-boot refuse sketch pushed via GitHub connector)
+**Last updated:** 2026-09-25 02:13 CDT (Hourly dual-agent — host first-boot composition demo + CI)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Added host **first-boot refuse sketch** for `PROTOTYPES/offgrid-ai-box`:
-  - `first_boot.py` — uses existing `energy_duty.decide` + duty→policy map
-  - Below `FLOOR_VOLTS` (3.50 placeholder) + infer requested → REFUSE / policy SLEEP / `inference_allowed=false`
-  - At or above floor + infer requested → primary workload `tinyml_policy`
-  - CLI: `python first_boot.py <volts>`
-- Added `test_first_boot.py` (below-floor refuse, above-floor TinyML primary, listen-only has no workload)
-- Added `FIRST-BOOT.md` stating this is host/docs, not firmware or ADC
-- Closes STATUS next-priority #4 as a **host sketch**. Hardware ADC / first-boot on device remains open.
+- Added **host composition demo** (STATUS next-priority #2):
+  - `SANDBOX/compose_first_boot_demo.py` — composes Model 05 `joules_from_voltage` (only when `C_farads` is explicit) with `PROTOTYPES/offgrid-ai-box/first_boot`
+  - Below floor → REFUSE / no workload; joules left unset without C
+  - Above floor + C → analytic joules + TinyML primary when infer requested
+  - CLI: `python SANDBOX/compose_first_boot_demo.py [volts] [C_farads]`
+- Added `SANDBOX/test_compose_first_boot_demo.py` (four host tests)
+- CI (`.github/workflows/host-tests.yml`): include `test_first_boot.py` and `test_compose_first_boot_demo.py`
+- Synced `PROTOTYPES/offgrid-ai-box/README.md` and `SANDBOX/README.md` so first-boot and composition are listed as **present (host)**, not future; honesty boundaries unchanged
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Added `ENTERPRISE/automation-note.md`:
-  - Buyers are not asked to copy files or push GitHub
-  - Dual-agent cycle pushes via the GitHub connector when available
-  - If the connector is down, STATUS records monitoring-only — no invented commits
-  - No SLA, no ticket bot, no prices
+- No new commercial page or price language
+- Composition and first-boot remain research host paths; not engagement deliverables, not quote evidence, not measured joules
+- STATUS + automation-note pattern continues: connector push or monitoring-only — no invented commits
 
 ## Prior completed (still true)
+- Host first-boot refuse sketch (`first_boot.py`, `test_first_boot.py`, `FIRST-BOOT.md`)
+- `ENTERPRISE/automation-note.md` (buyers not asked to push GitHub)
 - All **50 model cards** present under `MODELS/genetic-architectural-database/models/`.
 - **50 agents** registry complete (`AGENTS/fifty-agents.md`, `agent_registry.py`, tests).
 - Offgrid TinyML-first primary workload + refuse path documented.
@@ -29,14 +29,14 @@
 - ENTERPRISE inquiry process, placeholder tiers, well-being alignment live.
 
 ## Honesty (what "finished" means)
-Finished here = a host function that names refuse vs infer using the same floor as `energy_duty`.
-Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, or measured joules.
+Finished here = a host composition that names refuse vs infer using the same floor as `energy_duty`, and optionally attaches analytic joules only when C is caller-supplied.
+Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C, or measured joules.
 
 ## Next logical priorities
 1. Wire a real ESP32-C3 (or SBC) ADC read into the same policy interface used by host tests (or keep the host path explicit).
-2. Optional: thin host demo that composes energy-harvester voltage proxy + offgrid duty + first_boot in one sandbox path (still host).
-3. Name a lab + instrument class only when ready; do not invent results.
-4. Keep first-boot as host-only until a board exists; do not call it firmware.
+2. Name a lab + instrument class only when ready; do not invent results.
+3. Keep first-boot and composition as host-only until a board exists; do not call them firmware.
+4. Optional: fold `compose_first_boot` into `run_prototypes.py` summary if desired (still host).
 5. Continue monitoring; prefer small honesty-preserving improvements over volume.
 
 ## Standing Directive

@@ -29,6 +29,7 @@ jobs:
           python SANDBOX/test_gas_preflight_demo.py
           python SANDBOX/test_energy_observer_demo.py
           python SANDBOX/test_inquiry_stamp_demo.py
+          python SANDBOX/test_compose_first_boot_demo.py
           python SANDBOX/run_prototypes.py
           python ENTERPRISE/test_inquiry_completeness.py
           python ENTERPRISE/test_action_consistent.py
@@ -39,3 +40,4 @@ jobs:
           python ENTERPRISE/test_lane_fill_aligned.py
           (cd PROTOTYPES/offgrid-ai-box && python test_energy_duty.py)
           (cd PROTOTYPES/offgrid-ai-box && python test_duty_to_policy.py)
+          (cd PROTOTYPES/offgrid-ai-box && python test_first_boot.py)
