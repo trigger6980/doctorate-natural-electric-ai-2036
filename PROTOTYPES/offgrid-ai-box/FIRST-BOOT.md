@@ -9,6 +9,8 @@ refuses inference below the documented voltage floor.
 - `host_voltage_reader.py` — pure host reader that returns a pack_volts record
   suitable for feeding `first_boot` / `energy_duty.decide` (sources:
   `host_placeholder` | `hardware_pending` only)
+- `duty_to_policy.fixture_log(..., via_host_reader=True)` — same feed contract
+  for the duty → policy adapter path (see `test_duty_to_policy.py`)
 
 ## What it is not
 - Not ESP32 firmware
@@ -31,7 +33,7 @@ Optional secondary offline LLM is only named when `allow_secondary_llm=True`
 ```
 cd PROTOTYPES/offgrid-ai-box
 python first_boot.py 3.2
-python -m pytest test_first_boot.py test_host_voltage_reader.py -q
+python -m pytest test_first_boot.py test_host_voltage_reader.py test_duty_to_policy.py -q
 ```
 
 ## Host policy interface contract for a future ADC (documentation only)
@@ -66,7 +68,8 @@ Return shape from `first_boot` (host record, never a field certificate):
 ### Host voltage reader (explicit feed path)
 
 `host_voltage_reader.read_pack_volts(...)` produces a small record that can be
-passed through `as_feed` into `first_boot`:
+passed through `as_feed` into `first_boot`, `energy_duty.decide`, or
+`duty_to_policy.fixture_log`:
 
 ```text
 {
@@ -90,6 +93,8 @@ Rules that stay true after any hardware plug-in:
    measured joules remain open work and are not claimed by this sketch.
 5. The host reader never emits source=`measured`; that label is refused so
    sandbox numbers cannot be promoted into field claims.
+6. The duty adapter (`duty_to_policy.fixture_log`) and the first-boot
+   composition path share the same feed contract; neither is firmware.
 
 This contract advances the STATUS priority “wire a real ADC into the same
 policy interface” without inventing firmware, serial numbers, or field numbers.

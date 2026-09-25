@@ -34,6 +34,7 @@ class DutyToPolicyTests(unittest.TestCase):
         self.assertEqual(rows[0]["policy_action"], "SLEEP")
         self.assertIs(rows[0]["is_field_measurement"], False)
         self.assertEqual(rows[0]["source"], "host_fixture")
+        self.assertIs(rows[0]["via_host_reader"], False)
 
     def test_fixture_log_above_floor_infer(self):
         rows = fixture_log([3.9], infer_requested=True)
@@ -58,6 +59,40 @@ class DutyToPolicyTests(unittest.TestCase):
         # string or Action enum member with .name
         name = result if isinstance(result, str) else getattr(result, "name", str(result))
         self.assertEqual(name, "SLEEP")
+
+    def test_fixture_log_via_host_reader_below_floor(self):
+        rows = fixture_log(
+            [FLOOR_VOLTS - 0.2],
+            infer_requested=True,
+            via_host_reader=True,
+            reader_source="host_placeholder",
+        )
+        self.assertEqual(len(rows), 1)
+        r = rows[0]
+        self.assertIs(r["via_host_reader"], True)
+        self.assertEqual(r["reader_source"], "host_placeholder")
+        self.assertIs(r["reader_is_field_measurement"], False)
+        self.assertIs(r["reader_is_firmware"], False)
+        self.assertEqual(r["duty"], "REFUSE")
+        self.assertEqual(r["policy_action"], "SLEEP")
+        self.assertIs(r["is_field_measurement"], False)
+        self.assertIs(r["is_firmware"], False)
+
+    def test_fixture_log_via_host_reader_hardware_pending_above(self):
+        rows = fixture_log(
+            [3.9],
+            infer_requested=True,
+            via_host_reader=True,
+            reader_source="hardware_pending",
+        )
+        self.assertEqual(len(rows), 1)
+        r = rows[0]
+        self.assertIs(r["via_host_reader"], True)
+        self.assertEqual(r["reader_source"], "hardware_pending")
+        self.assertEqual(r["duty"], "INFER")
+        self.assertEqual(r["policy_action"], "INFER")
+        self.assertIs(r["reader_is_field_measurement"], False)
+        self.assertIs(r["is_field_measurement"], False)
 
 
 if __name__ == "__main__":
