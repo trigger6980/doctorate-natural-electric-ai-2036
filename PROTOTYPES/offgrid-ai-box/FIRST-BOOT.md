@@ -114,6 +114,11 @@ Rules that stay true after any hardware plug-in:
 6. The duty adapter (`duty_to_policy.fixture_log`), the first-boot path, and
    the composition path share the same feed contract via `feed_via_reader`;
    none is firmware.
+7. Host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`,
+   `duty_to_policy.fixture_log`, sandbox composition demos, `energy_observer`,
+   `claim_gate`) never substitute for a named-lab + instrument-class +
+   measurement-method plan. `claim_gate` refuses field_generation /
+   quote_evidence / result_record with the token `observer_not_evidence`.
 
 This contract advances the STATUS priority “wire a real ADC into the same
 policy interface” without inventing firmware, serial numbers, or field numbers.

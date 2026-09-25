@@ -16,6 +16,17 @@ class + measurement-method note exist (see ENTERPRISE/).
 Shared helper feed_via_reader() is the single path used by first_boot,
 duty_to_policy.fixture_log, and SANDBOX/compose_first_boot_demo so the
 feed contract stays uniform.
+
+Honesty boundary (same chain as energy_observer, claim_gate, FIRST-BOOT,
+and ENTERPRISE result-record):
+Host voltage records stay non-evidence until a named lab + instrument
+class + measurement-method note exist and a result record is labeled.
+See the full path under ENTERPRISE/: measurement-hold → named-lab-plan →
+instrument-list → measurement-method → result-record. This stub never
+substitutes for that chain; is_field_measurement and reader_is_field_measurement
+remain False. claim_gate refuses field_generation / quote_evidence /
+result_record with the token observer_not_evidence; host_log and
+sandbox_demo may still be labeled for tests.
 """
 
 from __future__ import annotations
