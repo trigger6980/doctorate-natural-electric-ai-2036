@@ -11,6 +11,8 @@ Two specialized agents ran a focused pass. No fake metrics, customers, or comple
 - Added host stub `PROTOTYPES/offgrid-ai-box/energy_duty.py` plus `test_energy_duty.py`.
   - Low pack voltage refuses inference (`REFUSE` / `SLEEP`).
   - `hours_remaining` is pack_wh / assumed watts only — not a field endurance number.
+- Wired that test into `.github/workflows/host-tests.yml` (`cd` into the prototype dir so the local import works).
+- Updated the offgrid-ai-box README status line so it no longer says “outline only.”
 
 ### Agent 2 — Enterprise & Business Ventures
 - Replaced the thin `ENTERPRISE/README.md` (it listed only three files) with a full document index and a five-step inquiry path.
@@ -24,10 +26,10 @@ Professional draft documents remain in `ENTERPRISE/` (`CONTRACT.md`, `PAYMENT-BI
 Repositories may be set to private until a working payment and billing solution is in place, as previously discussed.
 
 ## Next logical priorities
-1. Wire `offgrid-ai-box` tests into `.github/workflows/host-tests.yml` if the workflow does not already discover them.
-2. First-boot refuse script once a real SBC idle-current note exists.
-3. Hardware photos and named-lab measurement rows — only when parts are on the bench.
-4. Do not publish prices. Do not expand the 50-model set for volume.
+1. First-boot refuse script once a real SBC idle-current note exists.
+2. Hardware photos and named-lab measurement rows — only when parts are on the bench.
+3. Do not publish prices. Do not expand the 50-model set for volume.
+4. Optional: share the energy_duty refuse path with the existing policy-gated executor (research label only).
 
 ## Standing Directive
 Quality first. All connectors and skills available. Specialized agents authorized. GitHub kept current.
