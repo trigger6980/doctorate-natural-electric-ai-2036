@@ -34,3 +34,4 @@ jobs:
           python ENTERPRISE/test_action_consistent.py
           python ENTERPRISE/test_stamp_invariants.py
           python ENTERPRISE/test_price_verbs.py
+          python ENTERPRISE/test_commercial_figure_blank.py
