@@ -12,6 +12,7 @@ It is not a VM, not an MCU, and not a licensed runtime pack.
 5. Generator 03 control-name log (`SANDBOX/out/gen03_decisions.json`) from labeled host scenarios. Names only; no watts.
 6. Model 49 gas preflight demo (`SANDBOX/out/gas_preflight.json`) via `policy_gated_executor.decide_and_run`. Surfaces `_gas_reason` for an agreed-row table and a missing-table refuse. Research labels only.
 7. Host energy observer demo (`SANDBOX/out/energy_observer.json`) via `AGENTS/energy_observer.py`. Sources are `host_placeholder` or `hardware_pending`. `is_field_measurement` is always false.
+8. Off-Grid AI Box duty fixtures (`SANDBOX/out/offgrid_duty_log.json`) via `PROTOTYPES/offgrid-ai-box/duty_to_policy.py`. Controlled pack-voltage rows mapped to policy Action; not an ADC read.
 
 ## How to run
 From the repository root:
@@ -40,6 +41,9 @@ With the default 0.12 J pool and 0.01 J reserve, generate is expected to be **sk
 ## Energy observer labels in this folder
 `summary.json` may include `observer_source_placeholder` and `observer_is_field_measurement`. Those fields come from the host stub. They are not ADC readings, not a quote attachment, and not proof of harvest. `AGENTS/claim_gate.py` refuses `quote_evidence`, `field_generation`, and `result_record` uses of these rows.
 
+## Offgrid duty labels in this folder
+`summary.json` may include `offgrid_duty_low_aborted` and `offgrid_duty_high_action`. Those come from controlled host fixtures in `duty_to_policy.fixture_log` and `make_duty_policy_fn`. They are not pack current measurements and not quote evidence.
+
 ## What this sandbox does not do
 - Calibrate `C_farads`
 - Load GGUF weights or an embedding index
@@ -47,3 +51,4 @@ With the default 0.12 J pool and 0.01 J reserve, generate is expected to be **sk
 - Measure real joules
 - Drive a heat pump, Peltier stage, or TEG
 - Run a neural architecture search farm
+- Read a physical ADC or claim field certification

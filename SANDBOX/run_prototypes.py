@@ -11,11 +11,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "AGENTS"))
 sys.path.insert(0, str(ROOT / "PROTOTYPES" / "energy-harvester-tinyml" / "src"))
+sys.path.insert(0, str(ROOT / "PROTOTYPES" / "offgrid-ai-box"))
 sys.path.insert(0, str(ROOT / "SANDBOX"))
 sys.path.insert(0, str(ROOT / "ENTERPRISE"))
 
 from brokered_executor import brokered_run  # noqa: E402
 from claim_gate import stamp, stamp_many  # noqa: E402
+from duty_to_policy import fixture_log, make_duty_policy_fn  # noqa: E402
 from energy_aware_scheduler import run_simulation  # noqa: E402
 from energy_broker import EnergyRequest, allocate_all_or_nothing  # noqa: E402
 from energy_observer import record_sample  # noqa: E402
@@ -131,6 +133,48 @@ def run_inquiry_stamp_demo():
     }
 
 
+def run_offgrid_duty_demo():
+    """Controlled host pack-voltage fixtures → duty → policy action. Not ADC."""
+    voltages = [3.0, 3.4, 3.6, 3.9, 4.2]
+    rows_infer = fixture_log(voltages, infer_requested=True)
+    rows_idle = fixture_log(voltages, infer_requested=False)
+
+    # Exercise the policy_fn path once below floor and once above.
+    graph, tags = _gas_demo_graph()
+    low = decide_and_run(
+        graph,
+        EnergyState(voltage_v=3.0, estimated_joules=0.05),
+        policy_fn=make_duty_policy_fn(infer_requested=True),
+        task_tags=tags,
+        context={"ran": []},
+    )
+    high = decide_and_run(
+        TaskGraphExecutor(
+            [
+                Task("sense", _agent("sense"), min_joules=0.002, tags=["sense"]),
+                Task("infer", _agent("infer"), min_joules=0.009, tags=["infer"], depends_on=["sense"]),
+            ]
+        ),
+        EnergyState(voltage_v=3.9, estimated_joules=0.05),
+        policy_fn=make_duty_policy_fn(infer_requested=True),
+        task_tags=tags,
+        context={"ran": []},
+    )
+    return {
+        "fixture_infer_requested": rows_infer,
+        "fixture_idle": rows_idle,
+        "policy_fn_low_aborted": low.aborted_reason,
+        "policy_fn_low_action": low.context.get("_policy_action"),
+        "policy_fn_high_completed": high.completed,
+        "policy_fn_high_action": high.context.get("_policy_action"),
+        "note": (
+            "Host fixture only. pack_volts are caller-supplied numbers. "
+            "is_field_measurement is always false. "
+            "Not an ADC read, not measured joules, not quote evidence."
+        ),
+    }
+
+
 def main() -> int:
     pool_j = float(os.environ.get("SANDBOX_POOL_J", "0.12"))
     reserve_j = float(os.environ.get("SANDBOX_RESERVE_J", "0.01"))
@@ -182,6 +226,11 @@ def main() -> int:
         json.dumps(inquiry_demo, indent=2), encoding="utf-8",
     )
 
+    offgrid_demo = run_offgrid_duty_demo()
+    (OUT / "offgrid_duty_log.json").write_text(
+        json.dumps(offgrid_demo, indent=2), encoding="utf-8",
+    )
+
     summary = {
         "pool_j": pool_j,
         "reserve_j": reserve_j,
@@ -202,13 +251,17 @@ def main() -> int:
         "inquiry_discuss_action": inquiry_demo["discuss"]["quote_action"],
         "inquiry_refused_action": inquiry_demo["refused_quote_evidence"]["quote_action"],
         "inquiry_stamp": inquiry_demo,
+        "offgrid_duty_low_aborted": offgrid_demo["policy_fn_low_aborted"],
+        "offgrid_duty_high_action": offgrid_demo["policy_fn_high_action"],
+        "offgrid_duty": offgrid_demo,
         "note": (
             "Host sandbox only. Placeholder joules. Generate skip under default pool "
             "is expected. Gen03 names are scenario flags, not measured watts. "
             "_gas_reason is a Model 49 research label, not a search farm and not a quote. "
             "Observer samples are host_placeholder / hardware_pending, never measured. "
             "claim_scan is a host label, not a field certificate. "
-            "inquiry_stamp is a completeness snapshot, not a contract."
+            "inquiry_stamp is a completeness snapshot, not a contract. "
+            "offgrid_duty_log is controlled pack-voltage fixtures, not ADC."
         ),
     }
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
