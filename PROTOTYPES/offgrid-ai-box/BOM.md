@@ -9,7 +9,7 @@ Companion: [`README.md`](README.md), energy-harvester-tinyml scheduler concepts,
 | Item | Example class | Notes | Approx. USD |
 |------|---------------|-------|-------------|
 | SBC | Raspberry Pi Zero 2W / Orange Pi Zero class | Lowest idle draw path | 15–35 |
-| Alternate SBC | Raspberry Pi 4/5 or equivalent | Only if a larger quantized LLM is required | 35–80 |
+| Alternate SBC | Raspberry Pi 4/5 or equivalent | Only if the optional secondary LLM is required | 35–80 |
 | Storage | microSD 32–128 GB industrial if possible | Models + offline index | 8–25 |
 | RTC / watchdog | Optional DS3231 or board watchdog | Survives brownouts | 2–8 |
 
@@ -36,8 +36,9 @@ Companion: [`README.md`](README.md), energy-harvester-tinyml scheduler concepts,
 ## Software bill (no license fees claimed)
 
 - Host OS: Raspberry Pi OS Lite or equivalent Debian.
-- Runtime target: llama.cpp-class quantized inference **or** the energy-harvester TinyML stack — pick one primary workload per box.
+- Runtime target: **primary = TinyML policy** (threshold / quantized classifier or scheduler, same class as energy-harvester-tinyml). **Optional secondary = llama.cpp-class quantized LLM** only when duty grants INFER and budget supports it.
 - Energy duty helper in this folder (`energy_duty.py`) is a **host stub**. It does not read a real ADC.
+- Refuse path: pack voltage below `FLOOR_VOLTS` (3.50 V placeholder) → REFUSE/SLEEP → policy SLEEP; no inference runs.
 
 ## Energy honesty
 
@@ -49,5 +50,5 @@ Companion: [`README.md`](README.md), energy-harvester-tinyml scheduler concepts,
 
 - [ ] Photograph a first physical assembly.
 - [ ] Record idle current of the chosen SBC at the intended voltage.
-- [ ] Decide one primary workload (TinyML policy vs local LLM).
+- [x] Decide one primary workload (TinyML policy vs local LLM). **Done:** TinyML-first; LLM optional secondary (see README).
 - [ ] Write a first-boot script that refuses inference when the voltage proxy is below a documented threshold.

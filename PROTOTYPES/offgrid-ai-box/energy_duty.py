@@ -2,6 +2,11 @@
 
 Not a hardware observer. Inputs are caller-supplied volts / watts.
 Refuse inference when the pack proxy is below the documented floor.
+
+Primary workload (documentation decision): TinyML policy first.
+Optional secondary: offline LLM only when duty grants INFER and budget allows.
+Low voltage always wins: pack_volts < FLOOR_VOLTS → REFUSE (if infer_requested)
+or SLEEP (otherwise). Mapped to policy SLEEP by duty_to_policy; no inference runs.
 """
 
 from __future__ import annotations
@@ -19,7 +24,15 @@ def decide(
     infer_requested: bool = False,
     floor_volts: float = FLOOR_VOLTS,
 ) -> str:
-    """Return a duty action. Low voltage always wins."""
+    """Return a duty action. Low voltage always wins.
+
+    When pack_volts < floor_volts:
+      - infer_requested True  → REFUSE  (maps to policy SLEEP; no inference)
+      - infer_requested False → SLEEP
+    Otherwise:
+      - infer_requested True  → INFER   (primary TinyML or optional LLM if budgeted)
+      - infer_requested False → IDLE_LISTEN
+    """
     if pack_volts < 0:
         raise ValueError("pack_volts must be >= 0")
     if pack_volts < floor_volts:
