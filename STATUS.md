@@ -1,33 +1,21 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 10:03 CDT (Hourly dual-agent — shared feed_via_reader DRY)
+**Last updated:** 2026-09-25 11:00 CDT (Hourly dual-agent — reader meta keys + CI gate)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Added `host_voltage_reader.feed_via_reader(pack_volts, source=...)` →
-  `(feed_volts, reader_meta)` as the single shared path for the documented
-  reader contract
-- Refactored `first_boot`, `duty_to_policy.fixture_log`, and
-  `SANDBOX/compose_first_boot_demo.compose_first_boot` to call the helper
-  (behavior unchanged; duplication removed)
-- Extended `test_host_voltage_reader.py` with feed_via_reader cases
-  (host_placeholder, hardware_pending, measured refused)
-- Updated `FIRST-BOOT.md` to document the shared helper
+- Added `READER_META_KEYS` frozenset on `host_voltage_reader` and a contract assert inside `feed_via_reader` so meta stays exactly `reader_source` / `reader_is_field_measurement` / `reader_is_firmware`
+- Extended `test_host_voltage_reader.py` with meta-key contract tests and a path-tolerant shared-source check against `energy_observer.ALLOWED_SOURCES`
+- Gated the reader tests in CI: `.github/workflows/host-tests.yml` now runs `(cd PROTOTYPES/offgrid-ai-box && python test_host_voltage_reader.py)`
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Honesty restatement in this STATUS: feed_via_reader + first_boot +
-  host_voltage_reader + duty fixture + compose stubs are never
-  instrument-class evidence and never substitute for named-lab +
-  instrument-class + measurement-method (see ENTERPRISE/measurement-hold.md,
-  instrument-list.md)
+- Honesty restatement in `ENTERPRISE/measurement-hold.md` forbidden list: `feed_via_reader` + first_boot + fixture_log + compose + energy_observer remain non-evidence (`reader_is_field_measurement=False`); never substitute for named-lab + instrument-class + measurement-method
 - No new commercial page, price language, engagement claim, or invented customer
 
 ## Prior completed (still true)
-- via_host_reader optional path on first_boot / fixture_log / compose
-  (uniform host feed contract; all rows host-only)
-- Host voltage reader stub (`host_voltage_reader.py`, tests) with allowed
-  sources host_placeholder | hardware_pending only
+- Shared `feed_via_reader` path used by first_boot, duty_to_policy.fixture_log, and compose_first_boot (DRY host feed contract)
+- Host voltage reader stub (`host_voltage_reader.py`, tests) with allowed sources host_placeholder | hardware_pending only
 - Host policy interface contract for future ADC documented in FIRST-BOOT.md
 - Host first-boot refuse sketch (`first_boot.py`, `test_first_boot.py`, `FIRST-BOOT.md`)
 - Host duty→policy adapter with optional via_host_reader on `fixture_log`
@@ -43,6 +31,7 @@
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
 host_voltage_reader feed contract via the shared `feed_via_reader` helper,
+reader meta keys are contract-checked, and the reader tests are CI-gated,
 while every record stays tagged host-only and is_field_measurement=False.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.

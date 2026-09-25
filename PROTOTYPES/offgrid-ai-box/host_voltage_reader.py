@@ -24,6 +24,16 @@ from typing import Optional, Tuple
 
 ALLOWED_SOURCES = frozenset({"host_placeholder", "hardware_pending"})
 
+# Keys attached by feed_via_reader to first_boot / fixture_log / compose records.
+# Call sites must not invent additional field-measurement claims under these names.
+READER_META_KEYS = frozenset(
+    {
+        "reader_source",
+        "reader_is_field_measurement",
+        "reader_is_firmware",
+    }
+)
+
 
 def read_pack_volts(
     pack_volts: Optional[float] = None,
@@ -82,7 +92,8 @@ def feed_via_reader(
 
     Used by first_boot, duty_to_policy.fixture_log, and compose_first_boot
     so the documented feed contract stays uniform. Returns
-    (feed_volts, reader_meta) where reader_meta carries:
+    (feed_volts, reader_meta) where reader_meta carries exactly
+    READER_META_KEYS:
       reader_source, reader_is_field_measurement, reader_is_firmware
     Never claims field measurement or firmware.
     """
@@ -93,4 +104,6 @@ def feed_via_reader(
         "reader_is_field_measurement": reading["is_field_measurement"],
         "reader_is_firmware": reading["is_firmware"],
     }
+    # Contract guard: meta keys stay the documented set only.
+    assert set(reader_meta.keys()) == READER_META_KEYS
     return feed_volts, reader_meta

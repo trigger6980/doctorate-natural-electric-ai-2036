@@ -4,6 +4,7 @@ import pytest
 
 from host_voltage_reader import (
     ALLOWED_SOURCES,
+    READER_META_KEYS,
     as_feed,
     feed_via_reader,
     read_pack_volts,
@@ -68,6 +69,7 @@ def test_feed_via_reader_host_placeholder():
     assert meta["reader_source"] == "host_placeholder"
     assert meta["reader_is_field_measurement"] is False
     assert meta["reader_is_firmware"] is False
+    assert set(meta.keys()) == READER_META_KEYS
 
 
 def test_feed_via_reader_hardware_pending():
@@ -76,8 +78,47 @@ def test_feed_via_reader_hardware_pending():
     assert meta["reader_source"] == "hardware_pending"
     assert meta["reader_is_field_measurement"] is False
     assert meta["reader_is_firmware"] is False
+    assert set(meta.keys()) == READER_META_KEYS
 
 
 def test_feed_via_reader_measured_refused():
     with pytest.raises(ValueError, match="not allowed"):
         feed_via_reader(3.6, source="measured")
+
+
+def test_reader_meta_keys_contract():
+    """Meta attached by feed_via_reader is exactly the documented key set."""
+    assert READER_META_KEYS == frozenset(
+        {
+            "reader_source",
+            "reader_is_field_measurement",
+            "reader_is_firmware",
+        }
+    )
+    _, meta = feed_via_reader(3.5, source="host_placeholder")
+    assert set(meta.keys()) == READER_META_KEYS
+    # Honesty: none of these keys ever carry a True field claim from this path.
+    assert meta["reader_is_field_measurement"] is False
+    assert meta["reader_is_firmware"] is False
+
+
+def test_shared_honesty_sources_with_energy_observer():
+    """host_voltage_reader and energy_observer share the same allowed source set.
+
+    Import is path-tolerant: when run under (cd PROTOTYPES/offgrid-ai-box)
+the AGENTS package may not be on sys.path; in that case the check is skipped
+rather than inventing a different source list.
+    """
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    agents = root / "AGENTS"
+    if str(agents) not in sys.path:
+        sys.path.insert(0, str(agents))
+    try:
+        from energy_observer import ALLOWED_SOURCES as OBSERVER_SOURCES
+    except ImportError:
+        return  # CI path without AGENTS on path is fine; other jobs cover observer
+    assert ALLOWED_SOURCES == OBSERVER_SOURCES
+    assert "measured" not in OBSERVER_SOURCES
