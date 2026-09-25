@@ -21,7 +21,7 @@ Host helper: `ENTERPRISE/inquiry_completeness.py`. Optional field `energy_eviden
 
 Optional field `intended_use` is also not one of the six items. Allowed values: `discuss`, `ask`, `host_log`, `sandbox_demo`. Refused values (same set as the claim gate): `field_generation`, `quote_evidence`, `result_record`. Those return `observer_not_evidence` and `quote_action` is `ask`. Unknown uses return `unknown_claim` and also `ask`.
 
-`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`, `partition_disjoint`, `partition_covers_outline`, `covers_or_idle`, `section_lanes`, `lane_counts`, `next_action`, `next_action_copy_headings`, `action_flags`, `action_exactly_one`, `action_consistent`, `action_flag_verb`, `price_verbs_blocked`, `price_verbs`, `commercial_figure_blank`, `commercial_figure`, `stamp_invariants_ok`, `stamp_invariants`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
+`stamp(inquiry)` returns a host label packet (`items_present`, `refuse_reason`, `quote_action`, `intended_use`, `energy_evidence`, `inquiry_ok`, `outline_ready`, `price_allowed`, `outline_sections`, `headings_copyable`, `headings`, `fill_on_repo`, `public_fill_keys`, `off_repo_keys`, `partition_disjoint`, `partition_covers_outline`, `covers_or_idle`, `section_lanes`, `lane_counts`, `next_action`, `next_action_copy_headings`, `action_flags`, `action_exactly_one`, `action_consistent`, `action_flag_verb`, `price_verbs_blocked`, `price_verbs`, `commercial_figure_blank`, `commercial_figure`, `commercial_lane_sealed`, `commercial_lane`, `stamp_invariants_ok`, `stamp_invariants`). It is a checklist snapshot, not a signed quote and not energy evidence. The sandbox writes the same packet to `SANDBOX/out/inquiry_stamp.json`.
 
 `outline_ready(inquiry)` is true only when `quote_action` is `draft`. `price_allowed` is always `false` on this host helper. Section names match [`quote-draft-outline.md`](quote-draft-outline.md); they are headings, not filled commercial terms.
 
@@ -43,11 +43,13 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 
 `action_consistent(inquiry)` is the invariant check: `match` is true only when `next_action` equals the unique true flag and `publish_price` is false. Stamp fields: `action_consistent`, `action_flag_verb`. A true match is not a published dollar amount.
 
-`stamp_invariants(inquiry)` bundles those checks: action consistency, exactly-one flag, partition disjoint, outline coverage *or* idle-not-ready, lane-count sum, price-verb block, and commercial-figure blank. Stamp fields: `stamp_invariants_ok`, `stamp_invariants`. A true packet is a host coherence check. It is not a published dollar amount and it does not add a `publish_price` verb.
+`stamp_invariants(inquiry)` bundles those checks: action consistency, exactly-one flag, partition disjoint, outline coverage *or* idle-not-ready, lane-count sum, price-verb block, commercial-figure blank, and commercial-lane sealed. Stamp fields: `stamp_invariants_ok`, `stamp_invariants`. A true packet is a host coherence check. It is not a published dollar amount and it does not add a `publish_price` verb.
 
 `price_verbs_blocked(inquiry)` is the explicit verb lock: `ok` is true only when `next_action` is one of `decline` / `ask` / `copy_headings` and is not in the blocked set (`publish_price`, `quote_price`, `set_rate`). Stamp fields: `price_verbs_blocked`, `price_verbs`, plus top-level `covers_or_idle` (true when the outline is covered *or* all ten headings are idle). A true lock is not a rate card.
 
 `commercial_figure_blank(inquiry)` is the on-repo blank for heading `commercial_figure_off_repo`. `on_repo_value` is always `None`. `fill_on_repo` for that key stays false. When the outline is ready the key appears only in `off_repo_keys`. Stamp fields: `commercial_figure_blank`, `commercial_figure`. A true blank is not a published dollar amount.
+
+`commercial_lane_sealed(inquiry)` is the lane lock for the same heading. When the outline is ready the lane is `off_repo`; when idle it is `not_ready`. The lane is never `public_fill`. Stamp fields: `commercial_lane_sealed`, `commercial_lane`. A sealed lane is not a published dollar amount.
 
 ## Incomplete patterns that stay incomplete
 
@@ -69,6 +71,7 @@ Optional field `intended_use` is also not one of the six items. Allowed values: 
 - Treating `stamp_invariants_ok = true` as a published dollar amount.
 - Treating `price_verbs_blocked = true` or `covers_or_idle = true` as a published dollar amount.
 - Treating `commercial_figure_blank = true` or `commercial_figure.on_repo_value = None` as a published dollar amount.
+- Treating `commercial_lane_sealed = true` or `commercial_lane.lane = off_repo` as a published dollar amount.
 - A cover letter that needs customer logos or SLA numbers this repository does not have.
 
 Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow scope or decline; do not invent a case study.
@@ -93,6 +96,7 @@ Those patterns fail the well-being tests in `well-being-alignment.md`. Narrow sc
 - That `stamp_invariants` or `stamp_invariants_ok` is a checkout form.
 - That `price_verbs_blocked` or `covers_or_idle` is a checkout form.
 - That `commercial_figure_blank` or `commercial_figure` is a checkout form.
+- That `commercial_lane_sealed` or `commercial_lane` is a checkout form.
 
 ## Maintainer reply shape (when complete)
 
