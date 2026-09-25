@@ -57,6 +57,7 @@ ACTION_ASK = "ask"
 ACTION_COPY_HEADINGS = "copy_headings"
 ALLOWED_ACTIONS = frozenset({ACTION_DECLINE, ACTION_ASK, ACTION_COPY_HEADINGS})
 BLOCKED_PRICE_VERBS = frozenset({"publish_price", "quote_price", "set_rate"})
+COMMERCIAL_KEY = "commercial_figure_off_repo"
 
 
 def _present(inquiry: dict[str, Any], key: str) -> bool:
@@ -129,7 +130,7 @@ def copy_headings(inquiry: dict[str, Any]) -> dict[str, Any]:
     fill = {key: False for key in OUTLINE_SECTIONS}
     if ready:
         for key in OUTLINE_SECTIONS:
-            fill[key] = key != "commercial_figure_off_repo"
+            fill[key] = key != COMMERCIAL_KEY
     return {
         "headings_copyable": ready,
         "headings": headings,
@@ -146,7 +147,7 @@ def public_fill_keys(inquiry: dict[str, Any]) -> list[str]:
 def off_repo_keys(inquiry: dict[str, Any]) -> list[str]:
     if quote_action(inquiry) != "draft":
         return []
-    return ["commercial_figure_off_repo"]
+    return [COMMERCIAL_KEY]
 
 
 def partition_keys(inquiry: dict[str, Any]) -> dict[str, Any]:
@@ -171,7 +172,7 @@ def section_lane(inquiry: dict[str, Any], key: str) -> dict[str, Any]:
         lane = LANE_UNKNOWN
     elif not ready:
         lane = LANE_NOT_READY
-    elif key == "commercial_figure_off_repo":
+    elif key == COMMERCIAL_KEY:
         lane = LANE_OFF_REPO
     else:
         lane = LANE_PUBLIC
@@ -279,6 +280,26 @@ def price_verbs_blocked(inquiry: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def commercial_figure_blank(inquiry: dict[str, Any]) -> dict[str, Any]:
+    """On-repo value of the commercial-figure heading is always None. Not a price."""
+    copied = copy_headings(inquiry)
+    off = off_repo_keys(inquiry)
+    blank = (
+        copied["fill_on_repo"][COMMERCIAL_KEY] is False
+        and COMMERCIAL_KEY not in public_fill_keys(inquiry)
+    )
+    return {
+        "ok": blank,
+        "key": COMMERCIAL_KEY,
+        "on_repo_value": None,
+        "fill_on_repo": False,
+        "off_repo_when_ready": COMMERCIAL_KEY in off,
+        "outline_ready": quote_action(inquiry) == "draft",
+        "publish_price": False,
+        "price_allowed": False,
+    }
+
+
 def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
     """Host coherence check for stamp fields. Not a published dollar amount."""
     consistent = action_consistent(inquiry)
@@ -286,6 +307,7 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
     part = partition_keys(inquiry)
     counts = lane_counts(inquiry)
     verbs = price_verbs_blocked(inquiry)
+    figure = commercial_figure_blank(inquiry)
     covers_or_idle = part["covers_outline"] or (
         not part["outline_ready"] and counts[LANE_NOT_READY] == len(OUTLINE_SECTIONS)
     )
@@ -297,6 +319,8 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
         and counts["sums_to_known"] is True
         and flags["publish_price"] is False
         and verbs["ok"] is True
+        and figure["ok"] is True
+        and figure["on_repo_value"] is None
     )
     return {
         "ok": ok,
@@ -307,6 +331,7 @@ def stamp_invariants(inquiry: dict[str, Any]) -> dict[str, Any]:
         "covers_or_idle": covers_or_idle,
         "sums_to_known": counts["sums_to_known"],
         "price_verbs_blocked": verbs["ok"],
+        "commercial_figure_blank": figure["ok"],
         "publish_price": False,
         "price_allowed": False,
     }
@@ -320,6 +345,7 @@ def stamp(inquiry: dict[str, Any]) -> dict[str, Any]:
     consistent = action_consistent(inquiry)
     invariants = stamp_invariants(inquiry)
     verbs = price_verbs_blocked(inquiry)
+    figure = commercial_figure_blank(inquiry)
     return {
         "items_present": items_present(inquiry),
         "refuse_reason": refuse_reason(inquiry),
@@ -348,6 +374,8 @@ def stamp(inquiry: dict[str, Any]) -> dict[str, Any]:
         "action_flag_verb": consistent["flag_verb"],
         "price_verbs_blocked": verbs["ok"],
         "price_verbs": verbs,
+        "commercial_figure_blank": figure["ok"],
+        "commercial_figure": figure,
         "stamp_invariants_ok": invariants["ok"],
         "stamp_invariants": invariants,
     }
