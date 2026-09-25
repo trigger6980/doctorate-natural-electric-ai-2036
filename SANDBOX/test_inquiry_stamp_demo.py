@@ -27,6 +27,8 @@ def test_discuss_may_draft():
     assert demo["discuss"]["stamp_invariants"]["covers_outline"] is True
     assert demo["discuss"]["covers_or_idle"] is True
     assert demo["discuss"]["price_verbs_blocked"] is True
+    assert demo["discuss"]["commercial_figure_blank"] is True
+    assert demo["discuss"]["commercial_figure"]["on_repo_value"] is None
     assert demo["discuss"]["next_action"] == "copy_headings"
 
 
@@ -47,6 +49,8 @@ def test_quote_evidence_asks():
     assert refused["stamp_invariants"]["covers_or_idle"] is True
     assert refused["covers_or_idle"] is True
     assert refused["price_verbs_blocked"] is True
+    assert refused["commercial_figure_blank"] is True
+    assert refused["commercial_figure"]["on_repo_value"] is None
     assert refused["stamp_invariants"]["publish_price"] is False
     assert refused["next_action"] == "ask"
 
