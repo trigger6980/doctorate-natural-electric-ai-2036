@@ -30,3 +30,46 @@ cd PROTOTYPES/offgrid-ai-box
 python first_boot.py 3.2
 python -m pytest test_first_boot.py -q
 ```
+
+## Host policy interface contract for a future ADC (documentation only)
+
+A future on-device voltage reader (ESP32-C3 ADC, SBC sysfs, USB power meter, etc.)
+may feed this host path only by satisfying the same call shape already used by
+`energy_duty.decide` and `first_boot`:
+
+```text
+pack_volts: float          # >= 0; caller-supplied or measured
+infer_requested: bool      # whether an inference duty is being asked
+floor_volts: float = 3.50  # documented placeholder; not a lab calibration
+```
+
+Return shape from `first_boot` (host record, never a field certificate):
+
+```text
+{
+  "pack_volts": float,
+  "floor_volts": float,
+  "infer_requested": bool,
+  "duty": "SLEEP" | "IDLE_LISTEN" | "INFER" | "REFUSE",
+  "policy_action": "SLEEP" | "SENSE" | "INFER" | ...,
+  "inference_allowed": bool,
+  "workload": "tinyml_policy" | "offline_llm" | None,
+  "source": "host_first_boot",
+  "is_field_measurement": False,
+  "is_firmware": False
+}
+```
+
+Rules that stay true after any hardware plug-in:
+
+1. Low voltage always wins; no “try the model anyway” path.
+2. `is_field_measurement` remains False until a named lab + instrument class +
+   measurement-method note exist and a result record is labeled (see
+   ENTERPRISE/measurement-method.md).
+3. Host composition with Model 05 joules is allowed only when `C_farads` is
+   explicit; that value is analytic, not measured.
+4. On-device first-boot firmware, calibrated C, idle current photos, and
+   measured joules remain open work and are not claimed by this sketch.
+
+This contract advances the STATUS priority “wire a real ADC into the same
+policy interface” without inventing firmware, serial numbers, or field numbers.
