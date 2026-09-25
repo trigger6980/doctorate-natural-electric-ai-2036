@@ -6,12 +6,14 @@ Nothing in this folder is a checkout cart, a published rate card, or a claim tha
 
 Mission alignment: Natural Electric + Future AI is built for human well-being — energy state is a first-class refuse signal, off-grid sites are first-class contexts, and public cards stay honest about what is measured versus what is still a host stub.
 
+**Commercial interface card:** Model 50 (`MODELS/genetic-architectural-database/models/50-enterprise-identical-model-template.md`) is the public template that gates whether a *quote draft* may start. It reuses the six-item completeness helper in this folder. It is not a product sheet, SKU list, or price list.
+
 ## How to inquire (short path)
 
 1. Read [`order-and-contract.md`](order-and-contract.md) for the process and [`licensing-boundary.md`](licensing-boundary.md) for what a license can and cannot cover.
 2. Copy [`inquiry-template.md`](inquiry-template.md) into a GitHub issue titled `enterprise-inquiry: <model ids>`.
 3. Mark energy honesty rows and complete [`scope-assumptions.md`](scope-assumptions.md). Incomplete checklists get questions, not quotes.
-4. The host helper `inquiry_completeness.py` can stamp whether the six public items are present. A stamp is not a contract.
+4. The host helper `inquiry_completeness.py` can stamp whether the six public items are present. A stamp is not a contract. Model 50 treats a missing item as a refuse for quote-draft start.
 5. If the request is already answered by a public card, the maintainer may hand off with [`handoff-to-public-tree.md`](handoff-to-public-tree.md) instead of opening a commercial lane.
 
 Payment infrastructure is not finalized. Repositories may stay private until it is. Draft contract and billing pages exist for review only.
