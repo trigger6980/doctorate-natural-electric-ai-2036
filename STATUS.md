@@ -1,23 +1,23 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 06:00 CDT (Hourly dual-agent — host voltage reader stub + measurement-hold honesty)
+**Last updated:** 2026-09-25 07:00 CDT (Hourly dual-agent — host_voltage_reader feed into compose_first_boot)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Added `PROTOTYPES/offgrid-ai-box/host_voltage_reader.py`:
-  - Pure host reader returning `pack_volts` with allowed sources `host_placeholder` | `hardware_pending` only
-  - Explicit `is_field_measurement=False`, `is_firmware=False`; refuses source=`measured`
-  - `as_feed()` extracts the float for `first_boot` / `energy_duty.decide`
-  - Keeps the host path explicit for the STATUS ADC priority without inventing firmware, serial numbers, or field joules
-- Added `test_host_voltage_reader.py` (negative volts, forbidden source, hardware_pending requires value, composition with first_boot)
-- Updated `FIRST-BOOT.md` to document the host reader as the explicit feed path and to restate the five honesty rules
+- Upgraded `SANDBOX/compose_first_boot_demo.py`:
+  - Optional `via_host_reader=True` path wraps pack_volts through `host_voltage_reader.read_pack_volts` + `as_feed` before first_boot
+  - Records reader_source / reader_is_field_measurement / reader_is_firmware on the composition record
+  - `demo_rows()` now includes two reader-fed rows (host_placeholder below floor; hardware_pending with C)
+- Extended `SANDBOX/test_compose_first_boot_demo.py` with reader-feed cases; all rows remain host-only
+- Keeps the documented feed contract explicit without inventing ADC, firmware, or field joules
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Clarified in `ENTERPRISE/measurement-hold.md` (Forbidden classes) that host stubs (`host_voltage_reader`, `first_boot`, `energy_observer`, sandbox demos) are never substitutes for a named-lab + instrument-class + measurement-method plan
+- Honesty restatement in this STATUS: host_voltage_reader + compose stubs are never instrument-class evidence and never substitute for named-lab + instrument-class + measurement-method (see ENTERPRISE/measurement-hold.md, instrument-list.md)
 - No new commercial page, price language, engagement claim, or invented customer
 
 ## Prior completed (still true)
+- Host voltage reader stub (`host_voltage_reader.py`, tests) with allowed sources host_placeholder | hardware_pending only
 - Host policy interface contract for future ADC documented in FIRST-BOOT.md
 - Host first-boot refuse sketch (`first_boot.py`, `test_first_boot.py`, `FIRST-BOOT.md`)
 - Host composition demo (`compose_first_boot_demo.py`, `test_compose_first_boot_demo.py`) folded into `run_prototypes.py`
@@ -30,7 +30,7 @@
 - ENTERPRISE inquiry process, placeholder tiers, well-being alignment live.
 
 ## Honesty (what "finished" means)
-Finished here = a host voltage reader exists that can feed the same first_boot / energy_duty signature while remaining tagged host-only; measurement-hold explicitly blocks promotion of those stubs into field claims.
+Finished here = the composition layer can exercise the same host_voltage_reader feed that first_boot / energy_duty already accept, while every record stays tagged host-only and is_field_measurement=False.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C, measured joules, or physical assembly photos.
 
 ## Next logical priorities
