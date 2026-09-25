@@ -6,6 +6,9 @@ refuses inference below the documented voltage floor.
 ## What it is
 - `first_boot.py` — host function + CLI (`python first_boot.py 3.2`)
 - `test_first_boot.py` — three unit tests on the same floor as `energy_duty.FLOOR_VOLTS`
+- `host_voltage_reader.py` — pure host reader that returns a pack_volts record
+  suitable for feeding `first_boot` / `energy_duty.decide` (sources:
+  `host_placeholder` | `hardware_pending` only)
 
 ## What it is not
 - Not ESP32 firmware
@@ -28,7 +31,7 @@ Optional secondary offline LLM is only named when `allow_secondary_llm=True`
 ```
 cd PROTOTYPES/offgrid-ai-box
 python first_boot.py 3.2
-python -m pytest test_first_boot.py -q
+python -m pytest test_first_boot.py test_host_voltage_reader.py -q
 ```
 
 ## Host policy interface contract for a future ADC (documentation only)
@@ -60,6 +63,21 @@ Return shape from `first_boot` (host record, never a field certificate):
 }
 ```
 
+### Host voltage reader (explicit feed path)
+
+`host_voltage_reader.read_pack_volts(...)` produces a small record that can be
+passed through `as_feed` into `first_boot`:
+
+```text
+{
+  "pack_volts": float,
+  "source": "host_placeholder" | "hardware_pending",
+  "is_field_measurement": False,
+  "is_firmware": False,
+  "note": "..."
+}
+```
+
 Rules that stay true after any hardware plug-in:
 
 1. Low voltage always wins; no “try the model anyway” path.
@@ -70,6 +88,8 @@ Rules that stay true after any hardware plug-in:
    explicit; that value is analytic, not measured.
 4. On-device first-boot firmware, calibrated C, idle current photos, and
    measured joules remain open work and are not claimed by this sketch.
+5. The host reader never emits source=`measured`; that label is refused so
+   sandbox numbers cannot be promoted into field claims.
 
 This contract advances the STATUS priority “wire a real ADC into the same
 policy interface” without inventing firmware, serial numbers, or field numbers.

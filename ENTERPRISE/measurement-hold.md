@@ -38,6 +38,7 @@ A hold is **not** a packet, **not** a closeout, and **not** a queue position.
 - Attaching a placeholder price to a hold.
 - Claiming Models 19–25 became certified because a hold note listed them.
 - Treating a hold as if a packet or change order already exists.
+- Treating host stubs (`host_voltage_reader`, `first_boot`, `energy_observer`, sandbox composition demos) as substitutes for a named-lab + instrument-class + measurement-method plan. Those stubs carry `is_field_measurement=False` and must stay off any quote that implies measured joules or calibrated C.
 
 See [`well-being-alignment.md`](well-being-alignment.md).
 
