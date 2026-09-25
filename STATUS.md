@@ -1,35 +1,22 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-24 22:01 CDT (hourly dual-agent pass)
+**Last updated:** 2026-09-24 (Fifty agents finished as a named-role registry)
 
-## This hour
+## Completed this turn
+- All **50 model cards** were already present under `MODELS/genetic-architectural-database/models/`.
+- Finished the **50 agents** as a complete Operator registry:
+  - `AGENTS/fifty-agents.md` — names, roles, wake conditions, default unmeasured actions, wake order.
+  - `AGENTS/agent_registry.py` — machine-readable 01–50 lookup.
+  - `AGENTS/test_agent_registry.py` — asserts exactly 50 unique IDs and names.
+- Local completeness check: `{count: 50, expected: 50, missing: 0, complete: 1}`.
 
-Two specialized agents ran a focused pass. No fake metrics, customers, or completed hardware claims.
+## Honesty (what "finished" means)
+Finished = every ID 01–50 has a named agent, a mapped model card, a wake rule, and a safe default when unmeasured.
+Not finished = 50 trained weight files, field joule measurements, or production firmwares.
 
-### Agent 1 — Code Structure & Prototype Upgrader
-- Added `PROTOTYPES/offgrid-ai-box/BOM.md` — commodity parts orientation with explicit “not a SKU / not measured” language.
-- Added host stub `PROTOTYPES/offgrid-ai-box/energy_duty.py` plus `test_energy_duty.py`.
-  - Low pack voltage refuses inference (`REFUSE` / `SLEEP`).
-  - `hours_remaining` is pack_wh / assumed watts only — not a field endurance number.
-- Wired that test into `.github/workflows/host-tests.yml` (`cd` into the prototype dir so the local import works).
-- Updated the offgrid-ai-box README status line so it no longer says “outline only.”
-
-### Agent 2 — Enterprise & Business Ventures
-- Replaced the thin `ENTERPRISE/README.md` (it listed only three files) with a full document index and a five-step inquiry path.
-- Kept commercial figures off-repo. Pointed buyers at the existing inquiry template, completeness helper, licensing boundary, and placeholder tiers.
-- Restated the well-being constraint: energy state remains a refuse signal; no invented revenue.
-
-## Still true from prior checkpoints
-Professional draft documents remain in `ENTERPRISE/` (`CONTRACT.md`, `PAYMENT-BILLING.md`, order process, FAQ, inquiry stamp helpers). They stay drafts until payment infrastructure and any legal review exist.
-
-## Note on Visibility
-Repositories may be set to private until a working payment and billing solution is in place, as previously discussed.
-
-## Next logical priorities
-1. First-boot refuse script once a real SBC idle-current note exists.
-2. Hardware photos and named-lab measurement rows — only when parts are on the bench.
-3. Do not publish prices. Do not expand the 50-model set for volume.
-4. Optional: share the energy_duty refuse path with the existing policy-gated executor (research label only).
+## Enterprise pages (still available for review)
+- `ENTERPRISE/CONTRACT.md`
+- `ENTERPRISE/PAYMENT-BILLING.md`
 
 ## Standing Directive
 Quality first. All connectors and skills available. Specialized agents authorized. GitHub kept current.
