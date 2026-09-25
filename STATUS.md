@@ -1,17 +1,17 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 15:07 CDT (Hourly dual-agent — energy_observer + claim_gate measurement-chain docstring alignment)
+**Last updated:** 2026-09-25 16:00 CDT (Hourly dual-agent — claim_gate named on all five ENTERPRISE measurement-chain pages)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Updated `AGENTS/energy_observer.py` module docstring to name the complete measurement-chain path (hold → named-lab-plan → instrument-list → measurement-method → result-record) so the host sample contract is documented against the same honesty pages as FIRST-BOOT and result-record; no ADC, firmware, or field claims added
-- Updated `AGENTS/claim_gate.py` module docstring to map refused claims (`field_generation`, `quote_evidence`, `result_record`) explicitly to that chain and to restate that allowed claims (`host_log`, `sandbox_demo`) never promote host stubs into instrument-class evidence
+- Extended the host-stubs forbidden paragraph on the five measurement-chain pages so `claim_gate` is listed with `energy_observer`; the refuse token `observer_not_evidence` for field_generation / quote_evidence / result_record is now visible from the documentation side of the same chain that the module docstrings already name
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Completes the bidirectional honesty link: ENTERPRISE chain pages already forbid treating host stubs as evidence; observer and claim_gate now name the same chain from the code side. No prices, customers, SLAs, or invented lab names
+- Updated `ENTERPRISE/measurement-hold.md`, `named-lab-plan.md`, `instrument-list.md`, `measurement-method.md`, and `result-record.md` in lockstep; no prices, customers, SLAs, or invented lab names. Completes the bidirectional honesty link started in the prior hour (code docstrings ↔ ENTERPRISE chain)
 
 ## Prior completed (still true)
+- energy_observer + claim_gate module docstrings name the full measurement-chain path
 - Shared `feed_via_reader` path used by first_boot, duty_to_policy.fixture_log, and compose_first_boot (DRY host feed contract)
 - `READER_META_KEYS` frozenset + contract assert inside `feed_via_reader`; reader tests CI-gated
 - Host voltage reader stub (`host_voltage_reader.py`, tests) with allowed sources host_placeholder | hardware_pending only
@@ -37,8 +37,9 @@ call sites (first_boot / fixture_log / compose), and the reader tests are
 CI-gated, while every record stays tagged host-only and is_field_measurement=False.
 The full measurement-chain pages (hold, named-lab-plan, instrument-list,
 measurement-method, result-record) carry the same non-evidence restatement,
-and the host energy_observer + claim_gate modules now name that chain from
-the code side so refused claims stay mapped to it.
+the host energy_observer + claim_gate modules name that chain from the code
+side, and the five ENTERPRISE pages now also list claim_gate so refused
+claims stay mapped to observer_not_evidence from both directions.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 
