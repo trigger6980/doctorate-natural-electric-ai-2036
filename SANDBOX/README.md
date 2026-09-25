@@ -13,7 +13,7 @@ It is not a VM, not an MCU, and not a licensed runtime pack.
 6. Model 49 gas preflight demo (`SANDBOX/out/gas_preflight.json`) via `policy_gated_executor.decide_and_run`. Surfaces `_gas_reason` for an agreed-row table and a missing-table refuse. Research labels only.
 7. Host energy observer demo (`SANDBOX/out/energy_observer.json`) via `AGENTS/energy_observer.py`. Sources are `host_placeholder` or `hardware_pending`. `is_field_measurement` is always false.
 8. Off-Grid AI Box duty fixtures (`SANDBOX/out/offgrid_duty_log.json`) via `PROTOTYPES/offgrid-ai-box/duty_to_policy.py`. Controlled pack-voltage rows mapped to policy Action; not an ADC read.
-9. Host composition of Model 05 voltage proxy + offgrid `first_boot` (`compose_first_boot_demo.py`). Optional analytic joules only when `C_farads` is explicit; never firmware or field measurement.
+9. Host composition of Model 05 voltage proxy + offgrid `first_boot` (`compose_first_boot_demo.py` and folded into `run_prototypes.py`). Optional analytic joules only when `C_farads` is explicit; never firmware or field measurement. Output also written to `SANDBOX/out/compose_first_boot.json` and summarized in `summary.json`.
 
 ## How to run
 From the repository root:
@@ -49,7 +49,7 @@ With the default 0.12 J pool and 0.01 J reserve, generate is expected to be **sk
 `summary.json` may include `offgrid_duty_low_aborted` and `offgrid_duty_high_action`. Those come from controlled host fixtures in `duty_to_policy.fixture_log` and `make_duty_policy_fn`. They are not pack current measurements and not quote evidence.
 
 ## Composition labels
-`compose_first_boot_demo` records carry `source: host_compose_first_boot`, `is_field_measurement: false`, and `is_firmware: false`. Estimated joules appear only when the caller supplies a positive `C_farads`. This is a research host path, not an engagement deliverable and not a commercial figure.
+`compose_first_boot` records (standalone CLI and the folded `run_prototypes` path) carry `source: host_compose_first_boot`, `is_field_measurement: false`, and `is_firmware: false`. Estimated joules appear only when the caller supplies a positive `C_farads`. `summary.json` surfaces `compose_first_boot_below_duty`, `compose_first_boot_with_c_joules`, and `compose_first_boot_all_host_only`. This is a research host path, not an engagement deliverable and not a commercial figure.
 
 ## What this sandbox does not do
 - Calibrate `C_farads`

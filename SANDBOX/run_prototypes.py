@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "ENTERPRISE"))
 
 from brokered_executor import brokered_run  # noqa: E402
 from claim_gate import stamp, stamp_many  # noqa: E402
+from compose_first_boot_demo import demo_rows  # noqa: E402
 from duty_to_policy import fixture_log, make_duty_policy_fn  # noqa: E402
 from energy_aware_scheduler import run_simulation  # noqa: E402
 from energy_broker import EnergyRequest, allocate_all_or_nothing  # noqa: E402
@@ -175,6 +176,36 @@ def run_offgrid_duty_demo():
     }
 
 
+def run_compose_first_boot_demo():
+    """Host composition of Model 05 voltage proxy + offgrid first_boot.
+
+    Controlled rows only. Optional analytic joules when C_farads is
+    explicit. Never firmware, ADC, or field measurement.
+    """
+    rows = demo_rows()
+    below = next(r for r in rows if r["duty"] == "REFUSE")
+    with_c = next(
+        r for r in rows if r.get("estimated_joules") is not None and r["duty"] == "INFER"
+    )
+    return {
+        "row_count": len(rows),
+        "below_floor_duty": below["duty"],
+        "below_floor_joules": below["estimated_joules"],
+        "above_floor_with_c_duty": with_c["duty"],
+        "above_floor_with_c_joules": with_c["estimated_joules"],
+        "above_floor_with_c_workload": with_c["workload"],
+        "all_host_only": all(
+            r["is_field_measurement"] is False and r["is_firmware"] is False for r in rows
+        ),
+        "rows": rows,
+        "note": (
+            "Host composition only. source=host_compose_first_boot. "
+            "estimated_joules appear only when C_farads is caller-supplied. "
+            "Not firmware, not ADC, not quote evidence, not measured joules."
+        ),
+    }
+
+
 def main() -> int:
     pool_j = float(os.environ.get("SANDBOX_POOL_J", "0.12"))
     reserve_j = float(os.environ.get("SANDBOX_RESERVE_J", "0.01"))
@@ -231,6 +262,11 @@ def main() -> int:
         json.dumps(offgrid_demo, indent=2), encoding="utf-8",
     )
 
+    compose_demo = run_compose_first_boot_demo()
+    (OUT / "compose_first_boot.json").write_text(
+        json.dumps(compose_demo, indent=2), encoding="utf-8",
+    )
+
     summary = {
         "pool_j": pool_j,
         "reserve_j": reserve_j,
@@ -254,6 +290,10 @@ def main() -> int:
         "offgrid_duty_low_aborted": offgrid_demo["policy_fn_low_aborted"],
         "offgrid_duty_high_action": offgrid_demo["policy_fn_high_action"],
         "offgrid_duty": offgrid_demo,
+        "compose_first_boot_below_duty": compose_demo["below_floor_duty"],
+        "compose_first_boot_with_c_joules": compose_demo["above_floor_with_c_joules"],
+        "compose_first_boot_all_host_only": compose_demo["all_host_only"],
+        "compose_first_boot": compose_demo,
         "note": (
             "Host sandbox only. Placeholder joules. Generate skip under default pool "
             "is expected. Gen03 names are scenario flags, not measured watts. "
@@ -261,7 +301,9 @@ def main() -> int:
             "Observer samples are host_placeholder / hardware_pending, never measured. "
             "claim_scan is a host label, not a field certificate. "
             "inquiry_stamp is a completeness snapshot, not a contract. "
-            "offgrid_duty_log is controlled pack-voltage fixtures, not ADC."
+            "offgrid_duty_log is controlled pack-voltage fixtures, not ADC. "
+            "compose_first_boot is host composition (Model 05 + first_boot); "
+            "joules only when C_farads is explicit; not firmware."
         ),
     }
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
