@@ -37,3 +37,4 @@ jobs:
           python ENTERPRISE/test_commercial_figure_blank.py
           python ENTERPRISE/test_commercial_lane_sealed.py
           python ENTERPRISE/test_lane_fill_aligned.py
+          (cd PROTOTYPES/offgrid-ai-box && python test_energy_duty.py)

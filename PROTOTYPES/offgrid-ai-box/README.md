@@ -20,11 +20,15 @@
 3. Storage: sufficient for one or more quantized models (8–32 GB class).
 4. I/O: optional small display or pure headless with Bluetooth/USB keyboard.
 
+See [`BOM.md`](BOM.md) for a commodity parts orientation (not a store SKU).
+
 ## Software Stack (planned)
 - Local model runtime (llama.cpp or equivalent).
 - Energy-state monitoring service (shared with energy-harvester-tinyml concepts).
 - Simple agent or RAG layer that works entirely offline.
 - Secure erase and integrity tools from the SECURITY track.
 
+Host stub now in-tree: [`energy_duty.py`](energy_duty.py) decides SLEEP / IDLE_LISTEN / INFER / REFUSE from a caller-supplied pack voltage. It does **not** read an ADC. Tests: [`test_energy_duty.py`](test_energy_duty.py).
+
 ## Status
-Outline and design goals. Detailed BOM, enclosure notes, and first boot scripts will be added in subsequent vertical slices. This document is the authoritative starting point for the off-grid AI box track.
+Outline plus BOM orientation plus a host energy-duty stub. Enclosure notes, first-boot scripts, and measured idle current are still open. No field endurance numbers.
