@@ -13,8 +13,14 @@ Mission alignment: Natural Electric + Future AI is built for human well-being �
 1. Read [`order-and-contract.md`](order-and-contract.md) for the process and [`licensing-boundary.md`](licensing-boundary.md) for what a license can and cannot cover.
 2. Copy [`inquiry-template.md`](inquiry-template.md) into a GitHub issue titled `enterprise-inquiry: <model ids>`.
 3. Mark energy honesty rows and complete [`scope-assumptions.md`](scope-assumptions.md). Incomplete checklists get questions, not quotes.
-4. The host helper `inquiry_completeness.py` can stamp whether the six public items are present. A stamp is not a contract. Model 50 treats a missing item as a refuse for quote-draft start.
-5. If the request is already answered by a public card, the maintainer may hand off with [`handoff-to-public-tree.md`](handoff-to-public-tree.md) instead of opening a commercial lane.
+4. On the deliverable-shape checkbox, map the request onto **one** row of [`placeholder-engagement-tiers.md`](placeholder-engagement-tiers.md). Those names are work shapes (study replica, field customization, operator integration, sovereign / air-gap pack, measurement phase) — not SKUs and not prices. Do not stack every tier to sound complete.
+5. The host helper `inquiry_completeness.py` can stamp whether the six public items are present. A stamp is not a contract. Model 50 treats a missing item as a refuse for quote-draft start.
+6. If the request is already answered by a public card, the maintainer may hand off with [`handoff-to-public-tree.md`](handoff-to-public-tree.md) instead of opening a commercial lane.
+
+**Identical vs custom (professional language):**
+- **Identical** means the public architecture, interface table, and host tests remain the contract of record. Delivery may still include private packaging (snapshot, signed tree, air-gap media). It does not mean weights or calibrated joule numbers already exist in the public tree.
+- **Custom** means at least one of energy budget, sensors, security boundary, or scale changes. The public model number remains ancestry (`NN-custom-<slug>`) unless the contract requires a private identifier.
+- If undecided, say so and name the driving constraint (air-gap, measured joules, plant-floor sensors). Do not choose “custom” merely to sound serious.
 
 Payment infrastructure is not finalized. Repositories may stay private until it is. Draft contract and billing pages exist for review only.
 
@@ -31,13 +37,13 @@ Payment infrastructure is not finalized. Repositories may stay private until it 
 | [engagement-faq.md](engagement-faq.md) | Buyer questions without invented prices |
 | [first-page-routing.md](first-page-routing.md) | Which page to open first |
 | [well-being-alignment.md](well-being-alignment.md) | Mission constraints on commercial language |
+| [placeholder-engagement-tiers.md](placeholder-engagement-tiers.md) | Named shapes of work — not SKUs, not prices |
 
 ### Licensing and work shape
 
 | Document | Purpose |
 |----------|---------|
 | [licensing-boundary.md](licensing-boundary.md) | What is licensed vs what stays public research |
-| [placeholder-engagement-tiers.md](placeholder-engagement-tiers.md) | Named shapes of work — not SKUs, not prices |
 | [scope-assumptions.md](scope-assumptions.md) | Shared assumptions table |
 | [allowed-cover-claims.md](allowed-cover-claims.md) | Claims that may appear on a cover sheet |
 | [quote-draft-outline.md](quote-draft-outline.md) | Headings for a later quote; commercial figure stays blank on-repo |
