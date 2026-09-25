@@ -1,16 +1,18 @@
 # First-boot refuse sketch (host only)
 
-This is STATUS next-priority item 4 from the 2026-09-25 cycle: a script that
-refuses inference below the documented voltage floor.
+Host script that refuses inference below the documented voltage floor.
 
 ## What it is
 - `first_boot.py` — host function + CLI (`python first_boot.py 3.2`)
-- `test_first_boot.py` — three unit tests on the same floor as `energy_duty.FLOOR_VOLTS`
+- `test_first_boot.py` — unit tests on the same floor as `energy_duty.FLOOR_VOLTS`
+  (including optional `via_host_reader` cases)
 - `host_voltage_reader.py` — pure host reader that returns a pack_volts record
   suitable for feeding `first_boot` / `energy_duty.decide` (sources:
   `host_placeholder` | `hardware_pending` only)
 - `duty_to_policy.fixture_log(..., via_host_reader=True)` — same feed contract
   for the duty → policy adapter path (see `test_duty_to_policy.py`)
+- `SANDBOX/compose_first_boot_demo.py` — same feed contract for composition
+  with optional Model 05 joules when `C_farads` is explicit
 
 ## What it is not
 - Not ESP32 firmware
@@ -59,9 +61,14 @@ Return shape from `first_boot` (host record, never a field certificate):
   "policy_action": "SLEEP" | "SENSE" | "INFER" | ...,
   "inference_allowed": bool,
   "workload": "tinyml_policy" | "offline_llm" | None,
+  "via_host_reader": bool,
   "source": "host_first_boot",
   "is_field_measurement": False,
   "is_firmware": False
+  # when via_host_reader=True also:
+  # "reader_source": "host_placeholder" | "hardware_pending",
+  # "reader_is_field_measurement": False,
+  # "reader_is_firmware": False
 }
 ```
 
@@ -81,6 +88,10 @@ passed through `as_feed` into `first_boot`, `energy_duty.decide`, or
 }
 ```
 
+`first_boot(..., via_host_reader=True, reader_source=...)` exercises that
+path natively (same contract as `duty_to_policy.fixture_log` and
+`compose_first_boot`). All three remain host-only.
+
 Rules that stay true after any hardware plug-in:
 
 1. Low voltage always wins; no “try the model anyway” path.
@@ -93,8 +104,8 @@ Rules that stay true after any hardware plug-in:
    measured joules remain open work and are not claimed by this sketch.
 5. The host reader never emits source=`measured`; that label is refused so
    sandbox numbers cannot be promoted into field claims.
-6. The duty adapter (`duty_to_policy.fixture_log`) and the first-boot
-   composition path share the same feed contract; neither is firmware.
+6. The duty adapter (`duty_to_policy.fixture_log`), the first-boot path, and
+   the composition path share the same feed contract; none is firmware.
 
 This contract advances the STATUS priority “wire a real ADC into the same
 policy interface” without inventing firmware, serial numbers, or field numbers.
