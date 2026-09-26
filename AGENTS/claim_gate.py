@@ -15,6 +15,13 @@ note exist before any result is labeled. See ENTERPRISE/: measurement-hold
 → named-lab-plan → instrument-list → measurement-method → result-record.
 Allowed claims (host_log, sandbox_demo) never promote host stubs into
 that chain; observer_not_evidence stays the refuse token.
+
+Evaluation order of refuse_reason (locked by tests):
+1. unknown_claim  — claim not in ALLOWED_CLAIMS | REFUSED_CLAIMS
+2. unknown_source — source not in energy_observer.ALLOWED_SOURCES
+3. observer_not_evidence — claim in REFUSED_CLAIMS
+4. ok             — claim in ALLOWED_CLAIMS and source allowed
+When both claim and source are unknown, unknown_claim is returned first.
 """
 
 from __future__ import annotations
@@ -28,6 +35,7 @@ REFUSED_CLAIMS = frozenset({"field_generation", "quote_evidence", "result_record
 
 
 def refuse_reason(source: str, claim: str) -> str:
+    # Order: unknown_claim → unknown_source → observer_not_evidence → ok
     if claim not in ALLOWED_CLAIMS | REFUSED_CLAIMS:
         return "unknown_claim"
     if source not in ALLOWED_SOURCES:

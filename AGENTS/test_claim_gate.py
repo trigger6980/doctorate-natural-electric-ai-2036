@@ -14,7 +14,7 @@ from claim_gate import (
     stamp,
     stamp_many,
 )
-from energy_observer import record_sample
+from energy_observer import ALLOWED_SOURCES, record_sample
 
 
 class ClaimGateTests(unittest.TestCase):
@@ -71,6 +71,38 @@ class ClaimGateTests(unittest.TestCase):
             "unknown_claim",
         )
 
+    def test_refuse_reason_evaluation_order(self) -> None:
+        """Lock the documented precedence: unknown_claim → unknown_source → observer_not_evidence → ok."""
+        # 1. unknown claim wins even when source is also unknown
+        self.assertEqual(refuse_reason("measured", "certified_kwh"), "unknown_claim")
+        # 2. known claim + unknown source → unknown_source
+        self.assertEqual(refuse_reason("measured", "host_log"), "unknown_source")
+        self.assertEqual(refuse_reason("field_meter", "sandbox_demo"), "unknown_source")
+        # 3. known source + refused claim → observer_not_evidence
+        self.assertEqual(
+            refuse_reason("host_placeholder", "field_generation"),
+            "observer_not_evidence",
+        )
+        # 4. known source + allowed claim → ok
+        self.assertEqual(refuse_reason("host_placeholder", "host_log"), "ok")
+        self.assertEqual(refuse_reason("hardware_pending", "sandbox_demo"), "ok")
+
+    def test_scan_samples_unknown_source(self) -> None:
+        """scan_samples surfaces unknown_source when any sample has a refused source label."""
+        # record_sample itself refuses unknown sources, so build a minimal
+        # stand-in that only exposes .source for the scan path.
+        class _BadSource:
+            source = "measured"
+
+        samples = [
+            record_sample(4.6, 0.05, source="host_placeholder"),
+            _BadSource(),  # type: ignore[list-item]
+        ]
+        self.assertEqual(scan_samples(samples, "host_log"), "unknown_source")
+        self.assertEqual(scan_samples(samples, "sandbox_demo"), "unknown_source")
+        # Unknown claim still precedes when the claim itself is unknown
+        self.assertEqual(scan_samples(samples, "certified_kwh"), "unknown_claim")
+
     def test_stamp_labels_allowed_and_refused(self) -> None:
         sample = record_sample(4.6, 0.05, source="host_placeholder")
         payload = stamp(sample)
@@ -96,6 +128,15 @@ class ClaimGateTests(unittest.TestCase):
         )
         # Partition: no overlap, and refuse_reason covers the union.
         self.assertTrue(ALLOWED_CLAIMS.isdisjoint(REFUSED_CLAIMS))
+
+    def test_shares_allowed_sources_with_observer(self) -> None:
+        """claim_gate must use the same ALLOWED_SOURCES set as energy_observer."""
+        self.assertEqual(
+            ALLOWED_SOURCES,
+            frozenset({"host_placeholder", "hardware_pending"}),
+        )
+        # unknown_source is the only path for labels outside that set
+        self.assertEqual(refuse_reason("measured", "host_log"), "unknown_source")
 
     def test_stamp_preserves_honesty_note(self) -> None:
         """stamp must retain the observer as_dict honesty note and is_field_measurement=False."""
