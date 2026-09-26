@@ -173,6 +173,28 @@ class ClaimGateTests(unittest.TestCase):
         self.assertEqual(payload["claims"]["host_log"], "ok")
         self.assertEqual(payload["claims"]["field_generation"], "observer_not_evidence")
 
+    def test_stamp_empty_claims_list(self) -> None:
+        """Empty claims iterable still preserves honesty note; claims dict is empty (not invented)."""
+        sample = record_sample(3.7, 0.01, source="host_placeholder")
+        payload = stamp(sample, claims=[])
+        self.assertIn("note", payload)
+        self.assertIn("Host stub only", payload["note"])
+        self.assertIn("Not a measured generation or consumption figure", payload["note"])
+        self.assertFalse(payload["is_field_measurement"])
+        self.assertEqual(payload["source"], "host_placeholder")
+        self.assertEqual(payload["claims"], {})
+
+    def test_stamp_custom_claims_only_those_keys(self) -> None:
+        """Custom claims list yields exactly those keys; no default claims are invented."""
+        sample = record_sample(4.0, 0.02, source="hardware_pending")
+        payload = stamp(sample, claims=["host_log", "result_record"])
+        self.assertEqual(set(payload["claims"].keys()), {"host_log", "result_record"})
+        self.assertEqual(payload["claims"]["host_log"], "ok")
+        self.assertEqual(payload["claims"]["result_record"], "observer_not_evidence")
+        self.assertIn("note", payload)
+        self.assertIn("Host stub only", payload["note"])
+        self.assertFalse(payload["is_field_measurement"])
+
 
 if __name__ == "__main__":
     unittest.main()

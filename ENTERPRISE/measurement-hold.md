@@ -40,6 +40,10 @@ A hold is **not** a packet, **not** a closeout, and **not** a queue position.
 - Treating a hold as if a packet or change order already exists.
 - Treating host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, `duty_to_policy.fixture_log`, sandbox composition demos, `energy_observer`, `claim_gate`) as substitutes for a named-lab + instrument-class + measurement-method plan. Those stubs carry `is_field_measurement=False` / `reader_is_field_measurement=False` and must stay off any quote that implies measured joules or calibrated C. The shared `feed_via_reader` path and its three host call sites are never instrument-class evidence; `claim_gate` refuses field_generation / quote_evidence / result_record with the token `observer_not_evidence`.
 
+### claim_gate evaluation order (pointer)
+
+When a host sample is presented for a claim, `AGENTS/claim_gate.refuse_reason` evaluates in fixed order (unit-tested; full wording on [`result-record.md`](result-record.md)): unknown_claim → unknown_source → observer_not_evidence → ok. Empty sample lists are not evidence. This keeps unlabeled or host-only numbers from being promoted into a hold or later result record.
+
 See [`well-being-alignment.md`](well-being-alignment.md).
 
 ## Maintainer fill order

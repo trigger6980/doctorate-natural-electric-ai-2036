@@ -1,17 +1,17 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-26 08:04 CDT (Hourly dual-agent — energy_observer.log_samples honesty + empty-path locks)
+**Last updated:** 2026-09-26 09:06 CDT (Hourly dual-agent — claim_gate stamp empty/custom claims honesty locks + measurement-hold evaluation-order cross-ref)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Strengthened `AGENTS/test_energy_observer.py` with log_samples surface locks:
-  - `test_log_samples_preserves_honesty` asserts every emitted dict retains the host-stub note, `is_field_measurement=False`, and an allowed source for both host_placeholder and hardware_pending samples.
-  - `test_log_samples_empty` asserts log_samples([]) returns [] (empty is not evidence).
-- No production logic change; log_samples was already a pure map over as_dict. CI path already includes test_energy_observer.py.
+- Strengthened `AGENTS/test_claim_gate.py` with stamp surface locks:
+  - `test_stamp_empty_claims_list` asserts stamp(sample, claims=[]) retains the host-stub note, is_field_measurement=False, and yields an empty claims dict (no invented claim results).
+  - `test_stamp_custom_claims_only_those_keys` asserts a custom claims list yields exactly those keys, maps host_log→ok / result_record→observer_not_evidence, and preserves the honesty note.
+- No production logic change; stamp already maps over the supplied claims iterable. CI path already includes test_claim_gate.py.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- No new commercial claims or enterprise page rewrites this hour. The measurement-chain seal (hold → named-lab-plan → instrument-list → measurement-method → result-record) and the claim_gate evaluation-order note already present on result-record.md remain the active honesty boundary. Monitoring only on the enterprise framing side.
+- Added a concise claim_gate evaluation-order pointer on `ENTERPRISE/measurement-hold.md` (links to the full wording on result-record.md). No new commercial claims; keeps the measurement-chain seal consistent across hold → plan → instrument → method → result.
 
 ## Prior completed (still true)
 - claim_gate named on all five ENTERPRISE measurement-chain pages
@@ -35,7 +35,8 @@
 - Offgrid-ai-box README now surfaces host_voltage_reader in Directory Layout / Architecture / Status.
 - Observer unit tests lock the as_dict honesty note and ALLOWED_SOURCES set; claim_gate unit tests lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note, unknown_source, evaluation order, scan_samples unknown_source path, and empty-iterable edges; host_voltage_reader tests lock the read_pack_volts honesty note and exact ALLOWED_SOURCES frozenset.
 - claim_gate empty-iterable edge locks and result-record evaluation-order note (prior hour).
-- energy_observer log_samples honesty + empty-path locks (this hour).
+- energy_observer log_samples honesty + empty-path locks (prior hour).
+- claim_gate stamp empty/custom claims honesty locks + measurement-hold evaluation-order cross-ref (this hour).
 
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
@@ -53,9 +54,10 @@ the voltage-feed, first-boot, and observer docs. Observer unit tests now also
 lock the as_dict honesty note, ALLOWED_SOURCES set, and log_samples honesty +
 empty path; claim_gate unit tests now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS,
 the stamp honesty note, unknown_source, the refuse_reason evaluation order,
-scan_samples for unknown_source, and empty-iterable edges; host_voltage_reader
-tests now also lock the read_pack_volts honesty note and exact ALLOWED_SOURCES
-frozenset. result-record.md documents the evaluation order for maintainers.
+scan_samples for unknown_source, empty-iterable edges, and stamp empty/custom
+claims key surfaces; host_voltage_reader tests now also lock the read_pack_volts
+honesty note and exact ALLOWED_SOURCES frozenset. result-record.md documents the
+evaluation order for maintainers; measurement-hold.md now points to that order.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 
