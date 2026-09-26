@@ -1,17 +1,17 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-26 03:01 CDT (Hourly dual-agent — energy_observer test honesty note + ALLOWED_SOURCES contract)
+**Last updated:** 2026-09-26 04:00 CDT (Hourly dual-agent — claim_gate ALLOWED/REFUSED contract tests + stamp honesty note)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Strengthened `AGENTS/test_energy_observer.py` with two additional contract tests:
-  - `test_as_dict_honesty_note_and_keys` asserts the as_dict note contains the host-stub honesty phrases and that `is_field_measurement` remains False with correct numeric fields
-  - `test_allowed_sources_set` locks `ALLOWED_SOURCES` to the documented host-only pair `{host_placeholder, hardware_pending}`
+- Strengthened `AGENTS/test_claim_gate.py` with two additional contract tests:
+  - `test_allowed_and_refused_claims_sets` locks `ALLOWED_CLAIMS` to `{host_log, sandbox_demo}` and `REFUSED_CLAIMS` to `{field_generation, quote_evidence, result_record}`, and asserts the two sets are disjoint
+  - `test_stamp_preserves_honesty_note` asserts that `stamp` retains the energy_observer as_dict honesty phrases ("Host stub only" / "Not a measured generation or consumption figure"), keeps `is_field_measurement` False, and still maps host_log → ok / field_generation → observer_not_evidence
 - No production code changes; tests only. CI-gated path already includes this module.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- No new commercial pages, pricing language, customers, or SLAs. Confirmed ENTERPRISE measurement-hold / result-record / named-lab-plan chain already seal host stubs (energy_observer, claim_gate, host_voltage_reader, feed_via_reader) as non-substitutes for named-lab plans; the strengthened observer tests keep the refuse surface verifiable without inventing field joules or lab names.
+- No new commercial pages, pricing language, customers, or SLAs. Confirmed ENTERPRISE measurement-hold / result-record / named-lab-plan chain already seal host stubs (energy_observer, claim_gate, host_voltage_reader, feed_via_reader) as non-substitutes for named-lab plans; the strengthened claim_gate tests keep the refuse surface verifiable without inventing field joules or lab names.
 
 ## Prior completed (still true)
 - claim_gate named on all five ENTERPRISE measurement-chain pages
@@ -33,6 +33,7 @@
 - Named-lab-plan, instrument-list, measurement-method, measurement-hold, and result-record pages carry the same non-evidence restatement.
 - FIRST-BOOT rule 2 names the complete measurement-chain path; rule 7 names claim_gate.
 - Offgrid-ai-box README now surfaces host_voltage_reader in Directory Layout / Architecture / Status.
+- Observer unit tests lock the as_dict honesty note and ALLOWED_SOURCES set.
 
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
@@ -47,7 +48,8 @@ side (energy_observer now also names claim_gate), the five ENTERPRISE pages list
 docstring + FIRST-BOOT rule 7 + offgrid README Directory Layout now also name
 the feed contract so refused claims stay mapped to observer_not_evidence from
 the voltage-feed, first-boot, and observer docs. Observer unit tests now also
-lock the as_dict honesty note and ALLOWED_SOURCES set.
+lock the as_dict honesty note and ALLOWED_SOURCES set; claim_gate unit tests
+now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS and the stamp honesty note.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 

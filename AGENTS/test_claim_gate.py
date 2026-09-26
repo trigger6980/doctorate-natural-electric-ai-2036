@@ -4,7 +4,16 @@ from __future__ import annotations
 
 import unittest
 
-from claim_gate import allow, allow_sample, refuse_reason, scan_samples, stamp, stamp_many
+from claim_gate import (
+    ALLOWED_CLAIMS,
+    REFUSED_CLAIMS,
+    allow,
+    allow_sample,
+    refuse_reason,
+    scan_samples,
+    stamp,
+    stamp_many,
+)
 from energy_observer import record_sample
 
 
@@ -61,6 +70,28 @@ class ClaimGateTests(unittest.TestCase):
         scan = stamp_many(samples)
         self.assertEqual(scan["sandbox_demo"], "ok")
         self.assertEqual(scan["result_record"], "observer_not_evidence")
+
+    def test_allowed_and_refused_claims_sets(self) -> None:
+        """Allowed and refused claim sets stay the documented host-only partition."""
+        self.assertEqual(ALLOWED_CLAIMS, frozenset({"host_log", "sandbox_demo"}))
+        self.assertEqual(
+            REFUSED_CLAIMS,
+            frozenset({"field_generation", "quote_evidence", "result_record"}),
+        )
+        # Partition: no overlap, and refuse_reason covers the union.
+        self.assertTrue(ALLOWED_CLAIMS.isdisjoint(REFUSED_CLAIMS))
+
+    def test_stamp_preserves_honesty_note(self) -> None:
+        """stamp must retain the observer as_dict honesty note and is_field_measurement=False."""
+        sample = record_sample(3.7, 0.01, source="host_placeholder")
+        payload = stamp(sample)
+        self.assertIn("note", payload)
+        self.assertIn("Host stub only", payload["note"])
+        self.assertIn("Not a measured generation or consumption figure", payload["note"])
+        self.assertFalse(payload["is_field_measurement"])
+        self.assertEqual(payload["source"], "host_placeholder")
+        self.assertEqual(payload["claims"]["host_log"], "ok")
+        self.assertEqual(payload["claims"]["field_generation"], "observer_not_evidence")
 
 
 if __name__ == "__main__":
