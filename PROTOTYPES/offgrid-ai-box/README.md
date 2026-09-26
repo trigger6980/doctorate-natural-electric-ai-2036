@@ -39,6 +39,7 @@ Implementation (host):
 - `duty_to_policy.duty_string_to_policy_action` / `make_duty_policy_fn` map `REFUSE` and `SLEEP` onto the Operator AI `Action.SLEEP` (or string `"SLEEP"`).
 - `policy_gated_executor.decide_and_run` then sets `aborted_reason = "policy_sleep"` and runs no tagged tasks.
 - `first_boot.py` returns a host boot record (inference_allowed / workload) using the same floor; see [`FIRST-BOOT.md`](FIRST-BOOT.md).
+- `host_voltage_reader.py` supplies the optional uniform feed path (`feed_via_reader`) used by first_boot, duty_to_policy.fixture_log, and SANDBOX composition.
 - `SANDBOX/compose_first_boot_demo.py` optionally attaches analytic joules via Model 05 `joules_from_voltage` **only when C_farads is explicit**.
 
 Low voltage always wins over an inference request. There is no “try the LLM anyway” path on the host stubs.
@@ -57,7 +58,7 @@ Full schematic guidance and photos will be added as physical builds are complete
 ## Software Architecture
 
 ```
-pack_volts = read_pack_voltage()                 # proxy for available energy (caller-supplied on host)
+pack_volts = read_pack_voltage()                 # proxy; on host use host_voltage_reader.feed_via_reader or caller float
 action     = energy_duty.decide(pack_volts, ...) # SLEEP / IDLE_LISTEN / INFER / REFUSE
 policy     = duty_to_policy.map(action)          # → Operator AI Action (SLEEP/SENSE/INFER)
 if policy allows INFER:
@@ -68,10 +69,11 @@ else:
 
 Host-side helpers already in tree:
 - [`energy_duty.py`](energy_duty.py) — decides SLEEP / IDLE_LISTEN / INFER / REFUSE from a caller-supplied pack voltage. It does **not** read an ADC.
-- [`duty_to_policy.py`](duty_to_policy.py) — maps those strings onto the Operator AI policy Action interface and supplies a `policy_fn` for `decide_and_run` (host path). Also provides `fixture_log` for controlled voltage rows.
-- [`first_boot.py`](first_boot.py) — host boot record (refuse vs TinyML primary) using the same floor; not firmware.
-- Tests: [`test_energy_duty.py`](test_energy_duty.py), [`test_duty_to_policy.py`](test_duty_to_policy.py), [`test_first_boot.py`](test_first_boot.py) (host).
-- Composition: [`../../SANDBOX/compose_first_boot_demo.py`](../../SANDBOX/compose_first_boot_demo.py) — optional Model 05 joules when C is explicit.
+- [`duty_to_policy.py`](duty_to_policy.py) — maps those strings onto the Operator AI policy Action interface and supplies a `policy_fn` for `decide_and_run` (host path). Also provides `fixture_log` for controlled voltage rows (optional via_host_reader).
+- [`first_boot.py`](first_boot.py) — host boot record (refuse vs TinyML primary) using the same floor; not firmware. Optional via_host_reader path.
+- [`host_voltage_reader.py`](host_voltage_reader.py) — pure host reader stub (sources host_placeholder | hardware_pending only). Shared helper `feed_via_reader(pack_volts, source=...)` is the single documented feed contract used by first_boot, duty_to_policy.fixture_log, and SANDBOX composition. Never emits source=measured; is_field_measurement and reader_is_field_measurement stay False.
+- Tests: [`test_energy_duty.py`](test_energy_duty.py), [`test_duty_to_policy.py`](test_duty_to_policy.py), [`test_first_boot.py`](test_first_boot.py), [`test_host_voltage_reader.py`](test_host_voltage_reader.py) (host).
+- Composition: [`../../SANDBOX/compose_first_boot_demo.py`](../../SANDBOX/compose_first_boot_demo.py) — optional Model 05 joules when C is explicit; optional via_host_reader.
 
 Planned composition with Operator AI Machinery:
 - Model 01 (Threshold Energy Scheduler) supplies the live rail floor.
@@ -83,18 +85,20 @@ Planned composition with Operator AI Machinery:
 ## Directory Layout
 
 - `energy_duty.py` — host duty stub
-- `duty_to_policy.py` — host adapter to policy Action / policy_fn
-- `first_boot.py` — host first-boot refuse sketch (not firmware)
-- `FIRST-BOOT.md` — honesty boundary for the sketch
+- `duty_to_policy.py` — host adapter to policy Action / policy_fn (fixture_log supports via_host_reader)
+- `first_boot.py` — host first-boot refuse sketch (not firmware; optional via_host_reader)
+- `host_voltage_reader.py` — host voltage reader stub + shared `feed_via_reader` contract
+- `FIRST-BOOT.md` — honesty boundary for the sketch (rule 7 names claim_gate)
 - `test_energy_duty.py` — host unit tests for duty
 - `test_duty_to_policy.py` — host unit tests for the adapter
 - `test_first_boot.py` — host unit tests for first-boot
+- `test_host_voltage_reader.py` — host unit tests for reader + feed_via_reader contract
 - `BOM.md` — commodity parts orientation
 - (future) `src/`, `docs/`, enclosure notes, on-device ADC path
 
 ## Status (honest)
 
-**Present:** Outline, BOM orientation, host energy-duty stub with unit tests, host duty→policy adapter with unit tests, controlled host voltage fixture log (sandbox), primary-workload decision (TinyML-first, LLM optional secondary), documented refuse path below floor, host first-boot refuse sketch + tests, optional host composition with Model 05 joules when C is explicit, and explicit links to Model 10 / Model 35 / Model 01.
+**Present:** Outline, BOM orientation, host energy-duty stub with unit tests, host duty→policy adapter with unit tests, controlled host voltage fixture log (sandbox), primary-workload decision (TinyML-first, LLM optional secondary), documented refuse path below floor, host first-boot refuse sketch + tests, host voltage reader stub + shared `feed_via_reader` contract (used by first_boot / fixture_log / composition) + tests, optional host composition with Model 05 joules when C is explicit, and explicit links to Model 10 / Model 35 / Model 01. claim_gate and energy_observer name the same measurement-chain honesty boundary.
 
 **Not present:** Trained/quantized on-device models, measured field joules, calibrated pack C, hardware photos, enclosure notes, on-device first-boot firmware, measured idle current, or energy-neutral certificates.
 
@@ -107,8 +111,9 @@ This prototype maps to Model 10 (Offline LLM Runtime Adapter — optional second
 3. Decide one primary workload (TinyML policy vs local LLM) and document the refuse path when the voltage proxy is below the documented floor. **Done (documentation):** TinyML-first; refuse path table above; BOM checkbox closed.
 4. Host first-boot refuse sketch. **Done (host):** `first_boot.py` + tests + `FIRST-BOOT.md`. Not firmware.
 5. Thin host composition of voltage proxy + first_boot. **Done (host):** `SANDBOX/compose_first_boot_demo.py` (joules only when C explicit).
-6. Add a measurement-method note under `docs/` once a lab and instrument class are named (see ENTERPRISE/measurement-method.md).
-7. Only after (6): publish a labeled result record if pack current and voltage are measured on hardware.
+6. Host voltage reader + uniform feed contract. **Done (host):** `host_voltage_reader.py` + `feed_via_reader` + tests; used by first_boot, fixture_log, and composition.
+7. Add a measurement-method note under `docs/` once a lab and instrument class are named (see ENTERPRISE/measurement-method.md).
+8. Only after (7): publish a labeled result record if pack current and voltage are measured on hardware.
 
 ## Reproducibility
 All host code runs under ordinary Python unit tests. Board firmware targets commodity SBCs. No proprietary silicon required. Physical builds remain open work.

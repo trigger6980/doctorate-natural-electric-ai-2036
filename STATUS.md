@@ -1,18 +1,19 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-25 17:00 CDT (Hourly dual-agent — host_voltage_reader + FIRST-BOOT name claim_gate and full measurement-chain path)
+**Last updated:** 2026-09-26 02:15 CDT (Hourly dual-agent — energy_observer claim_gate cross-link + offgrid README host_voltage_reader completeness)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Extended `PROTOTYPES/offgrid-ai-box/host_voltage_reader.py` module docstring so `claim_gate` and the full ENTERPRISE measurement-chain path (measurement-hold → named-lab-plan → instrument-list → measurement-method → result-record) are named with the same honesty boundary already used by `energy_observer` and `claim_gate`; `observer_not_evidence` refuse token is now visible from the voltage-feed side of the host path
+- Extended `AGENTS/energy_observer.py` module docstring so `claim_gate` and the full ENTERPRISE measurement-chain path are named with the same honesty boundary already used by `host_voltage_reader` and `claim_gate`; `observer_not_evidence` refuse token is now visible from the energy-observer side
+- Updated `PROTOTYPES/offgrid-ai-box/README.md` Directory Layout, Software Architecture, Status, and Next vertical slices to explicitly list `host_voltage_reader.py`, `test_host_voltage_reader.py`, and the shared `feed_via_reader` contract as present host artifacts (completes the documentation surface for the already-implemented feed path)
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Updated `PROTOTYPES/offgrid-ai-box/FIRST-BOOT.md` with rule 7 listing `claim_gate` (and the existing host stubs) among the paths that never substitute for a named-lab + instrument-class + measurement-method plan; no prices, customers, SLAs, or invented lab names. Completes the host-side honesty link for the voltage reader and first-boot sketch
+- No new commercial pages or pricing language. Confirmed ENTERPRISE measurement-hold / result-record already seal host stubs (including claim_gate) as non-substitutes for named-lab plans; the energy_observer cross-link keeps the refuse token consistent across observer → gate → voltage reader without inventing customers, SLAs, lab names, or field joules
 
 ## Prior completed (still true)
 - claim_gate named on all five ENTERPRISE measurement-chain pages
-- energy_observer + claim_gate module docstrings name the full measurement-chain path
+- energy_observer + claim_gate module docstrings name the full measurement-chain path (energy_observer now also names claim_gate explicitly)
 - Shared `feed_via_reader` path used by first_boot, duty_to_policy.fixture_log, and compose_first_boot (DRY host feed contract)
 - `READER_META_KEYS` frozenset + contract assert inside `feed_via_reader`; reader tests CI-gated
 - Host voltage reader stub (`host_voltage_reader.py`, tests) with allowed sources host_placeholder | hardware_pending only
@@ -28,7 +29,8 @@
 - Energy-harvester-tinyml honesty block and Model 01 / Model 05 mapping.
 - ENTERPRISE inquiry process, placeholder tiers, well-being alignment live.
 - Named-lab-plan, instrument-list, measurement-method, measurement-hold, and result-record pages carry the same non-evidence restatement.
-- FIRST-BOOT rule 2 names the complete measurement-chain path.
+- FIRST-BOOT rule 2 names the complete measurement-chain path; rule 7 names claim_gate.
+- Offgrid-ai-box README now surfaces host_voltage_reader in Directory Layout / Architecture / Status.
 
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
@@ -39,9 +41,10 @@ CI-gated, while every record stays tagged host-only and is_field_measurement=Fal
 The full measurement-chain pages (hold, named-lab-plan, instrument-list,
 measurement-method, result-record) carry the same non-evidence restatement,
 the host energy_observer + claim_gate modules name that chain from the code
-side, the five ENTERPRISE pages list claim_gate, and the host_voltage_reader
-docstring + FIRST-BOOT rule 7 now also name claim_gate so refused claims stay
-mapped to observer_not_evidence from the voltage-feed and first-boot docs.
+side (energy_observer now also names claim_gate), the five ENTERPRISE pages list claim_gate, and the host_voltage_reader
+docstring + FIRST-BOOT rule 7 + offgrid README Directory Layout now also name
+the feed contract so refused claims stay mapped to observer_not_evidence from
+the voltage-feed, first-boot, and observer docs.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 

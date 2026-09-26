@@ -10,12 +10,16 @@ Allowed source labels:
 The label `measured` is refused. Do not publish these values as joules
 generated or consumed in the field.
 
-Honesty boundary (same chain as FIRST-BOOT and ENTERPRISE result-record):
+Honesty boundary (same chain as host_voltage_reader, claim_gate, FIRST-BOOT,
+and ENTERPRISE result-record):
 Host samples stay non-evidence until a named lab + instrument class +
 measurement-method note exist and a result record is labeled. See the
 full path under ENTERPRISE/: measurement-hold → named-lab-plan →
 instrument-list → measurement-method → result-record. This stub never
 substitutes for that chain; is_field_measurement remains False.
+claim_gate refuses field_generation / quote_evidence / result_record with
+the token observer_not_evidence; host_log and sandbox_demo may still be
+labeled for tests.
 """
 
 from __future__ import annotations
