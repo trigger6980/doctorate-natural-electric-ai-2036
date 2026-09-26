@@ -55,6 +55,22 @@ class ClaimGateTests(unittest.TestCase):
     def test_unknown_claim(self) -> None:
         self.assertEqual(refuse_reason("host_placeholder", "certified_kwh"), "unknown_claim")
 
+    def test_unknown_source(self) -> None:
+        """refuse_reason must surface unknown_source before claim evaluation."""
+        self.assertEqual(
+            refuse_reason("measured", "host_log"),
+            "unknown_source",
+        )
+        self.assertEqual(
+            refuse_reason("field_meter", "sandbox_demo"),
+            "unknown_source",
+        )
+        # Unknown source still yields unknown_claim when claim is also unknown.
+        self.assertEqual(
+            refuse_reason("measured", "certified_kwh"),
+            "unknown_claim",
+        )
+
     def test_stamp_labels_allowed_and_refused(self) -> None:
         sample = record_sample(4.6, 0.05, source="host_placeholder")
         payload = stamp(sample)

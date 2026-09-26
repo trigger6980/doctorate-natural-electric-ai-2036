@@ -61,6 +61,7 @@ def test_allowed_sources_frozenset():
     assert "host_placeholder" in ALLOWED_SOURCES
     assert "hardware_pending" in ALLOWED_SOURCES
     assert "measured" not in ALLOWED_SOURCES
+    assert ALLOWED_SOURCES == frozenset({"host_placeholder", "hardware_pending"})
 
 
 def test_feed_via_reader_host_placeholder():
@@ -100,6 +101,19 @@ def test_reader_meta_keys_contract():
     # Honesty: none of these keys ever carry a True field claim from this path.
     assert meta["reader_is_field_measurement"] is False
     assert meta["reader_is_firmware"] is False
+
+
+def test_read_pack_volts_preserves_honesty_note():
+    """read_pack_volts must surface the host-stub honesty note and keep flags False."""
+    rec = read_pack_volts(3.7, source="host_placeholder")
+    assert "note" in rec
+    assert "Host voltage reader stub only" in rec["note"]
+    assert "Not an ADC read" in rec["note"]
+    assert "not a field certificate" in rec["note"]
+    assert rec["is_field_measurement"] is False
+    assert rec["is_firmware"] is False
+    assert rec["source"] == "host_placeholder"
+    assert rec["pack_volts"] == 3.7
 
 
 def test_shared_honesty_sources_with_energy_observer():

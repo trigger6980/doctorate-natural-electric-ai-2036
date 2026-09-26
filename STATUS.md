@@ -1,17 +1,21 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-26 04:00 CDT (Hourly dual-agent — claim_gate ALLOWED/REFUSED contract tests + stamp honesty note)
+**Last updated:** 2026-09-26 05:00 CDT (Hourly dual-agent — host_voltage_reader honesty note + claim_gate unknown_source contract)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Strengthened `AGENTS/test_claim_gate.py` with two additional contract tests:
-  - `test_allowed_and_refused_claims_sets` locks `ALLOWED_CLAIMS` to `{host_log, sandbox_demo}` and `REFUSED_CLAIMS` to `{field_generation, quote_evidence, result_record}`, and asserts the two sets are disjoint
-  - `test_stamp_preserves_honesty_note` asserts that `stamp` retains the energy_observer as_dict honesty phrases ("Host stub only" / "Not a measured generation or consumption figure"), keeps `is_field_measurement` False, and still maps host_log → ok / field_generation → observer_not_evidence
-- No production code changes; tests only. CI-gated path already includes this module.
+- Strengthened `AGENTS/test_claim_gate.py` with `test_unknown_source`:
+  - Asserts `refuse_reason("measured", "host_log")` → `unknown_source`
+  - Asserts unknown source with unknown claim still returns `unknown_claim` (claim check precedes source only when claim is unknown)
+  - Keeps the ALLOWED/REFUSED partition and stamp honesty note tests from prior hour
+- Strengthened `PROTOTYPES/offgrid-ai-box/test_host_voltage_reader.py`:
+  - `test_read_pack_volts_preserves_honesty_note` locks the note phrases ("Host voltage reader stub only", "Not an ADC read", "not a field certificate"), `is_field_measurement=False`, `is_firmware=False`
+  - Tightened `test_allowed_sources_frozenset` to exact frozenset equality with the documented pair
+- No production code changes; tests only. CI-gated paths already include these modules.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- No new commercial pages, pricing language, customers, or SLAs. Confirmed ENTERPRISE measurement-hold / result-record / named-lab-plan chain already seal host stubs (energy_observer, claim_gate, host_voltage_reader, feed_via_reader) as non-substitutes for named-lab plans; the strengthened claim_gate tests keep the refuse surface verifiable without inventing field joules or lab names.
+- No new commercial pages, pricing language, customers, or SLAs. Confirmed ENTERPRISE measurement-hold / result-record / named-lab-plan / instrument-list / measurement-method chain already seals host stubs (energy_observer, claim_gate, host_voltage_reader, feed_via_reader) as non-substitutes for named-lab plans; the new unknown_source and honesty-note locks keep the refuse surface verifiable without inventing field joules or lab names.
 
 ## Prior completed (still true)
 - claim_gate named on all five ENTERPRISE measurement-chain pages
@@ -34,6 +38,7 @@
 - FIRST-BOOT rule 2 names the complete measurement-chain path; rule 7 names claim_gate.
 - Offgrid-ai-box README now surfaces host_voltage_reader in Directory Layout / Architecture / Status.
 - Observer unit tests lock the as_dict honesty note and ALLOWED_SOURCES set.
+- claim_gate unit tests lock ALLOWED_CLAIMS / REFUSED_CLAIMS and the stamp honesty note.
 
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
@@ -49,7 +54,9 @@ docstring + FIRST-BOOT rule 7 + offgrid README Directory Layout now also name
 the feed contract so refused claims stay mapped to observer_not_evidence from
 the voltage-feed, first-boot, and observer docs. Observer unit tests now also
 lock the as_dict honesty note and ALLOWED_SOURCES set; claim_gate unit tests
-now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS and the stamp honesty note.
+now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note, and
+unknown_source; host_voltage_reader tests now also lock the read_pack_volts
+honesty note and exact ALLOWED_SOURCES frozenset.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 
