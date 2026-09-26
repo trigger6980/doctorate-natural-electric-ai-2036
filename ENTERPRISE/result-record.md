@@ -44,6 +44,17 @@ A result record is **not** a packet, **not** a quote price, and **not** a field 
 - Treating a result record as if a packet, change order, or closeout already exists.
 - Treating host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, `duty_to_policy.fixture_log`, sandbox composition demos, `energy_observer`, `claim_gate`) as substitutes for a named-lab + instrument-class + measurement-method plan. Those stubs carry `is_field_measurement=False` / `reader_is_field_measurement=False` and must stay off any quote that implies measured joules or calibrated C. The shared `feed_via_reader` path and its three host call sites are never instrument-class evidence; `claim_gate` refuses field_generation / quote_evidence / result_record with the token `observer_not_evidence`.
 
+### claim_gate evaluation order (locked)
+
+When a host sample or source label is presented for a claim, `AGENTS/claim_gate.refuse_reason` evaluates in this fixed order (unit-tested):
+
+1. `unknown_claim` — claim not in ALLOWED_CLAIMS | REFUSED_CLAIMS
+2. `unknown_source` — source not in energy_observer.ALLOWED_SOURCES
+3. `observer_not_evidence` — claim in REFUSED_CLAIMS (field_generation / quote_evidence / result_record)
+4. `ok` — claim in ALLOWED_CLAIMS and source allowed
+
+When both claim and source are unknown, `unknown_claim` is returned first. Empty sample lists are not treated as evidence of a refused source; `scan_samples([])` and `stamp_many([])` return `ok` for documented claims. This ordering keeps unlabeled or host-only numbers from being promoted into a result record or quote.
+
 See [`well-being-alignment.md`](well-being-alignment.md).
 
 ## Maintainer fill order

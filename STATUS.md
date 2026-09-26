@@ -1,22 +1,17 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-26 06:15 CDT (Hourly dual-agent — claim_gate refuse_reason evaluation-order lock + scan_samples unknown_source)
+**Last updated:** 2026-09-26 07:08 CDT (Hourly dual-agent — claim_gate empty-iterable edge locks + result-record evaluation-order note)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Documented and locked `refuse_reason` evaluation order in `AGENTS/claim_gate.py`:
-  - Module docstring now states the precedence: unknown_claim → unknown_source → observer_not_evidence → ok
-  - Inline comment on the function body mirrors the same order
-  - When both claim and source are unknown, unknown_claim is returned first (no promotion of unlabeled sources)
-- Strengthened `AGENTS/test_claim_gate.py`:
-  - `test_refuse_reason_evaluation_order` asserts all four branches of the precedence
-  - `test_scan_samples_unknown_source` asserts scan_samples surfaces unknown_source (and unknown_claim when claim is also unknown) for a mixed list containing a non-ALLOWED_SOURCES label
-  - `test_shares_allowed_sources_with_observer` locks that claim_gate uses energy_observer.ALLOWED_SOURCES and that "measured" yields unknown_source
-- No production logic change beyond documentation and comments; behavior already matched the order. CI path already includes test_claim_gate.py.
+- Strengthened `AGENTS/test_claim_gate.py` with empty-iterable edge locks:
+  - `test_scan_samples_empty` asserts scan_samples([]) returns "ok" for all documented claims and still surfaces unknown_claim for an unknown claim label (claim check is independent of samples).
+  - `test_stamp_many_empty` asserts stamp_many([]) yields "ok" for every documented claim and respects evaluation order on a custom claims list.
+- No production logic change; empty list was already non-refusing. CI path already includes test_claim_gate.py.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- No new commercial pages, pricing language, customers, or SLAs. Confirmed the measurement-chain pages (measurement-hold → named-lab-plan → instrument-list → measurement-method → result-record) already seal host stubs and name claim_gate / observer_not_evidence. The new evaluation-order and scan_samples locks keep the refuse surface verifiable without inventing field joules, lab names, or unknown_source as evidence.
+- Updated `ENTERPRISE/result-record.md` with a short, truthful subsection documenting the locked refuse_reason evaluation order (unknown_claim → unknown_source → observer_not_evidence → ok) and the empty-list behavior. Keeps the measurement-chain seal verifiable for maintainers and cover-letter authors without inventing field joules, lab names, prices, or customers.
 
 ## Prior completed (still true)
 - claim_gate named on all five ENTERPRISE measurement-chain pages
@@ -39,7 +34,7 @@
 - FIRST-BOOT rule 2 names the complete measurement-chain path; rule 7 names claim_gate.
 - Offgrid-ai-box README now surfaces host_voltage_reader in Directory Layout / Architecture / Status.
 - Observer unit tests lock the as_dict honesty note and ALLOWED_SOURCES set.
-- claim_gate unit tests lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note, unknown_source, evaluation order, and scan_samples unknown_source path.
+- claim_gate unit tests lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note, unknown_source, evaluation order, scan_samples unknown_source path, and now empty-iterable edges.
 - host_voltage_reader tests lock the read_pack_volts honesty note and exact ALLOWED_SOURCES frozenset.
 
 ## Honesty (what "finished" means)
@@ -57,9 +52,10 @@ the feed contract so refused claims stay mapped to observer_not_evidence from
 the voltage-feed, first-boot, and observer docs. Observer unit tests now also
 lock the as_dict honesty note and ALLOWED_SOURCES set; claim_gate unit tests
 now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note,
-unknown_source, the refuse_reason evaluation order, and scan_samples for
-unknown_source; host_voltage_reader tests now also lock the read_pack_volts
-honesty note and exact ALLOWED_SOURCES frozenset.
+unknown_source, the refuse_reason evaluation order, scan_samples for
+unknown_source, and empty-iterable edges; host_voltage_reader tests now also
+lock the read_pack_volts honesty note and exact ALLOWED_SOURCES frozenset.
+result-record.md now also documents the evaluation order for maintainers.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 

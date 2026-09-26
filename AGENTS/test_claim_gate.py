@@ -103,6 +103,29 @@ class ClaimGateTests(unittest.TestCase):
         # Unknown claim still precedes when the claim itself is unknown
         self.assertEqual(scan_samples(samples, "certified_kwh"), "unknown_claim")
 
+    def test_scan_samples_empty(self) -> None:
+        """Empty iterable is not evidence of a refused source or claim; returns ok."""
+        self.assertEqual(scan_samples([], "host_log"), "ok")
+        self.assertEqual(scan_samples([], "sandbox_demo"), "ok")
+        self.assertEqual(scan_samples([], "field_generation"), "ok")
+        self.assertEqual(scan_samples([], "quote_evidence"), "ok")
+        self.assertEqual(scan_samples([], "result_record"), "ok")
+        # Unknown claim on empty list still surfaces unknown_claim (claim check is independent of samples).
+        self.assertEqual(scan_samples([], "certified_kwh"), "unknown_claim")
+
+    def test_stamp_many_empty(self) -> None:
+        """stamp_many on empty list yields ok for every documented claim; empty is not a refuse."""
+        scan = stamp_many([])
+        self.assertEqual(scan["host_log"], "ok")
+        self.assertEqual(scan["sandbox_demo"], "ok")
+        self.assertEqual(scan["field_generation"], "ok")
+        self.assertEqual(scan["quote_evidence"], "ok")
+        self.assertEqual(scan["result_record"], "ok")
+        # Custom claims list still respects evaluation order on empty material.
+        scan_custom = stamp_many([], claims=["host_log", "certified_kwh"])
+        self.assertEqual(scan_custom["host_log"], "ok")
+        self.assertEqual(scan_custom["certified_kwh"], "unknown_claim")
+
     def test_stamp_labels_allowed_and_refused(self) -> None:
         sample = record_sample(4.6, 0.05, source="host_placeholder")
         payload = stamp(sample)
