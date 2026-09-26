@@ -18,6 +18,11 @@ Copy only if the public tree still supports them:
 - Customer names, logos, or implied revenue.
 - Treating host fixture walks as analog, materials, radio, or motion certificates.
 - Treating any `*_ok` helper as a plant-safety certificate.
+- Treating host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, `duty_to_policy.fixture_log`, sandbox composition demos, `energy_observer`, `claim_gate`) as cover evidence of measured joules or calibrated C. Those stubs carry `is_field_measurement=False` / `reader_is_field_measurement=False` and stay off any cover that implies field data. `claim_gate` refuses field_generation / quote_evidence / result_record with the token `observer_not_evidence`.
+
+### claim_gate evaluation order (pointer)
+
+When a host sample is presented for a claim, `AGENTS/claim_gate.refuse_reason` evaluates in fixed order (unit-tested; full wording on [`result-record.md`](result-record.md)): unknown_claim → unknown_source → observer_not_evidence → ok. Empty sample lists are not evidence. This keeps unlabeled or host-only numbers from being promoted into a cover letter or quote outline.
 
 ## Model-gate honesty (cover footnotes)
 If the cover names a model, add the matching refuse line:

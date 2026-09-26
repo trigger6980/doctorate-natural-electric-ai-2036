@@ -44,6 +44,27 @@ class ClaimGateTests(unittest.TestCase):
         self.assertTrue(allow_sample(sample, "host_log"))
         self.assertFalse(allow_sample(sample, "quote_evidence"))
 
+    def test_allow_sample_field_branch(self) -> None:
+        """Lock the is_field_measurement branch: when True, only ALLOWED_CLAIMS pass.
+
+        Current EnergySample stub always returns False; this stand-in keeps the
+        documented branch honest so a future field path cannot silently widen.
+        """
+
+        class _FieldSample:
+            source = "host_placeholder"
+
+            def is_field_measurement(self) -> bool:
+                return True
+
+        field = _FieldSample()  # type: ignore[arg-type]
+        self.assertTrue(allow_sample(field, "host_log"))
+        self.assertTrue(allow_sample(field, "sandbox_demo"))
+        self.assertFalse(allow_sample(field, "field_generation"))
+        self.assertFalse(allow_sample(field, "quote_evidence"))
+        self.assertFalse(allow_sample(field, "result_record"))
+        self.assertFalse(allow_sample(field, "certified_kwh"))
+
     def test_scan_stops_on_refuse(self) -> None:
         samples = [
             record_sample(4.6, 0.05, source="host_placeholder"),
@@ -171,6 +192,21 @@ class ClaimGateTests(unittest.TestCase):
         self.assertEqual(scan["result_record"], "unknown_source")
         # unknown_claim still wins for the unknown claim token
         self.assertEqual(scan["certified_kwh"], "unknown_claim")
+
+    def test_stamp_custom_claims_unknown_claim(self) -> None:
+        """Custom claims list on stamp yields exactly those keys; unknown claim → unknown_claim."""
+        sample = record_sample(4.0, 0.02, source="host_placeholder")
+        payload = stamp(sample, claims=["host_log", "result_record", "certified_kwh"])
+        self.assertEqual(
+            set(payload["claims"].keys()),
+            {"host_log", "result_record", "certified_kwh"},
+        )
+        self.assertEqual(payload["claims"]["host_log"], "ok")
+        self.assertEqual(payload["claims"]["result_record"], "observer_not_evidence")
+        self.assertEqual(payload["claims"]["certified_kwh"], "unknown_claim")
+        self.assertIn("note", payload)
+        self.assertIn("Host stub only", payload["note"])
+        self.assertFalse(payload["is_field_measurement"])
 
     def test_allowed_and_refused_claims_sets(self) -> None:
         """Allowed and refused claim sets stay the documented host-only partition."""

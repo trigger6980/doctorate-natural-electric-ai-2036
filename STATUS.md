@@ -1,16 +1,17 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-26 13:00 CDT (Hourly dual-agent — named-lab-plan claim_gate evaluation-order pointer + stamp_many custom-claims unknown_source surface lock)
+**Last updated:** 2026-09-26 15:00 CDT (Hourly dual-agent — claim_gate allow_sample field-branch + stamp custom unknown_claim locks; allowed-cover-claims measurement-chain pointer)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Strengthened `AGENTS/test_claim_gate.py` with stamp_many custom-claims unknown_source surface lock:
-  - `test_stamp_many_custom_claims_unknown_source` asserts a custom claims list on samples containing an unknown source yields exactly those keys, maps allowed claims → unknown_source, and unknown_claim still precedes for an unknown claim token.
-- No production logic change; stamp_many already maps over the supplied claims iterable via scan_samples. CI path already includes test_claim_gate.py.
+- Strengthened `AGENTS/test_claim_gate.py` with two honesty surface locks:
+  - `test_allow_sample_field_branch` — stand-in with `is_field_measurement=True` asserts only ALLOWED_CLAIMS pass; refused and unknown claims stay False. Keeps the documented branch honest even though the current EnergySample stub always returns False.
+  - `test_stamp_custom_claims_unknown_claim` — custom claims list on stamp yields exactly those keys; unknown claim token maps to `unknown_claim`; honesty note and `is_field_measurement=False` preserved.
+- No production logic change; CI path already includes test_claim_gate.py.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Added concise claim_gate evaluation-order pointer on `ENTERPRISE/named-lab-plan.md` (links to the full wording on result-record.md). Completes the pointer on all five measurement-chain pages (hold → plan → instrument → method → result). No new commercial claims; keeps the measurement-chain seal consistent.
+- Extended `ENTERPRISE/allowed-cover-claims.md` forbidden list with an explicit host-stub ban (host_voltage_reader / feed_via_reader / first_boot / duty_to_policy.fixture_log / sandbox demos / energy_observer / claim_gate) and a concise claim_gate evaluation-order pointer linking to result-record.md. Keeps cover-letter framing truthful: host stubs never become cover evidence of measured joules or calibrated C.
 
 ## Prior completed (still true)
 - claim_gate named on all five ENTERPRISE measurement-chain pages
@@ -37,7 +38,8 @@
 - energy_observer log_samples honesty + empty-path locks (prior hour).
 - claim_gate stamp empty/custom claims honesty locks + measurement-hold evaluation-order cross-ref (prior hour).
 - stamp_many custom-claims surface lock + instrument-list / measurement-method evaluation-order pointers (prior hour).
-- named-lab-plan evaluation-order pointer + stamp_many custom-claims unknown_source surface lock (this hour).
+- named-lab-plan evaluation-order pointer + stamp_many custom-claims unknown_source surface lock (prior hour).
+- allow_sample field-branch + stamp custom unknown_claim locks + allowed-cover-claims measurement-chain pointer (this hour).
 
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
@@ -56,11 +58,12 @@ lock the as_dict honesty note, ALLOWED_SOURCES set, and log_samples honesty +
 empty path; claim_gate unit tests now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS,
 the stamp honesty note, unknown_source, the refuse_reason evaluation order,
 scan_samples for unknown_source, empty-iterable edges, stamp empty/custom
-claims key surfaces, stamp_many custom claims key surfaces, and stamp_many
-custom-claims unknown_source surface; host_voltage_reader tests now also lock the read_pack_volts
+claims key surfaces, stamp_many custom claims key surfaces, stamp_many
+custom-claims unknown_source surface, allow_sample field-branch, and stamp
+custom unknown_claim surface; host_voltage_reader tests now also lock the read_pack_volts
 honesty note and exact ALLOWED_SOURCES frozenset. result-record.md documents the
 evaluation order for maintainers; measurement-hold.md, named-lab-plan.md,
-instrument-list.md, and measurement-method.md now point to that order.
+instrument-list.md, measurement-method.md, and allowed-cover-claims.md now point to that order.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 
