@@ -156,6 +156,22 @@ class ClaimGateTests(unittest.TestCase):
         scan_empty = stamp_many(samples, claims=[])
         self.assertEqual(scan_empty, {})
 
+    def test_stamp_many_custom_claims_unknown_source(self) -> None:
+        """Custom claims list on samples containing an unknown source yields unknown_source for allowed claims; unknown_claim still precedes."""
+        class _BadSource:
+            source = "measured"
+
+        samples = [
+            record_sample(4.0, 0.02, source="host_placeholder"),
+            _BadSource(),  # type: ignore[list-item]
+        ]
+        scan = stamp_many(samples, claims=["host_log", "result_record", "certified_kwh"])
+        self.assertEqual(set(scan.keys()), {"host_log", "result_record", "certified_kwh"})
+        self.assertEqual(scan["host_log"], "unknown_source")
+        self.assertEqual(scan["result_record"], "unknown_source")
+        # unknown_claim still wins for the unknown claim token
+        self.assertEqual(scan["certified_kwh"], "unknown_claim")
+
     def test_allowed_and_refused_claims_sets(self) -> None:
         """Allowed and refused claim sets stay the documented host-only partition."""
         self.assertEqual(ALLOWED_CLAIMS, frozenset({"host_log", "sandbox_demo"}))
