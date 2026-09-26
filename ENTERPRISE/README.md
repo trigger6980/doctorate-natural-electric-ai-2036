@@ -73,6 +73,8 @@ Payment infrastructure is not finalized. Repositories may stay private until it 
 | [instrument-list.md](instrument-list.md) | Instrument class list |
 | [result-record.md](result-record.md) | How a later measured result would be labeled |
 
+Host claim gate (`AGENTS/claim_gate.py`) refuses `field_generation` / `quote_evidence` / `result_record` with the token `observer_not_evidence`. Evaluation order (unit-tested; full wording on [result-record.md](result-record.md)): unknown_claim → unknown_source → observer_not_evidence → ok. Empty sample lists are not evidence. Host stubs (`host_voltage_reader`, `feed_via_reader`, `first_boot`, `duty_to_policy.fixture_log`, sandbox demos, `energy_observer`, `claim_gate`) stay non-evidence and must not appear as cover or quote evidence of measured joules or calibrated C.
+
 ### Host helpers (not a CRM)
 
 | File | Purpose |

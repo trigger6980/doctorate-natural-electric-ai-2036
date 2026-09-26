@@ -65,6 +65,27 @@ class ClaimGateTests(unittest.TestCase):
         self.assertFalse(allow_sample(field, "result_record"))
         self.assertFalse(allow_sample(field, "certified_kwh"))
 
+    def test_allow_sample_field_branch_ignores_source(self) -> None:
+        """Field branch uses only ALLOWED_CLAIMS; source is not consulted when is_field_measurement is True.
+
+        A future field path must not silently widen via an unknown or refused
+        source label; the branch is claim-only by design (see allow_sample).
+        """
+
+        class _FieldBadSource:
+            source = "measured"  # would be unknown_source on the non-field path
+
+            def is_field_measurement(self) -> bool:
+                return True
+
+        field = _FieldBadSource()  # type: ignore[arg-type]
+        self.assertTrue(allow_sample(field, "host_log"))
+        self.assertTrue(allow_sample(field, "sandbox_demo"))
+        self.assertFalse(allow_sample(field, "field_generation"))
+        self.assertFalse(allow_sample(field, "quote_evidence"))
+        self.assertFalse(allow_sample(field, "result_record"))
+        self.assertFalse(allow_sample(field, "certified_kwh"))
+
     def test_scan_stops_on_refuse(self) -> None:
         samples = [
             record_sample(4.6, 0.05, source="host_placeholder"),
