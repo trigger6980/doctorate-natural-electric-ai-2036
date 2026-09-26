@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from energy_observer import ALLOWED_SOURCES, as_dict, record_sample
+from energy_observer import ALLOWED_SOURCES, as_dict, log_samples, record_sample
 
 
 class EnergyObserverTests(unittest.TestCase):
@@ -44,6 +44,28 @@ class EnergyObserverTests(unittest.TestCase):
     def test_allowed_sources_set(self) -> None:
         """Allowed sources stay the documented host-only pair."""
         self.assertEqual(ALLOWED_SOURCES, frozenset({"host_placeholder", "hardware_pending"}))
+
+    def test_log_samples_preserves_honesty(self) -> None:
+        """log_samples must retain the host-stub note and is_field_measurement=False for every sample."""
+        samples = [
+            record_sample(4.0, 0.02, source="host_placeholder"),
+            record_sample(0.0, 0.0, source="hardware_pending"),
+        ]
+        docs = log_samples(samples)
+        self.assertEqual(len(docs), 2)
+        for doc in docs:
+            self.assertIn("note", doc)
+            self.assertIn("Host stub only", doc["note"])
+            self.assertIn("Not a measured generation or consumption figure", doc["note"])
+            self.assertFalse(doc["is_field_measurement"])
+            self.assertIn(doc["source"], ALLOWED_SOURCES)
+        self.assertEqual(docs[0]["voltage_v"], 4.0)
+        self.assertEqual(docs[0]["estimated_joules"], 0.02)
+        self.assertEqual(docs[1]["source"], "hardware_pending")
+
+    def test_log_samples_empty(self) -> None:
+        """Empty list is not evidence; log_samples returns an empty list."""
+        self.assertEqual(log_samples([]), [])
 
 
 if __name__ == "__main__":

@@ -1,17 +1,17 @@
 # STATUS / CHECKPOINT
 
-**Last updated:** 2026-09-26 07:08 CDT (Hourly dual-agent — claim_gate empty-iterable edge locks + result-record evaluation-order note)
+**Last updated:** 2026-09-26 08:04 CDT (Hourly dual-agent — energy_observer.log_samples honesty + empty-path locks)
 
 ## Completed this turn (dual-agent run)
 
 ### Agent 1 — Code Structure & Prototype Upgrader
-- Strengthened `AGENTS/test_claim_gate.py` with empty-iterable edge locks:
-  - `test_scan_samples_empty` asserts scan_samples([]) returns "ok" for all documented claims and still surfaces unknown_claim for an unknown claim label (claim check is independent of samples).
-  - `test_stamp_many_empty` asserts stamp_many([]) yields "ok" for every documented claim and respects evaluation order on a custom claims list.
-- No production logic change; empty list was already non-refusing. CI path already includes test_claim_gate.py.
+- Strengthened `AGENTS/test_energy_observer.py` with log_samples surface locks:
+  - `test_log_samples_preserves_honesty` asserts every emitted dict retains the host-stub note, `is_field_measurement=False`, and an allowed source for both host_placeholder and hardware_pending samples.
+  - `test_log_samples_empty` asserts log_samples([]) returns [] (empty is not evidence).
+- No production logic change; log_samples was already a pure map over as_dict. CI path already includes test_energy_observer.py.
 
 ### Agent 2 — Enterprise & Business Ventures Agent
-- Updated `ENTERPRISE/result-record.md` with a short, truthful subsection documenting the locked refuse_reason evaluation order (unknown_claim → unknown_source → observer_not_evidence → ok) and the empty-list behavior. Keeps the measurement-chain seal verifiable for maintainers and cover-letter authors without inventing field joules, lab names, prices, or customers.
+- No new commercial claims or enterprise page rewrites this hour. The measurement-chain seal (hold → named-lab-plan → instrument-list → measurement-method → result-record) and the claim_gate evaluation-order note already present on result-record.md remain the active honesty boundary. Monitoring only on the enterprise framing side.
 
 ## Prior completed (still true)
 - claim_gate named on all five ENTERPRISE measurement-chain pages
@@ -33,9 +33,9 @@
 - Named-lab-plan, instrument-list, measurement-method, measurement-hold, and result-record pages carry the same non-evidence restatement.
 - FIRST-BOOT rule 2 names the complete measurement-chain path; rule 7 names claim_gate.
 - Offgrid-ai-box README now surfaces host_voltage_reader in Directory Layout / Architecture / Status.
-- Observer unit tests lock the as_dict honesty note and ALLOWED_SOURCES set.
-- claim_gate unit tests lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note, unknown_source, evaluation order, scan_samples unknown_source path, and now empty-iterable edges.
-- host_voltage_reader tests lock the read_pack_volts honesty note and exact ALLOWED_SOURCES frozenset.
+- Observer unit tests lock the as_dict honesty note and ALLOWED_SOURCES set; claim_gate unit tests lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note, unknown_source, evaluation order, scan_samples unknown_source path, and empty-iterable edges; host_voltage_reader tests lock the read_pack_volts honesty note and exact ALLOWED_SOURCES frozenset.
+- claim_gate empty-iterable edge locks and result-record evaluation-order note (prior hour).
+- energy_observer log_samples honesty + empty-path locks (this hour).
 
 ## Honesty (what "finished" means)
 Finished here = first_boot, duty adapter, and composition all exercise the same
@@ -50,12 +50,12 @@ side (energy_observer now also names claim_gate), the five ENTERPRISE pages list
 docstring + FIRST-BOOT rule 7 + offgrid README Directory Layout now also name
 the feed contract so refused claims stay mapped to observer_not_evidence from
 the voltage-feed, first-boot, and observer docs. Observer unit tests now also
-lock the as_dict honesty note and ALLOWED_SOURCES set; claim_gate unit tests
-now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS, the stamp honesty note,
-unknown_source, the refuse_reason evaluation order, scan_samples for
-unknown_source, and empty-iterable edges; host_voltage_reader tests now also
-lock the read_pack_volts honesty note and exact ALLOWED_SOURCES frozenset.
-result-record.md now also documents the evaluation order for maintainers.
+lock the as_dict honesty note, ALLOWED_SOURCES set, and log_samples honesty +
+empty path; claim_gate unit tests now also lock ALLOWED_CLAIMS / REFUSED_CLAIMS,
+the stamp honesty note, unknown_source, the refuse_reason evaluation order,
+scan_samples for unknown_source, and empty-iterable edges; host_voltage_reader
+tests now also lock the read_pack_volts honesty note and exact ALLOWED_SOURCES
+frozenset. result-record.md documents the evaluation order for maintainers.
 Not finished = ESP32-C3 ADC wiring, on-device first-boot firmware, calibrated C,
 measured joules, or physical assembly photos.
 
