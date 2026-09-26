@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from energy_observer import as_dict, record_sample
+from energy_observer import ALLOWED_SOURCES, as_dict, record_sample
 
 
 class EnergyObserverTests(unittest.TestCase):
@@ -28,6 +28,22 @@ class EnergyObserverTests(unittest.TestCase):
             record_sample(-1.0, 0.05)
         with self.assertRaises(ValueError):
             record_sample(4.6, -0.01)
+
+    def test_as_dict_honesty_note_and_keys(self) -> None:
+        """as_dict must surface the host-stub note and keep is_field_measurement False."""
+        sample = record_sample(3.7, 0.01, source="host_placeholder")
+        doc = as_dict(sample)
+        self.assertIn("note", doc)
+        self.assertIn("Host stub only", doc["note"])
+        self.assertIn("Not a measured generation or consumption figure", doc["note"])
+        self.assertFalse(doc["is_field_measurement"])
+        self.assertEqual(doc["source"], "host_placeholder")
+        self.assertEqual(doc["voltage_v"], 3.7)
+        self.assertEqual(doc["estimated_joules"], 0.01)
+
+    def test_allowed_sources_set(self) -> None:
+        """Allowed sources stay the documented host-only pair."""
+        self.assertEqual(ALLOWED_SOURCES, frozenset({"host_placeholder", "hardware_pending"}))
 
 
 if __name__ == "__main__":
