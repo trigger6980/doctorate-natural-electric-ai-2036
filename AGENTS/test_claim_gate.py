@@ -142,6 +142,20 @@ class ClaimGateTests(unittest.TestCase):
         self.assertEqual(scan["sandbox_demo"], "ok")
         self.assertEqual(scan["result_record"], "observer_not_evidence")
 
+    def test_stamp_many_custom_claims_only_those_keys(self) -> None:
+        """Custom claims list on non-empty samples yields exactly those keys; maps host_log→ok / result_record→observer_not_evidence."""
+        samples = [
+            record_sample(4.0, 0.02, source="hardware_pending"),
+            record_sample(3.7, 0.01, source="host_placeholder"),
+        ]
+        scan = stamp_many(samples, claims=["host_log", "result_record"])
+        self.assertEqual(set(scan.keys()), {"host_log", "result_record"})
+        self.assertEqual(scan["host_log"], "ok")
+        self.assertEqual(scan["result_record"], "observer_not_evidence")
+        # Empty custom list yields empty mapping (no invented defaults).
+        scan_empty = stamp_many(samples, claims=[])
+        self.assertEqual(scan_empty, {})
+
     def test_allowed_and_refused_claims_sets(self) -> None:
         """Allowed and refused claim sets stay the documented host-only partition."""
         self.assertEqual(ALLOWED_CLAIMS, frozenset({"host_log", "sandbox_demo"}))
